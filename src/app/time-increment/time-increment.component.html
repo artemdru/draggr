@@ -1,0 +1,12 @@
+<div 
+appDroppable (onDrop)="onDrop($event)" [date]=date [container]=container
+[ngStyle]="style" 
+class="time-increment"
+#timeIncrement>
+<!-- <span class="hour"
+*ngIf="isHour">{{ date | date:'jm' }}
+</span> -->
+<app-task *ngIf="task !== undefined && task.date === date"
+[task]=task
+></app-task>
+</div>

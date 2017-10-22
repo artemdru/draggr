@@ -1,0 +1,10 @@
+.time-increment{
+	/*border-bottom: solid silver 1px;*/
+	height: 20px;
+	/*width: 100%;*/
+}
+
+.hour{
+	vertical-align: text-top;
+	font-size: 8px;
+}

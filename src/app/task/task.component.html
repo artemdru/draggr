@@ -1,0 +1,26 @@
+<div
+*ngIf="task.date === null"
+class="container task-container" 
+appDraggable 
+[taskName]=task.name 
+[taskID]=task.id>
+	<h3><td class="minutes">{{ task.time }} minutes</td>{{ task.name }} {{ task.id }}</h3>
+	
+</div>
+<div
+*ngIf="task.date !== null"
+mwlResizable
+[ngStyle]="style"
+[resizeEdges]="{bottom: true}"
+[enableGhostResize]="true"
+(resizing)="onResizing($event)"
+[resizeSnapGrid]="{bottom: 20}"
+[resizeCursorPrecision]=30
+class="container task-container"
+[style.height.px]="(task.time/15)*20" 
+appDraggable 
+[taskName]=task.name 
+[taskID]=task.id>
+	<h3><td class="minutes"><span #time>{{ task.time }}</span> minutes</td>{{ task.name }} {{ task.id }}</h3>
+	
+</div>
