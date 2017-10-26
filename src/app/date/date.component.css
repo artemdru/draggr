@@ -1,6 +1,8 @@
 
-.col-xs-12{
+
+.day{
 /*  min-width: 300px;
   width: 33%;*/
 	border: black solid 1px;
+	width: 23.125vw;
 }

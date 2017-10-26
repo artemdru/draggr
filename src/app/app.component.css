@@ -1,9 +1,39 @@
-.calendar{
-  height: 100vh;
-  overflow-y: scroll;
+html,body
+{
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden; 
 }
 
+.vert-scroll{
+
+}
+
+.calendar{
+  overflow-y: scroll;
+      height: 93.8005vh;
+  overflow-x: scroll;
+  /*width: 69.375vw;*/
+  width: 75.13888vw;
+}
+
+.wrapper {
+    padding: 0px;
+    margin: 0px;
+    /*overflow: hidden;*/
+    width: 115.625vw;
+}
+
+.days-otw{
+    overflow-x: scroll;
+  width: 75.13888vw;
+}
+
+
 ::-webkit-scrollbar {
+    height: 0px;
     width: 0px;
-    background: transparent; /* make scrollbar transparent */
+    background: transparent;
 }

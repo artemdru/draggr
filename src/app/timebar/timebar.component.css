@@ -1,0 +1,10 @@
+.timebar{
+	background-color: blue;
+	border: yellow solid 2px;
+	/*height: 93.8005vh;*/
+	height: 500px;
+	width: 5.7639vw;
+
+	/*testing out with entire calendar view width*/
+	/*width: 73.1389vw;*/
+}
