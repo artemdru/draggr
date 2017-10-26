@@ -1,22 +1,60 @@
 
 <div class="row" style="margin: 0; padding: 0">
+
+  <!-- TASK WINDOW -->
   <div class="col-md-auto col-12" style="margin: 0; padding: 0">
     <app-task-window></app-task-window>
   </div>
+
+
   <div class="col" style="margin: 0; padding: 0; height: 100vh;">
+
+    
+    <div class="row" style="margin: 0; padding: 0;">
+    <!-- LEFT BUTTON -->
+    
+
+
+    <!-- DAYS OTW -->
     <div class="days-otw">
       <div class="row wrapper">
       <app-days-otw *ngFor="let date of dates" [date]=date></app-days-otw>
     </div>
     </div>
+
+
+    <!-- RIGHT BUTTON -->
+
+
+    </div>
+
     
     
     <div class="vert-scroll">
+
+      
+      <div class="row">
+
+      <!-- TIME BAR -->
+      <div class="col-md-auto col-12" style="margin: 0; padding-right: 0">
+        <app-timebar></app-timebar>
+      </div>
+
+
+      <!-- TIME INCREMENTS -->
+      <div class="col" style="margin: 0; padding: 0">
         <div class="calendar" style="margin: 0; padding: 0">
             <div class="row wrapper" style="margin: 0; padding: 0">
               <app-date *ngFor="let date of dates" [date]=date></app-date>
             </div>
           </div>  
+      </div>
+      </div>
+
+
+
+
+        
     </div>
   </div>
 </div>

@@ -8,15 +8,14 @@ html,body
 }
 
 .vert-scroll{
-
+  overflow-y: scroll;
+      height: 93.8005vh;
 }
 
 .calendar{
-  overflow-y: scroll;
-      height: 93.8005vh;
+
   overflow-x: scroll;
-  /*width: 69.375vw;*/
-  width: 75.13888vw;
+  width: 69.375vw;
 }
 
 .wrapper {
