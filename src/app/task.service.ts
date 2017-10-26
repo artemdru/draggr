@@ -8,8 +8,8 @@ export class TaskService {
 	taskAdded = new Subject<Task>();
 
 	tasks=[
-	new Task(0, 'browse memes', 30, null),
-	new Task(1, 'do chores', 45, null)
+	new Task(0, 'implement thing', 30, null),
+	new Task(1, 'meeting', 45, null)
 	];
 
 	selectedTask: Task;

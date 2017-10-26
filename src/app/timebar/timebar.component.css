@@ -1,7 +1,7 @@
 .timebar{
 	background-color: blue;
-	border: yellow solid 2px;
 	/*height: 93.8005vh;*/
 	height: 100%;
+	min-width: 96.83px;
 	width: 5.7639vw;
 }

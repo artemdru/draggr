@@ -16,6 +16,7 @@ html,body
 
   overflow-x: scroll;
   width: 69.375vw;
+  min-width: 388.5px;
 }
 
 .wrapper {
@@ -23,11 +24,12 @@ html,body
     margin: 0px;
     /*overflow: hidden;*/
     width: 115.625vw;
+    min-width: 1942.5px;
 }
 
 .days-otw{
     overflow-x: scroll;
-  width: 75.13888vw;
+  width: 63.6111vw;
 }
 
 

@@ -12,23 +12,28 @@
     
     <div class="row" style="margin: 0; padding: 0;">
     <!-- LEFT BUTTON -->
-    
+    <div class="col-md-auto col-12" style="margin: 0; padding: 0;">
+      <app-day-button></app-day-button>
+    </div>
 
 
     <!-- DAYS OTW -->
-    <div class="days-otw">
+    <div class="col" style="margin: 0; padding: 0;">
+          <div class="days-otw">
       <div class="row wrapper">
       <app-days-otw *ngFor="let date of dates" [date]=date></app-days-otw>
     </div>
     </div>
+    </div>
+
 
 
     <!-- RIGHT BUTTON -->
-
-
+    <div class="col-md-auto col-12" style="margin: 0; padding: 0;">
+      <app-day-button></app-day-button>
     </div>
 
-    
+    </div>
     
     <div class="vert-scroll">
 

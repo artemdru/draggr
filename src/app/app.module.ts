@@ -14,6 +14,7 @@ import { DroppableDirective } from './droppable.directive';
 import { TimeIncrementComponent } from './time-increment/time-increment.component';
 import { DaysOtwComponent } from './days/days-otw/days-otw.component';
 import { TimebarComponent } from './timebar/timebar.component';
+import { DayButtonComponent } from './day-button/day-button.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { TimebarComponent } from './timebar/timebar.component';
     DroppableDirective,
     TimeIncrementComponent,
     DaysOtwComponent,
-    TimebarComponent
+    TimebarComponent,
+    DayButtonComponent
   ],
   imports: [
     BrowserModule,
