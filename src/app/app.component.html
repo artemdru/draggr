@@ -1,5 +1,5 @@
 
-<div class="row" style="margin: 0; padding: 0">
+<div class="row" (window:resize)="onResize()" style="margin: 0; padding: 0">
 
   <!-- TASK WINDOW -->
   <div class="col-md-auto col-12" style="margin: 0; padding: 0">
@@ -19,7 +19,7 @@
 
     <!-- DAYS OTW -->
     <div class="col" style="margin: 0; padding: 0;">
-          <div class="days-otw">
+          <div class="days-otw" id="hor-scroll">
       <div class="row wrapper">
       <app-days-otw *ngFor="let date of dates" [date]=date></app-days-otw>
     </div>
@@ -48,9 +48,9 @@
 
       <!-- TIME INCREMENTS -->
       <div class="col" style="margin: 0; padding: 0">
-        <div class="calendar" style="margin: 0; padding: 0">
+        <div class="calendar" id="hor-scroll" style="margin: 0; padding: 0">
             <div class="row wrapper" style="margin: 0; padding: 0">
-              <app-date *ngFor="let date of dates" [date]=date></app-date>
+              <app-date *ngFor="let date of dates" [date]=date id="date"></app-date>
             </div>
           </div>  
       </div>
