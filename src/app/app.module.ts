@@ -15,6 +15,7 @@ import { TimeIncrementComponent } from './time-increment/time-increment.componen
 import { DaysOtwComponent } from './days/days-otw/days-otw.component';
 import { TimebarComponent } from './timebar/timebar.component';
 import { DayButtonComponent } from './day-button/day-button.component';
+import { DateService } from './date.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,7 @@ import { DayButtonComponent } from './day-button/day-button.component';
     ReactiveFormsModule,
     ResizableModule
   ],
-  providers: [TaskService],
+  providers: [TaskService, DateService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -13,7 +13,7 @@ export class DateComponent implements OnInit, OnDestroy {
 
 	@Input() date: Date;
   task: Task;
-  subscription: Subscription;
+  // subscription: Subscription;
 
 	thisDate;
 	thisDay;
@@ -23,6 +23,7 @@ export class DateComponent implements OnInit, OnDestroy {
   constructor(private taskService: TaskService) { }
 
   ngOnInit() {
+    this.date.setHours(0,0,0,0);
   	
       this.incrementedDate = this.date;
 
@@ -33,7 +34,7 @@ export class DateComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    // this.subscription.unsubscribe();
   }
 
   // testTask = new Task ('test', 45, this.date);

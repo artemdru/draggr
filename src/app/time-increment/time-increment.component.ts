@@ -22,6 +22,7 @@ export class TimeIncrementComponent implements OnInit {
   constructor(private taskService: TaskService) { }
 
   ngOnInit() {
+
   	if (this.date.getMinutes() === 0){
   		this.isHour = true;
   		this.style = {
@@ -40,6 +41,8 @@ export class TimeIncrementComponent implements OnInit {
             }
           }
         );
+      this.task = this.taskService.getTaskByDate(this.date);
   }
+
 
 }

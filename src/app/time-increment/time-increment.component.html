@@ -6,7 +6,7 @@ class="time-increment"
 <!-- <span class="hour"
 *ngIf="isHour">{{ date | date:'jm' }}
 </span> -->
-<app-task *ngIf="task !== undefined && task.date === date"
+<app-task *ngIf="task !== undefined && task.date.getTime() == date.getTime()"
 [task]=task
 ></app-task>
 </div>

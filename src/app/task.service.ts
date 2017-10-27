@@ -34,6 +34,16 @@ export class TaskService {
 		return new Date(date.getTime() + minutes*60000);
 	}
 
+	getTaskByDate(date: Date){
+		for (let task of this.tasks){
+			if (task.date !== null){
+				if (task.date.getTime() === date.getTime()){
+					return task;
+				}
+			}
+		}
+	}
+
   constructor() { }
 
 }

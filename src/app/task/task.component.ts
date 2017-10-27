@@ -23,7 +23,6 @@ export class TaskComponent implements OnInit {
 
   onResizing(event: ResizeEvent): void {
       this.style = {
-      width: `${event.rectangle.width}px`,
       height: `${event.rectangle.height}px`
     };
     // this.newTime.next((event.rectangle.height/20) * 15);

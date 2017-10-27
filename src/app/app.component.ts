@@ -1,5 +1,8 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 import * as $ from 'jquery';
+
+import { DateService } from './date.service';
 
 @Component({
   selector: 'app-root',
@@ -12,33 +15,32 @@ export class AppComponent implements OnInit, AfterViewInit {
   dates: Date[];
 
   dateWidth: number;
-  
-  today = new Date();
-  leftMostDay = new Date(new Date().setDate(new Date().getDate()-2));
-  leftDay = new Date(new Date().setDate(new Date().getDate()-1));
-  rightDay = new Date(new Date().setDate(new Date().getDate()+1));
-  rightMostDay = new Date(new Date().setDate(new Date().getDate()+2));
+
+  constructor(private dateService: DateService){}
 
   ngOnInit() {
-    this.today.setHours(0,0,0,0);
-    this.leftMostDay.setHours(0,0,0,0);
-    this.leftDay.setHours(0,0,0,0);
-    this.rightDay.setHours(0,0,0,0);
-    this.rightMostDay.setHours(0,0,0,0);
-
-    this.dates = [this.leftMostDay, this.leftDay, this.today, this.rightDay, this.rightMostDay];
-
+    this.dates = this.dateService.dates;
   }
 
   ngAfterViewInit() {
     this.dateWidth = $('#date').width();
-    $('.days-otw').scrollLeft(this.dateWidth);
-    $('.calendar').scrollLeft(this.dateWidth);
+    $('.days-otw, .calendar').scrollLeft(this.dateWidth);
   }
 
   onResize(){
     this.dateWidth = $('#date').width();
-    $('.days-otw').scrollLeft(this.dateWidth);
-    $('.calendar').scrollLeft(this.dateWidth);
+    $('.days-otw, .calendar').scrollLeft(this.dateWidth);
+  }
+
+  backDay(){
+    this.dateService.addDay('back');
+    $('.days-otw, .calendar').scrollLeft(this.dateWidth*2);
+    $('.days-otw, .calendar').animate({scrollLeft: this.dateWidth}, 750);
+  }
+
+  fwdDay(){
+    this.dateService.addDay('fwd');
+    $('.days-otw, .calendar').scrollLeft(0);
+    $('.days-otw, .calendar').animate({scrollLeft: '+=' + this.dateWidth}, 750);
   }
 }

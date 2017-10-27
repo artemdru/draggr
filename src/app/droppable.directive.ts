@@ -18,20 +18,20 @@ export class DroppableDirective implements OnInit {
   	this.ngZone.runOutsideAngular(() => {
   			this.elRef.nativeElement.addEventListener('dragover', (event: Event) => {
   				event.preventDefault();
-  			})
+
+  			});
         this.elRef.nativeElement.addEventListener('dragenter', (event: Event) => {
           event.preventDefault();
             if (this.container !== undefined){
               this.container.nativeElement.style.backgroundColor = 'silver';
             }
-          
-        })
+        });
         this.elRef.nativeElement.addEventListener('dragleave', (event: Event) => {
           event.preventDefault();
           if (this.container !== undefined){
               this.container.nativeElement.style.backgroundColor = 'transparent';
             }
-        })
+        });
   		});
   }
 
