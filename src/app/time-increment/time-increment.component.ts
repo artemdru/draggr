@@ -1,25 +1,29 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import { Task } from '../task.model';
 import { TaskService } from '../task.service';
+import { TimeIncrementService } from '../time-increment.service';
 
 @Component({
   selector: 'app-time-increment',
   templateUrl: './time-increment.component.html',
   styleUrls: ['./time-increment.component.css']
 })
-export class TimeIncrementComponent implements OnInit {
+export class TimeIncrementComponent implements OnInit, OnDestroy {
 
 	public style: Object = {};
 	@Input() date: Date;
 	isHour = false;
 	isHalfHour = false;
-	subscription: Subscription;
+	taskSubscription: Subscription;
+  incSubscription: Subscription;
 	task: Task;
   @ViewChild('timeIncrement') container: ElementRef;
+  isOccupied: boolean = false;
+  occupantID: number;
 
-  constructor(private taskService: TaskService) { }
+  constructor(private taskService: TaskService, private incService: TimeIncrementService) { }
 
   ngOnInit() {
 
@@ -32,17 +36,54 @@ export class TimeIncrementComponent implements OnInit {
   		this.isHalfHour = true;
   	}
 
-    this.subscription = this.taskService.taskAdded
+    this.taskSubscription = this.taskService.taskAdded
       .subscribe(
           (task: Task) => {
             if (task.date === this.date){
               this.task = task;
-              console.log(this.task.date);
+              this.isOccupied = true;
             }
           }
         );
+
+    this.incSubscription = this.incService.dateSubject
+      .subscribe(
+          ([task, code, date]: [Task, number, number]) => {
+            if (date === this.date.getTime() && code === 0){
+
+              // tell time increment service about my occupation status
+              // proceed (return false isOccupied status) if task being moved is already my assigned task
+              if (this.occupantID !== undefined && task.id === this.occupantID){
+                this.incService.storeOccupationStatus(false);
+              } else this.incService.storeOccupationStatus(this.isOccupied);
+              
+
+            } else if (date === this.date.getTime() && code === 1){
+
+              // unoccupy myself, task is leaving me
+              this.isOccupied = false;
+              this.occupantID = undefined;
+
+            } else if (date === this.date.getTime() && code === 2){
+
+              // new task has arrived, set myself to occupied and assign myself to a task
+              this.occupantID = task.id;
+              this.isOccupied = true;
+
+            }
+          }
+        );
+
       this.task = this.taskService.getTaskByDate(this.date);
+      if (this.task !== undefined){
+        this.isOccupied = true;
+      }
   }
 
+
+  ngOnDestroy(){
+    this.taskSubscription.unsubscribe();
+    this.incSubscription.unsubscribe();
+  }
 
 }

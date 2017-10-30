@@ -14,10 +14,10 @@ mwlResizable
 [resizeEdges]="{bottom: true}"
 [enableGhostResize]="true"
 (resizing)="onResizing($event)"
-[resizeSnapGrid]="{bottom: 20}"
-[resizeCursorPrecision]=30
-class="container task-container"
-[style.height.px]="(task.time/15)*20" 
+[resizeSnapGrid]="{bottom: 32}"
+[resizeCursorPrecision]=20
+class="container task-container on-calendar"
+[style.height.px]="((task.time/15)*32)-6" 
 appDraggable 
 [taskName]=task.name 
 [taskID]=task.id>

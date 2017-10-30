@@ -15,6 +15,12 @@
 	 display:block;
 }
 
+.on-calendar{
+	top: 3px;
+	/*margin: 3px;*/
+	width: 98%;
+}
+
 h3{
 	margin: 0;
 }

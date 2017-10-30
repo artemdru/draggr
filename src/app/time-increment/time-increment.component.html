@@ -1,11 +1,21 @@
+
+<!-- UNOCCUPIED TIME INCREMENT -->
 <div 
+[hidden]="isOccupied"
 appDroppable (onDrop)="onDrop($event)" [date]=date [container]=container
 [ngStyle]="style" 
 class="time-increment"
 #timeIncrement>
-<!-- <span class="hour"
-*ngIf="isHour">{{ date | date:'jm' }}
-</span> -->
+<app-task *ngIf="task !== undefined && task.date.getTime() == date.getTime()"
+[task]=task
+></app-task>
+</div>
+
+<!-- OCCUPIED TIME INCREMENT -->
+<div 
+*ngIf="isOccupied"
+[ngStyle]="style" 
+class="time-increment">
 <app-task *ngIf="task !== undefined && task.date.getTime() == date.getTime()"
 [task]=task
 ></app-task>

@@ -25,34 +25,6 @@ export class TaskComponent implements OnInit {
       this.style = {
       height: `${event.rectangle.height}px`
     };
-    // this.newTime.next((event.rectangle.height/20) * 15);
-    // this.timeElRef.nativeElement.innerHTML = (event.rectangle.height/20) * 15;
-    // this.renderer.setValue(this.timeElRef.nativeElement.innerHTML, '420');
-    // console.log(this.timeElRef.nativeElement.innerHTML);
-    this.task.time = (event.rectangle.height/20) * 15;
+    this.task.time = ((event.rectangle.height+6)/32) * 15;
   }
-
-  // onResizeEnd(event: ResizeEvent): void {
-  //   this.style = {
-  //     // position: 'fixed',
-  //     // left: `${event.rectangle.left}px`,
-  //     // top: `${event.rectangle.top}px`,
-  //     width: `${event.rectangle.width}px`,
-  //     height: `${event.rectangle.height}px`
-  //   };
-  //   this.task.time = (event.rectangle.height/20) * 15;
-  // }
-
-  // onResizing(event: ResizeEvent): void {
-  //     this.style = {
-  //     // position: 'fixed',
-  //     // left: `${event.rectangle.left}px`,
-  //     // top: `${event.rectangle.top}px`,
-  //     width: `${event.rectangle.width}px`,
-  //     height: `${event.rectangle.height}px`
-  //   };
-  //   this.task.time = (event.rectangle.height/20) * 15;
-  // }
-
-
 }

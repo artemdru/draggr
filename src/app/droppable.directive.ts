@@ -1,6 +1,7 @@
 import { Directive, HostListener, Output, EventEmitter, Input, NgZone, OnInit, ElementRef } from '@angular/core';
 
 import { TaskService } from './task.service';
+import { TimeIncrementService } from './time-increment.service';
 import { Task } from './task.model';
 
 @Directive({
@@ -12,7 +13,7 @@ export class DroppableDirective implements OnInit {
 
 	@Output('onDrop') drop = new EventEmitter();
 
-  constructor(private taskService: TaskService, private ngZone: NgZone, private elRef: ElementRef) { }
+  constructor(private taskService: TaskService, private timeIncService: TimeIncrementService, private ngZone: NgZone, private elRef: ElementRef) { }
 
   ngOnInit() {
   	this.ngZone.runOutsideAngular(() => {
@@ -37,7 +38,12 @@ export class DroppableDirective implements OnInit {
 
 
   	@HostListener('drop') onDrop (event: Event){
-		this.taskService.selectedTask.date=this.date;
-		this.taskService.emitTask();
+      this.timeIncService.moveTask(this.taskService.selectedTask, this.date);
+
+      if (this.timeIncService.moveSuccessful === true){
+        this.taskService.selectedTask.date=this.date;
+        this.taskService.emitTask();
+      }
+  		
 	}
 }
