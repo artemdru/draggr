@@ -4,18 +4,19 @@ html,body
     height: 100%;
     margin: 0px;
     padding: 0px;
-    overflow-x: hidden; 
+    overflow: hidden; 
 }
 
 .vert-scroll{
+  overflow-x: hidden;
   overflow-y: scroll;
       height: 93.8005vh;
 }
 
 .calendar{
-
-  overflow-x: scroll;
-  width: 69.375vw;
+  overflow: hidden;
+  /*width: 69.375vw;*/
+  width: 100%;
   min-width: 388.5px;
 }
 
@@ -23,13 +24,16 @@ html,body
     padding: 0px;
     margin: 0px;
     /*overflow: hidden;*/
-    width: 115.625vw;
+    /*width: 115.625vw;*/
+    width: 118.9581vw;
     min-width: 1942.5px;
 }
 
 .days-otw{
-    overflow-x: scroll;
-  width: 63.6111vw;
+    overflow-x: hidden;
+ /* width: 63.6111vw;*/
+ width: 100%;
+ min-width: 388.5px;
 }
 
 

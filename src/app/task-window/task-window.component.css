@@ -1,5 +1,6 @@
 #task-window{
-	min-width: 417.66px;
+	/*min-width: 417.66px;*/
+	min-width: 318px;
 	width: 24.8611vw;
 	height: 100%;
 	background-color: silver;
