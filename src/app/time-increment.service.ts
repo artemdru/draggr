@@ -61,4 +61,16 @@ export class TimeIncrementService {
   	this.storedOccupation = bool;
   }
 
+  initTimes(task: Task, date: Date){
+    var timeIncrement: number = date.getTime();
+    var iterations: number = task.time/15; //TODO: proper calculations from time to integers
+
+    for (var _y = 0; _y < iterations; _y++){
+
+      this.dateSubject.next([task, 2, timeIncrement]);
+      console.log("service time: " + timeIncrement);
+      timeIncrement = timeIncrement + (15*60000); //TODO: proper calculations from time to integers
+    }
+  }
+
 }

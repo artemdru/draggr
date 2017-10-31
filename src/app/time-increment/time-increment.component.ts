@@ -65,6 +65,7 @@ export class TimeIncrementComponent implements OnInit, OnDestroy {
               this.occupantID = undefined;
 
             } else if (date === this.date.getTime() && code === 2){
+              console.log("component time: " + date);
 
               // new task has arrived, set myself to occupied and assign myself to a task
               this.occupantID = task.id;
@@ -75,7 +76,15 @@ export class TimeIncrementComponent implements OnInit, OnDestroy {
         );
 
       this.task = this.taskService.getTaskByDate(this.date);
+
+      // check if time increment is already assigned a task
+
       if (this.task !== undefined){
+
+        // wait for all time increments in date to init
+        setTimeout(() => {                    // TODO: find a more elegant way, rather than arbitrary wait time
+          this.incService.initTimes(this.task, this.date);
+        }, 300);
         this.isOccupied = true;
       }
   }
