@@ -68,9 +68,14 @@ export class TimeIncrementService {
     for (var _y = 0; _y < iterations; _y++){
 
       this.dateSubject.next([task, 2, timeIncrement]);
-      console.log("service time: " + timeIncrement);
       timeIncrement = timeIncrement + (15*60000); //TODO: proper calculations from time to integers
     }
+  }
+
+  unoccupyLastTime(task: Task, date: Date){
+    var timeIncrement: number = task.date.getTime() + ((task.time-15)*60000);
+
+        this.dateSubject.next([task, 1, timeIncrement]);
   }
 
 }

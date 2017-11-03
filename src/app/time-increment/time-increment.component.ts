@@ -65,7 +65,6 @@ export class TimeIncrementComponent implements OnInit, OnDestroy {
               this.occupantID = undefined;
 
             } else if (date === this.date.getTime() && code === 2){
-              console.log("component time: " + date);
 
               // new task has arrived, set myself to occupied and assign myself to a task
               this.occupantID = task.id;
