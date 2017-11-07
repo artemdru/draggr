@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ResizableModule } from 'angular-resizable-element';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule, MatCheckboxModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { DateComponent } from './date/date.component';
@@ -17,6 +19,9 @@ import { TimebarComponent } from './timebar/timebar.component';
 import { DayButtonComponent } from './day-button/day-button.component';
 import { DateService } from './date.service';
 import { TimeIncrementService } from './time-increment.service';
+import { AddTaskDialogComponent } from './task-window/add-task-dialog/add-task-dialog.component';
+import { MatDialogModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -29,19 +34,27 @@ import { TimeIncrementService } from './time-increment.service';
     TimeIncrementComponent,
     DaysOtwComponent,
     TimebarComponent,
-    DayButtonComponent
+    DayButtonComponent,
+    AddTaskDialogComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    ResizableModule
+    ResizableModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [
     TaskService, 
     DateService,
-    TimeIncrementService
+    TimeIncrementService,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [AddTaskDialogComponent]
 })
 export class AppModule { }

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { TaskService } from '../task.service';
 import { Task } from '../task.model';
+import { AddTaskDialogComponent } from './add-task-dialog/add-task-dialog.component';
 
 @Component({
   selector: 'app-task-window',
@@ -17,7 +19,7 @@ export class TaskWindowComponent implements OnInit {
 
 	tasks: Task[];
 
-  constructor(private taskService: TaskService) { }
+  constructor(private taskService: TaskService, public dialog: MatDialog) { }
 
   ngOnInit() {
   	this.tasks=this.taskService.tasks;
@@ -39,6 +41,11 @@ export class TaskWindowComponent implements OnInit {
     this.taskService.addTask(newTask);
   }
 
-
-
+  openDialog(){
+    let dialogRef = this.dialog.open(AddTaskDialogComponent, {
+      width: '750px',
+      height: '500px'
+    });
+  }
+  
 }

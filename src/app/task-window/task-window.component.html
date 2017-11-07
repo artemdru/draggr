@@ -1,6 +1,6 @@
 <div appDroppable (onDrop)="onDrop($event)" [date]="null" id="task-window">
 	<div class="col-xs-12" style="margin: 0 0 0 0">
-		<div class="form-container">
+		<!-- <div class="form-container">
 			<form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
 			<div class="form-group">
 				<label>Task Name</label>
@@ -16,10 +16,11 @@
 			</div>
 			<hr>
 			<button class="btn btn-primary" type="submit">Add Task</button>
+			
 		</form>
 		<hr>
-		</div>
-		
+		</div> -->
+		<button class="btn" (click)="openDialog()">Add Task</button>
 		<div class="task-window">
 			<ng-container *ngFor="let task of tasks; let i = index">
 		<app-task *ngIf="task.date === null"

@@ -12,7 +12,8 @@ export class TimeIncrementService {
 	// 1 - for onoccupying increments previously occupied by task being dropped
 	// 2 - for occupying new increments
 	// First number is code
-	dateSubject = new Subject<[Task, number, number]>();
+  //                         Task, code,   timeInc, targetTime
+	dateSubject = new Subject<[Task, number, number, number]>();
 
 	storedOccupation: boolean;
 	moveSuccessful: boolean = false;
@@ -23,10 +24,11 @@ export class TimeIncrementService {
   	this.moveSuccessful = false;
   	var timeIncrement: number = date.getTime();
   	var iterations: number = task.time/15; //TODO: proper calculations from time to integers
+    var targetDate: number = date.getTime();
 
   	// check if there's enough onoccupied blocks
   	for (var _i = 0; _i < iterations; _i++){
-  		this.dateSubject.next([task, 0, timeIncrement]);
+  		this.dateSubject.next([task, 0, timeIncrement, targetDate]);
   		
   		if (this.storedOccupation === true){
   			console.log("not enough room for task");
@@ -40,7 +42,7 @@ export class TimeIncrementService {
   	if (task.date !== null){
   		timeIncrement = task.date.getTime();
   		for (var _j = 0; _j < iterations; _j++){
-  			this.dateSubject.next([task, 1, timeIncrement]);
+  			this.dateSubject.next([task, 1, timeIncrement, targetDate]);
   			timeIncrement = timeIncrement + (15*60000); //TODO: proper calculations from time to integers
   		}
   	}
@@ -48,7 +50,7 @@ export class TimeIncrementService {
   	// occupy the new time increments
   	timeIncrement = date.getTime();
   	for (var _y = 0; _y < iterations; _y++){
-  		this.dateSubject.next([task, 2, timeIncrement]);
+  		this.dateSubject.next([task, 2, timeIncrement, targetDate]);
   		timeIncrement = timeIncrement + (15*60000); //TODO: proper calculations from time to integers
   	}
 
@@ -67,7 +69,7 @@ export class TimeIncrementService {
 
     for (var _y = 0; _y < iterations; _y++){
 
-      this.dateSubject.next([task, 2, timeIncrement]);
+      this.dateSubject.next([task, 2, timeIncrement, null]);
       timeIncrement = timeIncrement + (15*60000); //TODO: proper calculations from time to integers
     }
   }
@@ -75,7 +77,7 @@ export class TimeIncrementService {
   unoccupyLastTime(task: Task, date: Date){
     var timeIncrement: number = task.date.getTime() + ((task.time-15)*60000);
 
-        this.dateSubject.next([task, 1, timeIncrement]);
+        this.dateSubject.next([task, 1, timeIncrement, null]);
   }
 
 }

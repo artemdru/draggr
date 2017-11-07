@@ -1,0 +1,40 @@
+<div class="container" id="dialog" style="width: 550px; height: 300px;">
+	<div class="container-fluid" align="center" style="width: 500px; position: relative;">
+		<mat-form-field>		
+			<h3 style="margin-bottom: 30px;">Task name</h3>
+			<input matInput color="warn" #taskName>
+		</mat-form-field>
+		<h3 style="margin-top: 30px;">Estimated duration</h3>
+							<div class="time-selector">
+			<div class="wrapper">
+				<span *ngFor="let time of times" id="times" class="times">{{ getHour(time) }}:{{ getMinutes(time) }} </span>
+  			</div>
+  			
+  		</div>
+		<div class="gradient-wrapper">
+
+		</div>
+
+
+  		<svg width="14" height="50">
+		  	<polygon points="7,0 14,31 0,31" style="fill:black;" />
+		</svg>
+		<p id="hint" style="margin-top:-25px !important;">Scroll to change</p>
+		<div class="buttons">
+			<button mat-raised-button
+
+			class="clicked"
+			(click)="addTask()">
+			Add Task</button>
+			<button mat-raised-button
+
+			class="add-task"
+			(click)="addTask()">
+			Add Task</button>
+
+				<button mat-button class="cancel-button" (click)="closeDialog()">Cancel</button>
+				<p id="hint" style="margin-left:-200px !important;">Press Enter</p>
+		</div>
+				
+	</div>
+</div>

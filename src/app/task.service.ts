@@ -26,8 +26,8 @@ export class TaskService {
 		this.selectedTask=this.tasks[taskNumb];
 	}
 
-	emitTask(){
-		this.taskAdded.next(this.selectedTask);
+	emitTask(task: Task){
+		this.taskAdded.next(task);
 	}
 
 	addMinutesToDate(date, minutes){

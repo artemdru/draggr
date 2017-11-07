@@ -1,0 +1,93 @@
+input{
+	text-align: center;
+	font-size: 30px;
+	font-weight: 300;
+	font-family: 'Roboto', sans-serif;
+}
+
+h3{
+	font-family: 'Roboto', sans-serif;
+	font-size: 32px;
+	text-align: center;
+}
+
+mat-form-field{
+	width: 100%;
+}
+
+.gradient-wrapper{
+	margin-top: -80px;
+	height: 80px;
+		width: 326.64px;
+	background: -webkit-linear-gradient(left, white, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, white);
+	position: relative;
+}
+
+.time-selector{
+	overflow-x: hidden;
+	height: 80px;
+	width: 326.64px;
+	margin-top: 10px !important;
+	margin: 0px;
+	padding: 0px;
+	border-top: 1px rgba(0, 0, 0, 0.42) solid;
+	border-bottom: 1px rgba(0, 0, 0, 0.42) solid;
+}
+
+.wrapper{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	height: 60px;
+	overflow-x: hidden;
+	width: 2833.88px;
+	/*width: 2830.88px;*/
+	/*width: 2722px;*/
+	padding: 0px;
+}
+
+#times{
+	width: 88.88px;
+	margin-right: 10px;
+	margin-left: 10px;
+	font-family: 'Roboto', sans-serif;
+	color: #808285;
+	font-size: 40px;
+	font-weight: 1200;
+		padding: 0px;
+}
+
+svg{
+	margin-top:-40px;
+}
+
+.add-task{
+			margin-left: -205px;
+	background-color: #00A651;	
+	color: white;
+}
+
+.clicked{
+	background-color: #00A651;	
+	color: white;
+	filter: brightness(80%);
+}
+
+button{
+	margin-top: 40px;
+	width: 200px;
+	height: 80px;
+	font-size: 30px;
+}
+
+#hint{
+	margin: 0;
+	padding: 0;
+	font-size: 9px;
+	color: rgba(0, 0, 0, 0.42);
+}
+
+::-webkit-scrollbar {
+    height: 0px;
+    width: 0px;
+    background: transparent;
+}

@@ -39,7 +39,7 @@ export class TimeIncrementComponent implements OnInit, OnDestroy {
     this.taskSubscription = this.taskService.taskAdded
       .subscribe(
           (task: Task) => {
-            if (task.date === this.date){
+            if (task.date.getTime() === this.date.getTime()){
               this.task = task;
               this.isOccupied = true;
             }
@@ -48,15 +48,25 @@ export class TimeIncrementComponent implements OnInit, OnDestroy {
 
     this.incSubscription = this.incService.dateSubject
       .subscribe(
-          ([task, code, date]: [Task, number, number]) => {
+          ([task, code, date, targetDate]: [Task, number, number, number]) => {
             if (date === this.date.getTime() && code === 0){
 
               // tell time increment service about my occupation status
               // proceed (return false isOccupied status) if task being moved is already my assigned task
               if (this.occupantID !== undefined && task.id === this.occupantID){
                 this.incService.storeOccupationStatus(false);
-              } else this.incService.storeOccupationStatus(this.isOccupied);
-              
+                return false;
+              } else if (this.isOccupied === true){
+                var targetIncrement = new Date(targetDate+(task.time*60000));
+                var previousOccupantID = this.occupantID;
+
+                this.incService.moveTask(this.taskService.tasks[previousOccupantID], targetIncrement);
+                if (this.incService.moveSuccessful === true){
+                  this.taskService.tasks[previousOccupantID].date= targetIncrement;
+                  this.taskService.emitTask(this.taskService.tasks[previousOccupantID]);
+                }
+              }
+              this.incService.storeOccupationStatus(this.isOccupied);
 
             } else if (date === this.date.getTime() && code === 1){
 
