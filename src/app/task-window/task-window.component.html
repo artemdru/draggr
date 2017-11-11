@@ -1,5 +1,18 @@
 <div appDroppable (onDrop)="onDrop($event)" [date]="null" id="task-window">
 	<div class="col-xs-12" style="margin: 0 0 0 0">
+		<div align="right">
+			<img src="assets/options.svg" class="options" alt="">
+		</div>
+		
+		<div align="center">
+			<img src="assets/logo.svg" class="logo" alt="">
+		</div>
+		<div class="search-and-add">
+			<button mat-raised-button style="outline: none !important;" class="task-modal" (click)="openDialog()">+</button>
+			<div class="field-container" align="center"><input class="search-field" placeholder="Search tasks..."></div>
+			
+		</div>
+		
 		<!-- <div class="form-container">
 			<form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
 			<div class="form-group">
@@ -20,7 +33,6 @@
 		</form>
 		<hr>
 		</div> -->
-		<button class="btn" (click)="openDialog()">Add Task</button>
 		<div class="task-window">
 			<ng-container *ngFor="let task of tasks; let i = index">
 		<app-task *ngIf="task.date === null"

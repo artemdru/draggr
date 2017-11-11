@@ -112,7 +112,12 @@ export class AddTaskDialogComponent implements OnInit, AfterViewInit {
     this.taskService.addTask(newTask);
   	}
 
-  	this.taskName.nativeElement.value = '';
+    $('input').animate({opacity: 0}, 150, function(){
+  	  $('input').val('');
+      $('input').css("opacity", 1);
+    });
+    $('.time-selector').animate({scrollLeft: (109*3)}, 50);
+    this.selectorPos = 109*3;
   }
 
   closeDialog(){

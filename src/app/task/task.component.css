@@ -1,18 +1,45 @@
 .task-container{
 	color: white;
-	background-color: green;
-	height: 80px;
-	margin-bottom: 20px;
-	border-radius: 5px;
+	background-color: #00A651;
+	position: relative;
+	border-radius: 7px;
 	padding: 5px;
-	width: 100%;
+	cursor: pointer;
+	display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.row{
 	position: relative;
 }
 
+.in-queue{
+	width: 80%;
+	height: 135px;
+	margin-bottom: 5px !important;
+	margin-left: 10%;
+	margin-right: 10%;
+}
+
+img{
+	height: 20px;
+	margin-bottom: 4px;
+	margin-right: 3px;
+}
+
 .minutes{
-	font-size: 12px;
+	font-weight: 1000;
+	font-family: 'Roboto', sans-serif;
+	font-size: 14px;
 	text-align: right;
-	 display:block;
+	position: absolute;
+	right: 0;
+	top: 5px;
+}
+
+.time-icon{
+	height: 14px !important;
 }
 
 .on-calendar{
@@ -21,6 +48,77 @@
 	width: 98%;
 }
 
-h3{
-	margin: 0;
+.task-name{
+	height: 80px;
+	margin-left: 10px; 
+	margin-right: 10px;
+	position: relative;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+  	flex-direction: column;
+  	text-align: center;
 }
+
+h3{
+	font-weight: 1000;
+	font-family: 'Roboto', sans-serif;
+	font-size: 26px;
+}
+
+
+td{
+	margin-right: 7px;
+}
+
+.alignleft {
+	float: left;
+	margin-left: 2px;
+}
+.alignright {
+	position: absolute;
+	right: 0;
+	/*margin-right: 10px;*/
+}
+
+.color-selector{
+	border-radius: 4px;
+}
+
+#hover-buttons{
+	opacity: 0;
+	width: 98%;
+	position: absolute;
+	bottom: 0;
+}
+
+.task-container:hover #hover-buttons{
+	opacity: 1;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+
+
+
+
+
+
+/*ALTERNATIVE METHOD FOR MULTI-LINE ELLIPSIS*/
+/*h3{
+	font-weight: 1000;
+	font-family: 'Roboto', sans-serif;
+	font-size: 26px;
+  display: block; 
+  display: -webkit-box;
+  max-width: 400px;
+  height: 72.8px;
+  margin: 0 auto;
+  line-height: 1.3461;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}*/

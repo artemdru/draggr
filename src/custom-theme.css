@@ -151,6 +151,7 @@
   margin: 0 0 64px; }
 
 .mat-button, .mat-raised-button, .mat-icon-button, .mat-fab, .mat-mini-fab {
+  min-width: 1px !important;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   font-size: 14px;
   font-weight: 500; }

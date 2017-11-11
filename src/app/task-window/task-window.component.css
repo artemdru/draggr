@@ -3,7 +3,7 @@
 	min-width: 318px;
 	width: 24.8611vw;
 	height: 100%;
-	background-color: silver;
+	background-color: #43544B;
 }
 
 .form-container{
@@ -12,10 +12,58 @@
 }
 
 .task-window{
+	margin-top: 30px;
 	min-height: 200px;
-	height: 71vh;
+	height: 80vh;
+	/*height: 71vh;*/
 	overflow-y: scroll;
 }
+
+.options{
+	margin: 10px;
+	width: 20px;
+}
+
+.logo{
+	margin-top: -10px;
+	width: 240px;
+}
+
+.task-modal{
+	float: left;
+	background-color: #00A651;
+	color: white;
+	font-size: 44px;
+	width: 36px;
+	padding: 0;
+	margin-left: 10%;
+	margin-right: 0;
+	border-radius: 7px;
+}
+
+.search-and-add{
+	margin-top: 20px;
+}
+
+.field-container{
+	background-color: white;
+	border-radius: 7px;
+	height: 36px;
+	width: 69%;
+	margin-left: 21%;
+}
+
+.search-field{
+	width: 90%;
+	height: 100%;
+	background-color: transparent;
+	border: none;
+	outline: none;
+	font-size: 18px;
+	font-weight: 300;
+	font-family: 'Roboto', sans-serif;
+}
+
 
 ::-webkit-scrollbar {
     width: 0px;

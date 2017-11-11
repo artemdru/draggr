@@ -1,4 +1,12 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Component, 
+  OnInit, 
+  Input, 
+  ViewChild, 
+  ElementRef, 
+  Renderer2, 
+  AfterViewInit, 
+  ChangeDetectorRef, 
+  AfterViewChecked } from '@angular/core';
 import { ResizeEvent } from 'angular-resizable-element';
 
 import { Subscription } from 'rxjs/Subscription';
@@ -13,17 +21,36 @@ import { Task } from '../task.model';
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.css']
 })
-export class TaskComponent implements OnInit {
+export class TaskComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
 	@Input() task: Task;
 	public style: Object = {};
+  @ViewChild('taskContainer') taskContainer: ElementRef;
 
   previousHeight: number;
+  containerWidth: number;
   
-  constructor(private incService: TimeIncrementService, private renderer: Renderer2) {}
+  constructor(private incService: TimeIncrementService, private renderer: Renderer2, private cdref: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.previousHeight = ((this.task.time/15)*32)-6;
+  }
+
+  ngAfterViewInit(){
+    if (this.task.date === null){
+      this.containerWidth = (Math.round(this.taskContainer.nativeElement.offsetWidth/9));
+
+      // this line is to remove ExpressionChangedAfterItHasBeenCheckedError
+      this.cdref.detectChanges();
+    }
+
+  }
+
+  ngAfterViewChecked(){
+    this.containerWidth = (Math.round(this.taskContainer.nativeElement.offsetWidth/9));
+
+    // this line is to remove ExpressionChangedAfterItHasBeenCheckedError
+    this.cdref.detectChanges();
   }
 
   onResizing(event: ResizeEvent): void {
@@ -57,5 +84,18 @@ export class TaskComponent implements OnInit {
 
     this.previousHeight = event.rectangle.height;
     
+  }
+
+  getHour(number: number){
+    if (number>=60){
+      return Math.floor(number/60) + 'h';
+    }
+    
+  }
+
+  getMinutes(number: number){
+    if (number%60 !== 0){
+      return number%60;
+    } else return '00';
   }
 }
