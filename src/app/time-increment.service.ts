@@ -31,7 +31,7 @@ export class TimeIncrementService {
   		this.dateSubject.next([task, 0, timeIncrement, targetDate]);
   		
   		if (this.storedOccupation === true){
-  			console.log("not enough room for task");
+  			// console.log("not enough room for task");
   			return false;
   		}
 
@@ -54,7 +54,7 @@ export class TimeIncrementService {
   		timeIncrement = timeIncrement + (15*60000); //TODO: proper calculations from time to integers
   	}
 
-  	console.log("enough room for task!");
+  	// console.log("enough room for task!");
 
   	this.moveSuccessful = true;
   }

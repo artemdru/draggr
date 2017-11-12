@@ -12,14 +12,12 @@ class="container task-container in-queue"
 	<div align="center" class="task-name">
 		<h3>{{ (task.name.length>containerWidth)? (task.name | slice:0:containerWidth)+'...':(task.name) }}</h3>
 	</div>
-	<div id="hover-buttons">
-		<div class="alignleft">
+		<div class="alignleft" id="hover-buttons">
 			<img src="assets/color.svg" class="color-selector" alt="">
 		</div>
-		<div class="alignright">
+		<div class="alignright" id="hover-buttons">
 			<img src="assets/delete.svg" alt="">
 		</div>
-	</div>
 </div>
 
 <div
@@ -32,9 +30,7 @@ mwlResizable
 [resizeSnapGrid]="{bottom: 32}"
 [resizeCursorPrecision]=20
 [style.height.px]="((task.time/15)*32)-6" 
-appDraggable 
-[taskName]=task.name 
-[taskID]=task.id
+
 #taskContainer
 class="container task-container on-calendar"
 >
@@ -46,24 +42,32 @@ class="container task-container on-calendar"
 	
 	<!-- div *ngIf TIMES IS OVER 30 MINUTES -->
 
-		<td class="minutes">
+
+		
+				<td class="minutes">
 		<img class="time-icon" src="assets/time.svg" alt="">
 	{{ getHour(task.time) }} {{ getMinutes(task.time) }}m</td>
 	<div align="center" class="task-name">
 		<h3>{{ (task.name.length>containerWidth)? (task.name | slice:0:containerWidth)+'...':(task.name) }}</h3>
 	</div>
-	<div id="hover-buttons">
-		<div class="alignleft">
+
+
+		<div class="alignleft" id="hover-buttons">
 			<img src="assets/color.svg" class="color-selector" alt="">
 		</div>
-		<div class="alignright">
+		<div class="alignright" id="hover-buttons">
 			<img src="assets/delete.svg" alt="">
 		</div>
-	</div>
+
+			<div 
+			#dragger
+			[style.height]="draggerHeight"
+			class="dragger" 
+	 		appDraggable
+			[taskName]=task.name 
+			[taskID]=task.id></div>
 	
 </div>
-
-
 
 
 

@@ -2,16 +2,24 @@
 	color: white;
 	background-color: #00A651;
 	position: relative;
-	border-radius: 7px;
+	border-radius: 12px;
 	padding: 5px;
 	cursor: pointer;
 	display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1;
+  opacity: 1 !important;
 }
 
 .row{
 	position: relative;
+}
+
+.dragger{
+	position: absolute;
+	width: 100%;
+	top: 0;
 }
 
 .in-queue{
@@ -34,7 +42,7 @@ img{
 	font-size: 14px;
 	text-align: right;
 	position: absolute;
-	right: 0;
+	right: 3%;
 	top: 5px;
 }
 
@@ -45,6 +53,7 @@ img{
 .on-calendar{
 	top: 3px;
 	/*margin: 3px;*/
+	left: 0.05%;
 	width: 98%;
 }
 
@@ -71,25 +80,37 @@ td{
 	margin-right: 7px;
 }
 
-.alignleft {
+/*.alignleft {
 	float: left;
 	margin-left: 2px;
 }
 .alignright {
 	position: absolute;
 	right: 0;
-	/*margin-right: 10px;*/
-}
+}*/
 
 .color-selector{
 	border-radius: 4px;
 }
 
-#hover-buttons{
+/*#hover-buttons{
 	opacity: 0;
-	width: 98%;
+	width: 93%;
+	position: absolute;
+	bottom: 3px;
+}*/
+
+.alignleft {
+	opacity: 0;
 	position: absolute;
 	bottom: 0;
+	left: 3%;
+}
+.alignright {
+	opacity: 0;
+	position: absolute;
+	bottom: 0;
+	right: 3%;
 }
 
 .task-container:hover #hover-buttons{

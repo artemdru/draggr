@@ -29,6 +29,7 @@ export class TaskComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   previousHeight: number;
   containerWidth: number;
+  draggerHeight = "60%";
   
   constructor(private incService: TimeIncrementService, private renderer: Renderer2, private cdref: ChangeDetectorRef) {}
 
@@ -54,7 +55,11 @@ export class TaskComponent implements OnInit, AfterViewInit, AfterViewChecked {
   }
 
   onResizing(event: ResizeEvent): void {
+    this.draggerHeight = "0";
+    console.log(event.rectangle.height);
     if (event.rectangle.height < this.previousHeight){
+      // console.log("taskComponent saw decrease in size");
+
       let proposedTask: Task = new Task(this.task.id, this.task.name, ((event.rectangle.height+6)/32) * 15, this.task.date);
       this.incService.moveTask(proposedTask, proposedTask.date);
       if (this.incService.moveSuccessful){
@@ -68,9 +73,10 @@ export class TaskComponent implements OnInit, AfterViewInit, AfterViewChecked {
     }
 
     if (event.rectangle.height > this.previousHeight){
+      // console.log("taskComponent saw increase in size");
+
       let proposedTask: Task = new Task(this.task.id, this.task.name, ((event.rectangle.height+6)/32) * 15, this.task.date);
       this.incService.moveTask(proposedTask, proposedTask.date);
-      console.log(this.incService.moveSuccessful);
       if (this.incService.moveSuccessful){
             this.style = {
               height: `${event.rectangle.height}px`
@@ -83,7 +89,13 @@ export class TaskComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
 
     this.previousHeight = event.rectangle.height;
-    
+    setTimeout(() => {
+      if (this.draggerHeight === "0"){
+        this.draggerHeight = "60%";
+      }
+      
+      
+    }, 100);
   }
 
   getHour(number: number){

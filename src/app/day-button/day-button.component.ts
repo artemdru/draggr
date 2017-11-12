@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-day-button',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./day-button.component.css']
 })
 export class DayButtonComponent implements OnInit {
+
+	@Input() dir: string;
 
   constructor() { }
 

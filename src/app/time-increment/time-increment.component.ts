@@ -27,13 +27,18 @@ export class TimeIncrementComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-  	if (this.date.getMinutes() === 0){
+  	if (this.date.getMinutes() === 45){
   		this.isHour = true;
   		this.style = {
-  			'border-top': 'solid silver 1px'
+        'box-shadow': '0px -1px 0px 0px #bcbec0 inset'
   		}
-  	} else if (this.date.getMinutes() === 30){
+  	} else if (this.date.getMinutes() === 15){
   		this.isHalfHour = true;
+      this.style = {
+        // 'z-index': '-1',
+        // 'opacity': '0.5',
+        // 'box-shadow': '0px -0.5px 0px 0px #e5e5e5 inset'
+      }
   	}
 
     this.taskSubscription = this.taskService.taskAdded

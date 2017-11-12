@@ -3,10 +3,19 @@
 	/*height: 20px;*/
 	height: 32px;
 	/*width: 100%;*/
-	
+	position: relative;
 }
 
 .hour{
 	vertical-align: text-top;
 	font-size: 8px;
+}
+
+.half-hour{
+	z-index: -1;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	background-color: #e5e5e5;
+	height: 0.5px;
 }

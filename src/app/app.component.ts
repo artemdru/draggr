@@ -26,7 +26,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.dateWidth = $('#date').width();
-    $('.days-otw, .calendar').scrollLeft(this.dateWidth);
+    $('.days-otw, .calendar').scrollLeft(this.dateWidth+1);
 
     // $('.vert-scroll').on('scroll touchmove mousewheel', function(e){
     //   console.log("this thing scrolled");
@@ -38,14 +38,14 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   onResize(){
     this.dateWidth = $('#date').width();
-    $('.days-otw, .calendar').scrollLeft(this.dateWidth);
+    $('.days-otw, .calendar').scrollLeft(this.dateWidth+1);
   }
 
   backDay(){
     if (this.isScrollable){
       this.dateService.addDay('back');
       $('.days-otw, .calendar').scrollLeft(this.dateWidth*2);
-      $('.days-otw, .calendar').animate({scrollLeft: this.dateWidth}, 350);
+      $('.days-otw, .calendar').animate({scrollLeft: this.dateWidth+1}, 350);
       this.isScrollable = false;
       setTimeout(() => {
         this.isScrollable = true;
@@ -57,7 +57,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   fwdDay(){
     if (this.isScrollable){
       this.dateService.addDay('fwd');
-    $('.days-otw, .calendar').scrollLeft(0);
+    $('.days-otw, .calendar').scrollLeft(1);
     $('.days-otw, .calendar').animate({scrollLeft: '+=' + this.dateWidth}, 350);
     this.isScrollable = false;
       setTimeout(() => {

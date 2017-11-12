@@ -6,6 +6,7 @@ appDroppable (onDrop)="onDrop($event)" [date]=date [container]=container
 [ngStyle]="style" 
 class="time-increment"
 #timeIncrement>
+<div *ngIf="this.date.getMinutes() === 15" class="half-hour"></div>
 <app-task *ngIf="task !== undefined && task.date.getTime() == date.getTime()"
 [task]=task
 ></app-task>
@@ -16,6 +17,7 @@ class="time-increment"
 *ngIf="isOccupied"
 [ngStyle]="style" 
 class="time-increment">
+<div *ngIf="this.date.getMinutes() === 15" class="half-hour"></div>
 <app-task *ngIf="task !== undefined && task.date.getTime() == date.getTime()"
 [task]=task
 ></app-task>

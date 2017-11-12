@@ -61,7 +61,6 @@ export class AddTaskDialogComponent implements OnInit, AfterViewInit {
   		}
 
   		if (e.keyCode === 13 && clickable === true){
-  			console.log("pressed enter" + new Date);
   			$('.add-task').css("opacity", '0');
   			clickable = false;
   			$('.add-task').click();
