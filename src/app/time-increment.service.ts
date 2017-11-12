@@ -74,10 +74,21 @@ export class TimeIncrementService {
     }
   }
 
-  unoccupyLastTime(task: Task, date: Date){
-    var timeIncrement: number = task.date.getTime() + ((task.time-15)*60000);
+  unoccupyLastTime(task: Task, date: Date, iterations: number){
+
+    // Iterating multiple times is necessary because the onResize event can skip firing if task
+    // is resized too quickly. The iterations passed in are the amount of blocks that are being
+    // unoccupied in one onResize event, in case it skipped a few.
+
+    for (var _x = 0; _x < iterations; _x++){
+        var modifier = _x*15;
+
+        var timeIncrement: number = task.date.getTime() + ((task.time-15-modifier)*60000);
 
         this.dateSubject.next([task, 1, timeIncrement, null]);
+    }
+
+
   }
 
 }

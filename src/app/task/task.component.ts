@@ -56,14 +56,17 @@ export class TaskComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   onResizing(event: ResizeEvent): void {
     this.draggerHeight = "0";
-    console.log(event.rectangle.height);
     if (event.rectangle.height < this.previousHeight){
       // console.log("taskComponent saw decrease in size");
+
+      let freedBlocks = (this.previousHeight - event.rectangle.height)/32
 
       let proposedTask: Task = new Task(this.task.id, this.task.name, ((event.rectangle.height+6)/32) * 15, this.task.date);
       this.incService.moveTask(proposedTask, proposedTask.date);
       if (this.incService.moveSuccessful){
-        this.incService.unoccupyLastTime(this.task, this.task.date);
+        console.log("freed blocks " + freedBlocks);
+          this.incService.unoccupyLastTime(this.task, this.task.date, freedBlocks);
+        
         this.task.time = ((event.rectangle.height+6)/32) * 15;
         this.style = {
           height: `${event.rectangle.height}px`
