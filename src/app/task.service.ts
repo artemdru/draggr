@@ -7,6 +7,7 @@ import { Task } from './task.model';
 export class TaskService {
 	taskAdded = new Subject<Task>();
 
+	taskRefresher = new Subject<any>();
 
 	tasks=[
 	new Task(0, 'Implement flux capacitator marginal dynamicism in quantum field', 60, null),
@@ -43,6 +44,10 @@ export class TaskService {
 				}
 			}
 		}
+	}
+
+	refreshTaskViews(){
+		this.taskRefresher.next(0);
 	}
 
   constructor() { }

@@ -44,6 +44,8 @@ export class DroppableDirective implements OnInit {
         this.taskService.selectedTask.date=this.date;
         this.taskService.emitTask(this.taskService.selectedTask);
       }
+
+      this.taskService.refreshTaskViews();
   		
 	}
 }

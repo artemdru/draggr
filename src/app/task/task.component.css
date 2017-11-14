@@ -42,23 +42,26 @@ img{
 	font-size: 14px;
 	text-align: right;
 	position: absolute;
-	right: 3%;
+	right: 18px;
 	top: 5px;
+	margin: 0;
 }
 
 .time-icon{
 	height: 14px !important;
+	margin-right: 0;
 }
 
 .on-calendar{
 	top: 3px;
 	/*margin: 3px;*/
 	left: 0.05%;
-	width: 98%;
+	/*width: 98%;*/
+	width: 90% !important;
 }
 
 .task-name{
-	height: 80px;
+	height: 100%;
 	margin-left: 10px; 
 	margin-right: 10px;
 	position: relative;
@@ -73,11 +76,7 @@ h3{
 	font-weight: 1000;
 	font-family: 'Roboto', sans-serif;
 	font-size: 26px;
-}
-
-
-td{
-	margin-right: 7px;
+	margin: 0;
 }
 
 /*.alignleft {
@@ -100,17 +99,24 @@ td{
 	bottom: 3px;
 }*/
 
+.align-top-left{
+	opacity: 0;
+	position: absolute;
+	top: 1.5px;
+	left: 4px;
+}
+
 .alignleft {
 	opacity: 0;
 	position: absolute;
 	bottom: 0;
-	left: 3%;
+	left: 14px;
 }
 .alignright {
 	opacity: 0;
 	position: absolute;
 	bottom: 0;
-	right: 3%;
+	right: 10px;
 }
 
 .task-container:hover #hover-buttons{
