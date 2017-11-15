@@ -1,10 +1,12 @@
+<!-- IN TASK WINDOW -->
 <div
 *ngIf="task.date === null"
-appDraggable 
-[taskName]=task.name 
-[taskID]=task.id
+appDraggable
+	[taskName]=task.name 
+	[taskID]=task.id
 #taskContainer
 class="container task-container in-queue"
+(mousedown)="onMouseDown($event)"
 >
 	<td class="minutes" #timeContainer>
 		<img class="time-icon" src="assets/time.svg" alt="">
@@ -20,8 +22,7 @@ class="container task-container in-queue"
 		</div>
 </div>
 
-
-<!-- LARGE TASK (30+) -->
+<!-- ON CALENDAR -->
 <div
 *ngIf="task.date !== null"
 mwlResizable

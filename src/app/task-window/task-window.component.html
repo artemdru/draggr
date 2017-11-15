@@ -12,27 +12,6 @@
 			<div class="field-container" align="center"><input class="search-field" placeholder="Search tasks..."></div>
 			
 		</div>
-		
-		<!-- <div class="form-container">
-			<form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
-			<div class="form-group">
-				<label>Task Name</label>
-				<input type="name" name="name" class="form-control" formControlName="task-name">
-			</div>
-			<div>
-				<label>Time</label>
-				<select name="time" class="form-control" formControlName="task-time">
-					<option *ngFor="let time of timeInputs" [value]=time>
-						{{ time }} minutes
-					</option>
-				</select>
-			</div>
-			<hr>
-			<button class="btn btn-primary" type="submit">Add Task</button>
-			
-		</form>
-		<hr>
-		</div> -->
 		<div class="task-window">
 			<ng-container *ngFor="let task of tasks; let i = index">
 		<app-task *ngIf="task.date === null"

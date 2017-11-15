@@ -43,6 +43,8 @@ export class TaskComponent implements OnInit, AfterViewInit {
   containerWidth: number;
   draggerHeight = "60%";
 
+  offset: string = '89px';
+
   taskRefresher: Subscription;
 
   constructor(private taskService: TaskService, private incService: TimeIncrementService, private renderer: Renderer2, private cdref: ChangeDetectorRef) {}
@@ -181,5 +183,9 @@ export class TaskComponent implements OnInit, AfterViewInit {
       this.timeContainerEl.style.top = '5px';
       this.taskNameEl.style.width = '100%';
     }
+  }
+
+  onMouseDown(event){
+    console.log("memes");
   }
 }

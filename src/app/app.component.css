@@ -36,6 +36,14 @@ html,body
  min-width: 388.5px;
 }
 
+.mouse-container{
+  width: 350px;
+  height: 280px;
+  background-color: black;
+  position: absolute;
+  z-index: -20;
+}
+
 
 ::-webkit-scrollbar {
     height: 0px;
