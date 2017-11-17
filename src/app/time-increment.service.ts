@@ -23,8 +23,9 @@ export class TimeIncrementService {
   moveTask(task: Task, date: Date){
   	this.moveSuccessful = false;
   	var timeIncrement: number = date.getTime();
-  	var iterations: number = task.time/15; //TODO: proper calculations from time to integers
+  	var iterations: number = Math.round(task.time/15); //TODO: proper calculations from time to integers
     var targetDate: number = date.getTime();
+
 
   	// check if there's enough onoccupied blocks
   	for (var _i = 0; _i < iterations; _i++){
@@ -39,8 +40,8 @@ export class TimeIncrementService {
   	}
 
   	// unoccupy previous time increments, if the task had any
-  	if (task.date !== null){
-  		timeIncrement = task.date.getTime();
+  	if (task.previousDate !== null){
+  		timeIncrement = task.previousDate.getTime();
   		for (var _j = 0; _j < iterations; _j++){
   			this.dateSubject.next([task, 1, timeIncrement, targetDate]);
   			timeIncrement = timeIncrement + (15*60000); //TODO: proper calculations from time to integers
@@ -57,6 +58,8 @@ export class TimeIncrementService {
   	// console.log("enough room for task!");
 
   	this.moveSuccessful = true;
+    task.previousDate = date;
+    // console.log(this.taskService.tasks);
   }
 
   storeOccupationStatus(bool: boolean){

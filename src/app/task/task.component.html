@@ -1,12 +1,10 @@
 <!-- IN TASK WINDOW -->
 <div
 *ngIf="task.date === null"
-appDraggable
-	[taskName]=task.name 
-	[taskID]=task.id
+
 #taskContainer
-class="container task-container in-queue"
-(mousedown)="onMouseDown($event)"
+class="container task-container in-queue unselectable"
+(mousedown)="onMouseDown()"
 >
 	<td class="minutes" #timeContainer>
 		<img class="time-icon" src="assets/time.svg" alt="">
@@ -31,10 +29,10 @@ mwlResizable
 [enableGhostResize]="false"
 (resizing)="onResizing($event)"
 [resizeSnapGrid]="{bottom: 32}"
-[resizeCursorPrecision]=20
+[resizeCursorPrecision]=5
 [style.height.px]="((task.time/15)*32)-6"
 #taskContainer
-class="container task-container on-calendar"
+class="container task-container on-calendar unselectable"
 >
 	<div class="align-top-left" id="hover-buttons">
 		<img class="complete-icon" src="assets/complete.svg">
@@ -54,13 +52,12 @@ class="container task-container on-calendar"
 		<img src="assets/delete.svg">
 	</div>
 	<div 
+	(mousedown)="onMouseDown()"
 	#dragger
 	[style.height]="draggerHeight"
-	class="dragger" 
-	appDraggable
-	[taskName]=task.name 
-	[taskID]=task.id>
+	class="dragger">
 	</div>	
+	
 </div>
 
 

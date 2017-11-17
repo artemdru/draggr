@@ -22,6 +22,7 @@ import { TimeIncrementService } from './time-increment.service';
 import { AddTaskDialogComponent } from './task-window/add-task-dialog/add-task-dialog.component';
 import { MatDialogModule } from '@angular/material';
 import { MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MouseContainerComponent } from './mouse-container/mouse-container.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { MatFormFieldModule, MatInputModule } from '@angular/material';
     DaysOtwComponent,
     TimebarComponent,
     DayButtonComponent,
-    AddTaskDialogComponent
+    AddTaskDialogComponent,
+    MouseContainerComponent
   ],
   imports: [
     BrowserModule,

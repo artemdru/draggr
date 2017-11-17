@@ -2,7 +2,7 @@
 <!-- UNOCCUPIED TIME INCREMENT -->
 <div 
 [hidden]="isOccupied"
-appDroppable (onDrop)="onDrop($event)" [date]=date [container]=container
+(mouseup)="onMouseUp()"
 [ngStyle]="style" 
 class="time-increment"
 #timeIncrement>
@@ -15,6 +15,7 @@ class="time-increment"
 <!-- OCCUPIED TIME INCREMENT -->
 <div 
 *ngIf="isOccupied"
+(click)="onClick()"
 [ngStyle]="style" 
 class="time-increment">
 <div *ngIf="this.date.getMinutes() === 15" class="half-hour"></div>
@@ -22,3 +23,5 @@ class="time-increment">
 [task]=task
 ></app-task>
 </div>
+
+<!-- appDroppable (onDrop)="onDrop($event)" [date]=date [container]=container -->

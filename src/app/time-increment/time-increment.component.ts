@@ -68,6 +68,7 @@ export class TimeIncrementComponent implements OnInit, OnDestroy {
                 this.incService.moveTask(this.taskService.tasks[previousOccupantID], targetIncrement);
                 if (this.incService.moveSuccessful === true){
                   this.taskService.tasks[previousOccupantID].date= targetIncrement;
+                  console.log(this.taskService.tasks[previousOccupantID]);
                   this.taskService.emitTask(this.taskService.tasks[previousOccupantID]);
                 }
               }
@@ -103,6 +104,21 @@ export class TimeIncrementComponent implements OnInit, OnDestroy {
       }
   }
 
+  onMouseUp(){
+    if (this.taskService.selectedTask !== null){
+          this.incService.moveTask(this.taskService.selectedTask, this.date);
+        if (this.incService.moveSuccessful === true){
+        this.taskService.selectedTask.date=this.date;
+        this.taskService.emitTask(this.taskService.selectedTask);
+        this.taskService.selectedTask = null;
+      }
+    }
+
+  }
+
+  onClick(){
+    console.log(this.task, this.occupantID, this.isOccupied);
+  }
 
   ngOnDestroy(){
     this.taskSubscription.unsubscribe();

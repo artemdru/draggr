@@ -36,10 +36,10 @@ html,body
  min-width: 388.5px;
 }
 
-.mouse-container{
-  width: 350px;
+app-mouse-container{
+  width: 24.8611vw;
   height: 280px;
-  background-color: black;
+  background-color: transparent;
   position: absolute;
   z-index: -20;
 }

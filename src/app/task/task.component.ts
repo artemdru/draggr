@@ -5,7 +5,7 @@ import { Component,
   ElementRef, 
   Renderer2, 
   AfterViewInit, 
-  ChangeDetectorRef } from '@angular/core';
+  ChangeDetectorRef} from '@angular/core';
 import { ResizeEvent } from 'angular-resizable-element';
 
 import * as $ from 'jquery';
@@ -52,6 +52,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.previousHeight = ((this.task.time/15)*32)-6;
 
+
     // this.taskRefresher = this.taskService.taskRefresher
     //   .subscribe(
     //       () => {
@@ -64,6 +65,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(){
+
     this.taskEl = this.taskContainer.nativeElement;
     this.taskNameEl = this.taskNameElRef.nativeElement;
     this.timeContainerEl = this.timeContainerElRef.nativeElement;
@@ -80,12 +82,13 @@ export class TaskComponent implements OnInit, AfterViewInit {
 
   onResizing(event: ResizeEvent): void {
     this.draggerHeight = "0";
+    console.log(this.previousHeight, this.task.name);
     if (event.rectangle.height < this.previousHeight){
       // console.log("taskComponent saw decrease in size");
 
       let freedBlocks = (this.previousHeight - event.rectangle.height)/32
 
-      let proposedTask: Task = new Task(this.task.id, this.task.name, ((event.rectangle.height+6)/32) * 15, this.task.date);
+      let proposedTask: Task = new Task(this.task.id, this.task.name, ((event.rectangle.height+6)/32) * 15, this.task.date, this.task.date);
       this.incService.moveTask(proposedTask, proposedTask.date);
       if (this.incService.moveSuccessful){
         console.log("freed blocks " + freedBlocks);
@@ -102,7 +105,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
     if (event.rectangle.height > this.previousHeight){
       // console.log("taskComponent saw increase in size");
 
-      let proposedTask: Task = new Task(this.task.id, this.task.name, ((event.rectangle.height+6)/32) * 15, this.task.date);
+      let proposedTask: Task = new Task(this.task.id, this.task.name, ((event.rectangle.height+6)/32) * 15, this.task.date, this.task.previousDate);
       this.incService.moveTask(proposedTask, proposedTask.date);
       if (this.incService.moveSuccessful){
             this.style = {
@@ -116,6 +119,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
 
 
     this.previousHeight = event.rectangle.height;
+
     setTimeout(() => {
       if (this.draggerHeight === "0"){
         this.draggerHeight = "60%";
@@ -186,6 +190,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
   }
 
   onMouseDown(event){
-    console.log("memes");
+    this.taskService.addToMouseContainer(this.task.id);
+    this.incService.moveTask(this.taskService.selectedTask, new Date(0));
   }
 }

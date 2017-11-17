@@ -34,16 +34,16 @@ export class AppComponent implements OnInit, AfterViewInit {
     //   e.stopPropagation();
     //   return false;
     // })
-    (<any>$('body')).mousedown(() => {
-      $('.mouse-container').css("z-index", "20");
+    (<any>$('body')).mousedown((e) => {
+      $('app-mouse-container').css("z-index", "20");
+      $('app-mouse-container').offset({ left: e.pageX+20, top: e.pageY+20 });
       (<any>$('body')).mousemove((e) => {
         var offsetX = e.pageX;
         var offsetY = e.pageY;
-        $('.mouse-container').offset({ left: offsetX+20, top: offsetY+20 });
+        $('app-mouse-container').offset({ left: offsetX+20, top: offsetY+20 });
       }).mouseup((e) => {
-        console.log(e);
         $('body').unbind('mousemove');
-        $('.mouse-container').css("z-index", "-20");
+        $('app-mouse-container').css("z-index", "-20");
       });
     });
   }
@@ -83,7 +83,4 @@ export class AppComponent implements OnInit, AfterViewInit {
     $('.vert-scroll').scrollLeft(0);
   }
 
-  mouseTracker(){
-    console.log("memes");
-  }
 }
