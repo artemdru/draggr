@@ -6,6 +6,7 @@ import { Task } from './task.model';
 @Injectable()
 export class TaskService {
 	taskAdded = new Subject<Task>();
+	mouseContainer = new Subject<[Task, number, number, number, number]>();
 
 	taskRefresher = new Subject<any>();
 
@@ -50,11 +51,11 @@ export class TaskService {
 		this.taskRefresher.next(0);
 	}
 
-	addToMouseContainer(id: number){
+	addToMouseContainer(id: number, taskX: number, taskY:number, mouseX: number, mouseY: number){
 		this.selectedTask=this.tasks[id];
 		this.selectedTask.previousDate = this.selectedTask.date;
 		this.selectedTask.date = new Date(0);
-		this.taskAdded.next(this.tasks[id]);
+		this.mouseContainer.next([this.tasks[id], taskX, taskY, mouseX, mouseY]);
 	}
 
   constructor() { }

@@ -18,10 +18,12 @@ class="time-increment"
 (click)="onClick()"
 [ngStyle]="style" 
 class="time-increment">
-<div *ngIf="this.date.getMinutes() === 15" class="half-hour"></div>
-<app-task *ngIf="task !== undefined && task.date.getTime() == date.getTime()"
-[task]=task
-></app-task>
+	<div *ngIf="this.date.getMinutes() === 15" class="half-hour"></div>
+	<div class="task-holder" #myTask>
+		<app-task *ngIf="task !== undefined && task.date.getTime() == date.getTime()"
+		[task]=task
+		></app-task>
+	</div>
 </div>
 
 <!-- appDroppable (onDrop)="onDrop($event)" [date]=date [container]=container -->

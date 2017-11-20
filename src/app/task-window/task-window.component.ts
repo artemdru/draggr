@@ -29,5 +29,9 @@ export class TaskWindowComponent implements OnInit {
       height: '500px'
     });
   }
+
+  onDrop(event){
+    console.log(event);
+  }
   
 }

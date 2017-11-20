@@ -38,6 +38,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       $('app-mouse-container').css("z-index", "20");
       $('app-mouse-container').offset({ left: e.pageX+20, top: e.pageY+20 });
       (<any>$('body')).mousemove((e) => {
+        document.getSelection().removeAllRanges();
         var offsetX = e.pageX;
         var offsetY = e.pageY;
         $('app-mouse-container').offset({ left: offsetX+20, top: offsetY+20 });

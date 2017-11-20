@@ -4,7 +4,7 @@
 
 #taskContainer
 class="container task-container in-queue unselectable"
-(mousedown)="onMouseDown()"
+(mousedown)="onMouseDown($event)"
 >
 	<td class="minutes" #timeContainer>
 		<img class="time-icon" src="assets/time.svg" alt="">
@@ -22,7 +22,7 @@ class="container task-container in-queue unselectable"
 
 <!-- ON CALENDAR -->
 <div
-*ngIf="task.date !== null"
+*ngIf="task.date !== null && task.date.getTime() !== 0"
 mwlResizable
 [ngStyle]="style"
 [resizeEdges]="{bottom: true}"
@@ -34,25 +34,57 @@ mwlResizable
 #taskContainer
 class="container task-container on-calendar unselectable"
 >
-	<div class="align-top-left" id="hover-buttons">
+	<div class="align-top-left unselectable" id="hover-buttons">
 		<img class="complete-icon" src="assets/complete.svg">
 	</div>
 	
-	<div class="minutes" #timeContainer>
+	<div class="minutes unselectable" #timeContainer>
 		<img class="time-icon" src="assets/time.svg">
 		<span>{{ getHour(task.time) }} {{ getMinutes(task.time) }}m</span>
 	</div>
-	<div align="center" class="task-name">
+	<div align="center" class="task-name unselectable">
 		<h3 #taskName>{{ (task.name.length>containerWidth)? (task.name | slice:0:containerWidth)+'...':(task.name) }}</h3>
 	</div>
-	<div class="alignleft" id="hover-buttons" #colorSelector>
+	<div class="alignleft unselectable" id="hover-buttons" #colorSelector>
 		<img src="assets/color.svg" class="color-selector">
 	</div>
-	<div class="alignright" id="hover-buttons" #deleteButton>
+	<div class="alignright unselectable" id="hover-buttons" #deleteButton>
 		<img src="assets/delete.svg">
 	</div>
 	<div 
-	(mousedown)="onMouseDown()"
+	(mousedown)="onMouseDown($event)"
+	#dragger
+	[style.height]="draggerHeight"
+	class="dragger">
+	</div>	
+	
+</div>
+
+<!-- IN MOUSE CONTAINER -->
+<div
+*ngIf="task.date !== null && task.date.getTime() === 0"
+#taskContainer
+class="container task-container in-mouse-container unselectable"
+>
+	<div class="align-top-left unselectable" id="hover-buttons">
+		<img class="complete-icon" src="assets/complete.svg">
+	</div>
+	
+	<div class="minutes unselectable" #timeContainer>
+		<img class="time-icon" src="assets/time.svg">
+		<span>{{ getHour(task.time) }} {{ getMinutes(task.time) }}m</span>
+	</div>
+	<div align="center" class="task-name unselectable">
+		<h3 #taskName>{{ (task.name.length>containerWidth)? (task.name | slice:0:containerWidth)+'...':(task.name) }}</h3>
+	</div>
+	<div class="alignleft unselectable" id="hover-buttons" #colorSelector>
+		<img src="assets/color.svg" class="color-selector">
+	</div>
+	<div class="alignright unselectable" id="hover-buttons" #deleteButton>
+		<img src="assets/delete.svg">
+	</div>
+	<div 
+	(mousedown)="onMouseDown($event)"
 	#dragger
 	[style.height]="draggerHeight"
 	class="dragger">

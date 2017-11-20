@@ -37,7 +37,9 @@ html,body
 }
 
 app-mouse-container{
-  width: 24.8611vw;
+  /*background-color: red;*/
+  width: 23.7916vw;
+  min-width: 388.5px;
   height: 280px;
   background-color: transparent;
   position: absolute;

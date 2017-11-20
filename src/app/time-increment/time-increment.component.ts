@@ -5,6 +5,8 @@ import { Task } from '../task.model';
 import { TaskService } from '../task.service';
 import { TimeIncrementService } from '../time-increment.service';
 
+import * as $ from 'jquery';
+
 @Component({
   selector: 'app-time-increment',
   templateUrl: './time-increment.component.html',
@@ -20,6 +22,7 @@ export class TimeIncrementComponent implements OnInit, OnDestroy {
   incSubscription: Subscription;
 	task: Task;
   @ViewChild('timeIncrement') container: ElementRef;
+  @ViewChild('myTask') myTask: ElementRef;
   isOccupied: boolean = false;
   occupantID: number;
 
@@ -47,6 +50,7 @@ export class TimeIncrementComponent implements OnInit, OnDestroy {
             if (task.date.getTime() === this.date.getTime()){
               this.task = task;
               this.isOccupied = true;
+                
             }
           }
         );
@@ -65,14 +69,64 @@ export class TimeIncrementComponent implements OnInit, OnDestroy {
                 var targetIncrement = new Date(targetDate+(task.time*60000));
                 var previousOccupantID = this.occupantID;
 
+
+                // this.doAsyncTask(this.taskService.tasks[previousOccupantID], targetIncrement)
+                //   .then((result: Task) => {
+
+                //     if (this.incService.moveSuccessful === true){
+                //       result.date= targetIncrement;
+                //     }
+
+                //     this.taskService.emitTask(result);
+                //   });
+
+
+
+
+
+
+
+
+
+
+                // const startTime = Date.now();
+
+                // this.incService.moveTask(this.taskService.tasks[previousOccupantID], targetIncrement)
+                //   .then((result: Task) => {
+                //     this.taskService.tasks[previousOccupantID].date= targetIncrement;
+                //     if (task.time === 15){
+                //       setTimeout(() => {
+                //         this.taskService.emitTask(this.taskService.tasks[previousOccupantID]);
+                //       }, 1);
+                //     } else this.taskService.emitTask(this.taskService.tasks[previousOccupantID]);
+                    
+                //     console.log("moving " + task.name + " took this long: " + (Date.now() - startTime));
+                //   });
+
+
+                //TODO: implement a better way to asyncronously emit task. Simply making the moveTask
+                // method return a promise is not enough, maybe try breaking up the entire moveTask
+                // method into multiple promises and .then() calls within itself
+
                 this.incService.moveTask(this.taskService.tasks[previousOccupantID], targetIncrement);
+
                 if (this.incService.moveSuccessful === true){
                   this.taskService.tasks[previousOccupantID].date= targetIncrement;
-                  console.log(this.taskService.tasks[previousOccupantID]);
-                  this.taskService.emitTask(this.taskService.tasks[previousOccupantID]);
                 }
+                
+                if (this.taskService.tasks[previousOccupantID].time === 15){
+                  
+                  setTimeout(() => {
+                    this.taskService.emitTask(this.taskService.tasks[previousOccupantID]);
+                  }, 1);
+                } else 
+
+                this.taskService.emitTask(this.taskService.tasks[previousOccupantID]);
               }
               this.incService.storeOccupationStatus(this.isOccupied);
+                
+              
+              
 
             } else if (date === this.date.getTime() && code === 1){
 
@@ -86,11 +140,14 @@ export class TimeIncrementComponent implements OnInit, OnDestroy {
               this.occupantID = task.id;
               this.isOccupied = true;
 
+
+             
             }
           }
         );
 
       this.task = this.taskService.getTaskByDate(this.date);
+
 
       // check if time increment is already assigned a task
 
@@ -117,12 +174,20 @@ export class TimeIncrementComponent implements OnInit, OnDestroy {
   }
 
   onClick(){
-    console.log(this.task, this.occupantID, this.isOccupied);
+    // console.log(this.task, this.occupantID, this.isOccupied);
   }
 
   ngOnDestroy(){
     this.taskSubscription.unsubscribe();
     this.incSubscription.unsubscribe();
   }
+
+  // doAsyncTask(task: Task, timeIncr: Date){
+  //   return new Promise(resolve => {
+  //     this.incService.moveTask(task, timeIncr);
+  //     // if (this.incService.moveSuccessful === true){task.date = timeIncr;}
+  //     resolve(task);
+  //   });
+  // }
 
 }

@@ -21,45 +21,46 @@ export class TimeIncrementService {
   constructor(private taskService: TaskService) { }
 
   moveTask(task: Task, date: Date){
-  	this.moveSuccessful = false;
-  	var timeIncrement: number = date.getTime();
-  	var iterations: number = Math.round(task.time/15); //TODO: proper calculations from time to integers
-    var targetDate: number = date.getTime();
+      this.moveSuccessful = false;
+      var timeIncrement: number = date.getTime();
+      var iterations: number = Math.round(task.time/15); //TODO: proper calculations from time to integers
+      var targetDate: number = date.getTime();
 
 
-  	// check if there's enough onoccupied blocks
-  	for (var _i = 0; _i < iterations; _i++){
-  		this.dateSubject.next([task, 0, timeIncrement, targetDate]);
-  		
-  		if (this.storedOccupation === true){
-  			// console.log("not enough room for task");
-  			return false;
-  		}
+      // check if there's enough onoccupied blocks
+      for (var _i = 0; _i < iterations; _i++){
+        this.dateSubject.next([task, 0, timeIncrement, targetDate]);
+        
+        if (this.storedOccupation === true){
+          // console.log("not enough room for task");
+          return false;
+        }
 
-  		timeIncrement = timeIncrement + (15*60000); //TODO: proper calculations from time to integers
-  	}
+        timeIncrement = timeIncrement + (15*60000); //TODO: proper calculations from time to integers
+      }
 
-  	// unoccupy previous time increments, if the task had any
-  	if (task.previousDate !== null){
-  		timeIncrement = task.previousDate.getTime();
-  		for (var _j = 0; _j < iterations; _j++){
-  			this.dateSubject.next([task, 1, timeIncrement, targetDate]);
-  			timeIncrement = timeIncrement + (15*60000); //TODO: proper calculations from time to integers
-  		}
-  	}
+      // unoccupy previous time increments, if the task had any
+      if (task.previousDate !== null){
+        timeIncrement = task.previousDate.getTime();
+        for (var _j = 0; _j < iterations; _j++){
+          this.dateSubject.next([task, 1, timeIncrement, targetDate]);
+          timeIncrement = timeIncrement + (15*60000); //TODO: proper calculations from time to integers
+        }
+      }
 
-  	// occupy the new time increments
-  	timeIncrement = date.getTime();
-  	for (var _y = 0; _y < iterations; _y++){
-  		this.dateSubject.next([task, 2, timeIncrement, targetDate]);
-  		timeIncrement = timeIncrement + (15*60000); //TODO: proper calculations from time to integers
-  	}
+      // occupy the new time increments
+      timeIncrement = date.getTime();
+      for (var _y = 0; _y < iterations; _y++){
+        this.dateSubject.next([task, 2, timeIncrement, targetDate]);
+        timeIncrement = timeIncrement + (15*60000); //TODO: proper calculations from time to integers
+      }
 
-  	// console.log("enough room for task!");
+      // console.log("enough room for task!");
 
-  	this.moveSuccessful = true;
-    task.previousDate = date;
-    // console.log(this.taskService.tasks);
+      this.moveSuccessful = true;
+      task.previousDate = date;
+      // console.log(this.taskService.tasks);
+ 	
   }
 
   storeOccupationStatus(bool: boolean){

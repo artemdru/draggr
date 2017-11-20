@@ -41,7 +41,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
 
   previousHeight: number;
   containerWidth: number;
-  draggerHeight = "60%";
+  draggerHeight = "80%";
 
   offset: string = '89px';
 
@@ -76,8 +76,16 @@ export class TaskComponent implements OnInit, AfterViewInit {
       this.containerWidth = (Math.round(this.taskEl.offsetWidth/9));
     } else this.stylizeTaskContainer(this.task.time);
 
-      // this line is to remove ExpressionChangedAfterItHasBeenCheckedError
-      this.cdref.detectChanges();
+    // this line is to remove ExpressionChangedAfterItHasBeenCheckedError
+    this.cdref.detectChanges();
+
+    console.log(this.task.previousDate);
+
+    if (this.task.date !== null){
+      $(this.taskEl).css({left: -60-20, top: -1*(20+40)});
+      $(this.taskEl).animate({left: 0, top: 3}, 200);
+    }
+    
   }
 
   onResizing(event: ResizeEvent): void {
@@ -190,7 +198,8 @@ export class TaskComponent implements OnInit, AfterViewInit {
   }
 
   onMouseDown(event){
-    this.taskService.addToMouseContainer(this.task.id);
+    const rect = this.taskEl.getBoundingClientRect();
+    this.taskService.addToMouseContainer(this.task.id, rect.left, rect.top, event.pageX, event.pageY);
     this.incService.moveTask(this.taskService.selectedTask, new Date(0));
   }
 }
