@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { TaskService } from '../task.service';
+import { TimeIncrementService } from '../time-increment.service';
+
 @Component({
   selector: 'app-timebar',
   templateUrl: './timebar.component.html',
@@ -9,7 +12,7 @@ export class TimebarComponent implements OnInit {
 
 	times = [];
 
-  constructor() { }
+  constructor(private taskService: TaskService, private incService: TimeIncrementService) { }
 
   ngOnInit() {
   	for (let _i = 0; _i<23; _i++){
@@ -22,6 +25,23 @@ export class TimebarComponent implements OnInit {
   			this.times[_i] = _i-11 + " PM";
   		}
   	}
+  }
+
+  onMouseUp(){
+    if (this.taskService.selectedTask !== null){
+      if (this.taskService.selectedTask.previousDate !== null){
+        this.incService.moveTask(this.taskService.selectedTask, this.taskService.selectedTask.previousDate);
+        if (this.incService.moveSuccessful === true){
+          this.taskService.selectedTask.date=this.taskService.selectedTask.previousDate;
+          this.taskService.selectedTask.previousDate = new Date(0);
+          this.taskService.emitTask(this.taskService.selectedTask);
+          this.taskService.selectedTask = null;
+        }
+      } else if (this.taskService.selectedTask.previousDate === null){
+        this.taskService.sendBackToTaskWindow();
+      }
+          
+    }
   }
 
 }

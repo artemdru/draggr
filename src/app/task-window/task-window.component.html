@@ -1,4 +1,4 @@
-<div (onDrop)="onDrop($event)" id="task-window">
+<div id="task-window" (mouseup)="onMouseUp()">
 	<div class="col-xs-12" style="margin: 0 0 0 0">
 		<div align="right">
 			<img src="assets/options.svg" class="options" alt="">
@@ -14,13 +14,11 @@
 		</div>
 		<div class="task-window">
 			<ng-container *ngFor="let task of tasks; let i = index">
-		<app-task *ngIf="task.date === null"
-		[task]="task"
-		[id]="i"></app-task>
-	</ng-container>
-</div>
-		
-		
+				<app-task *ngIf="task.date === null"
+				[task]="task"
+				[id]="i"></app-task>
+			</ng-container>
+		</div>
 	</div>
 </div>
 

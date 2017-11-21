@@ -79,18 +79,24 @@ export class TaskComponent implements OnInit, AfterViewInit {
     // this line is to remove ExpressionChangedAfterItHasBeenCheckedError
     this.cdref.detectChanges();
 
-    console.log(this.task.previousDate);
 
-    if (this.task.date !== null){
-      $(this.taskEl).css({left: -60-20, top: -1*(20+40)});
-      $(this.taskEl).animate({left: 0, top: 3}, 200);
+    if (this.task.date !== null && this.task.previousDate !== null && this.task.previousDate.getTime() == 0){
+
+      let mouseCoords = $('.animate-mouse').offset();
+      const rect = this.taskEl.getBoundingClientRect();
+
+      $(this.taskEl).css({left: mouseCoords.left-rect.left, top: mouseCoords.top-rect.top+33});
+      $(this.taskEl).animate({left: 0, top: 3}, 200, () => {this.task.previousDate = this.task.date});
+      
+    } else if (this.task.previousDate !== null && this.task.date.getTime() != 0 && this.task.date.getTime() != this.task.previousDate.getTime()){
+      $(this.taskEl).css({top: -10});
+      $(this.taskEl).animate({top: 3}, 100, () => {this.task.previousDate = this.task.date});
     }
     
   }
 
   onResizing(event: ResizeEvent): void {
     this.draggerHeight = "0";
-    console.log(this.previousHeight, this.task.name);
     if (event.rectangle.height < this.previousHeight){
       // console.log("taskComponent saw decrease in size");
 
@@ -103,6 +109,9 @@ export class TaskComponent implements OnInit, AfterViewInit {
           this.incService.unoccupyLastTime(this.task, this.task.date, freedBlocks);
         
         this.task.time = ((event.rectangle.height+6)/32) * 15;
+
+        // $(this.taskEl).stop();
+        // $(this.taskEl).animate({height: `${event.rectangle.height}px`}, 100);
         this.style = {
           height: `${event.rectangle.height}px`
         }
@@ -116,6 +125,8 @@ export class TaskComponent implements OnInit, AfterViewInit {
       let proposedTask: Task = new Task(this.task.id, this.task.name, ((event.rectangle.height+6)/32) * 15, this.task.date, this.task.previousDate);
       this.incService.moveTask(proposedTask, proposedTask.date);
       if (this.incService.moveSuccessful){
+            // $(this.taskEl).stop();
+            // $(this.taskEl).animate({height: `${event.rectangle.height}px`}, 100);
             this.style = {
               height: `${event.rectangle.height}px`
             }
@@ -199,7 +210,9 @@ export class TaskComponent implements OnInit, AfterViewInit {
 
   onMouseDown(event){
     const rect = this.taskEl.getBoundingClientRect();
-    this.taskService.addToMouseContainer(this.task.id, rect.left, rect.top, event.pageX, event.pageY);
+    this.taskService.selectTask(this.task.id);
     this.incService.moveTask(this.taskService.selectedTask, new Date(0));
+    this.taskService.addToMouseContainer(this.task.id, rect.left, rect.top, event.pageX, event.pageY);
+    
   }
 }

@@ -41,7 +41,7 @@ export class TimeIncrementService {
 
       // unoccupy previous time increments, if the task had any
       if (task.previousDate !== null){
-        timeIncrement = task.previousDate.getTime();
+        timeIncrement = task.date.getTime();
         for (var _j = 0; _j < iterations; _j++){
           this.dateSubject.next([task, 1, timeIncrement, targetDate]);
           timeIncrement = timeIncrement + (15*60000); //TODO: proper calculations from time to integers
@@ -58,7 +58,7 @@ export class TimeIncrementService {
       // console.log("enough room for task!");
 
       this.moveSuccessful = true;
-      task.previousDate = date;
+      // task.previousDate = date;
       // console.log(this.taskService.tasks);
  	
   }

@@ -1,4 +1,4 @@
-<div class="timebar unselectable">
+<div class="timebar unselectable" (mouseup)="onMouseUp()">
 	<div *ngFor="let time of times" class="increment">
 	<span class="time">{{ time }}</span>
 	</div>

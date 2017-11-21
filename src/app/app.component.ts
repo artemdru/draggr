@@ -4,6 +4,9 @@ import * as $ from 'jquery';
 
 import { DateService } from './date.service';
 
+import { TaskService } from './task.service';
+import { TimeIncrementService } from './time-increment.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -18,7 +21,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   isScrollable = true;
 
-  constructor(private dateService: DateService){}
+  constructor(private dateService: DateService, private taskService: TaskService, private incService: TimeIncrementService){}
 
   ngOnInit() {
     this.dates = this.dateService.dates;
@@ -38,7 +41,8 @@ export class AppComponent implements OnInit, AfterViewInit {
       $('app-mouse-container').css("z-index", "20");
       $('app-mouse-container').offset({ left: e.pageX+20, top: e.pageY+20 });
       (<any>$('body')).mousemove((e) => {
-        document.getSelection().removeAllRanges();
+        if (!this.taskService.isDialogOpen){document.getSelection().removeAllRanges();}
+        
         var offsetX = e.pageX;
         var offsetY = e.pageY;
         $('app-mouse-container').offset({ left: offsetX+20, top: offsetY+20 });
@@ -82,6 +86,23 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   keepScroll(){
     $('.vert-scroll').scrollLeft(0);
+  }
+
+  onMouseUp(){
+    if (this.taskService.selectedTask !== null){
+      if (this.taskService.selectedTask.previousDate !== null){
+        this.incService.moveTask(this.taskService.selectedTask, this.taskService.selectedTask.previousDate);
+        if (this.incService.moveSuccessful === true){
+          this.taskService.selectedTask.date=this.taskService.selectedTask.previousDate;
+          this.taskService.selectedTask.previousDate = new Date(0);
+          this.taskService.emitTask(this.taskService.selectedTask);
+          this.taskService.selectedTask = null;
+        }
+      } else if (this.taskService.selectedTask.previousDate === null){
+        this.taskService.sendBackToTaskWindow();
+      }
+          
+    }
   }
 
 }

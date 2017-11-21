@@ -4,6 +4,12 @@
 	height: 32px;
 	/*width: 100%;*/
 	position: relative;
+	  -o-transition:.2s;
+  -ms-transition:.2s;
+  -moz-transition:.2s;
+  -webkit-transition:.2s;
+  /* ...and now for the proper property */
+  transition:.2s;
 }
 
 .hour{
@@ -24,4 +30,8 @@
 	position: relative;
 	width: 100%;
 	height: 100%;
+}
+
+.unoccupied:hover{
+	background-color: #e5e5e5;
 }

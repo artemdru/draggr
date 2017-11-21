@@ -4,10 +4,10 @@
 [hidden]="isOccupied"
 (mouseup)="onMouseUp()"
 [ngStyle]="style" 
-class="time-increment"
+class="time-increment unoccupied"
 #timeIncrement>
 <div *ngIf="this.date.getMinutes() === 15" class="half-hour"></div>
-<app-task *ngIf="task !== undefined && task.date.getTime() == date.getTime()"
+<app-task *ngIf="task !== undefined && task.date  && task.date.getTime() == date.getTime()"
 [task]=task
 ></app-task>
 </div>
@@ -15,12 +15,12 @@ class="time-increment"
 <!-- OCCUPIED TIME INCREMENT -->
 <div 
 *ngIf="isOccupied"
-(click)="onClick()"
+(mouseup)="onMouseUp()"
 [ngStyle]="style" 
 class="time-increment">
 	<div *ngIf="this.date.getMinutes() === 15" class="half-hour"></div>
 	<div class="task-holder" #myTask>
-		<app-task *ngIf="task !== undefined && task.date.getTime() == date.getTime()"
+		<app-task *ngIf="task !== undefined && task.date && task.date.getTime() == date.getTime()"
 		[task]=task
 		></app-task>
 	</div>

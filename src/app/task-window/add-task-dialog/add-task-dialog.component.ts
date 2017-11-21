@@ -30,6 +30,9 @@ export class AddTaskDialogComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(){
+
+    this.taskService.isDialogOpen = true;
+
   	$('.time-selector').scrollLeft(109*3);
   	this.selectorPos = 109*3;
 
@@ -63,7 +66,7 @@ export class AddTaskDialogComponent implements OnInit, AfterViewInit {
   		if (e.keyCode === 13 && clickable === true){
   			$('.add-task').css("opacity", '0');
   			clickable = false;
-  			$('.add-task').click();
+  			this.addTask();
   			$('.add-task').animate({ opacity: 1}, 500, function(){
   				clickable = true;
   			});
@@ -81,6 +84,7 @@ export class AddTaskDialogComponent implements OnInit, AfterViewInit {
 	            });
             }
         } else if (e.keyCode === 27){
+          this.taskService.isDialogOpen = false;
         	$('.cancel-button').css("background-color", "silver");
         	$('.cancel-button').animate({ opacity: 1}, 500);
         }
@@ -122,5 +126,7 @@ export class AddTaskDialogComponent implements OnInit, AfterViewInit {
 
   closeDialog(){
   	this.dialogRef.close();
+
+    this.taskService.isDialogOpen = false;
   }
 }

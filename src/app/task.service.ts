@@ -8,7 +8,9 @@ export class TaskService {
 	taskAdded = new Subject<Task>();
 	mouseContainer = new Subject<[Task, number, number, number, number]>();
 
-	taskRefresher = new Subject<any>();
+	taskRefresher = new Subject<Task[]>();
+
+	isDialogOpen: boolean = false;
 
 	tasks=[
 	new Task(0, 'Implement flux capacitator marginal dynamicism in quantum field', 60, null, null),
@@ -47,15 +49,18 @@ export class TaskService {
 		}
 	}
 
-	refreshTaskViews(){
-		this.taskRefresher.next(0);
-	}
-
 	addToMouseContainer(id: number, taskX: number, taskY:number, mouseX: number, mouseY: number){
 		this.selectedTask=this.tasks[id];
 		this.selectedTask.previousDate = this.selectedTask.date;
 		this.selectedTask.date = new Date(0);
 		this.mouseContainer.next([this.tasks[id], taskX, taskY, mouseX, mouseY]);
+	}
+
+	sendBackToTaskWindow(){
+		this.selectedTask.date = null;
+		this.taskRefresher.next(this.tasks);
+		this.selectedTask.previousDate = null;
+		this.selectedTask = null;
 	}
 
   constructor() { }

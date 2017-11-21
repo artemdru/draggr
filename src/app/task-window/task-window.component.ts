@@ -5,6 +5,8 @@ import { TaskService } from '../task.service';
 import { Task } from '../task.model';
 import { AddTaskDialogComponent } from './add-task-dialog/add-task-dialog.component';
 
+import { Subscription } from 'rxjs/Subscription';
+
 @Component({
   selector: 'app-task-window',
   templateUrl: './task-window.component.html',
@@ -12,15 +14,21 @@ import { AddTaskDialogComponent } from './add-task-dialog/add-task-dialog.compon
 })
 export class TaskWindowComponent implements OnInit {
 
-
-	timeInputs = [15, 30, 45, 60];
-
 	tasks: Task[];
+
+  taskSubscription: Subscription;
 
   constructor(private taskService: TaskService, public dialog: MatDialog) { }
 
   ngOnInit() {
   	this.tasks=this.taskService.tasks;
+
+    this.taskSubscription = this.taskService.taskRefresher
+      .subscribe(
+        (tasks: Task[]) => {
+          this.tasks = tasks;
+        }
+      );
   }
 
   openDialog(){
@@ -28,10 +36,17 @@ export class TaskWindowComponent implements OnInit {
       width: '750px',
       height: '500px'
     });
+
   }
 
   onDrop(event){
     console.log(event);
+  }
+
+  onMouseUp(){
+    if (this.taskService.selectedTask !== null){
+      this.taskService.sendBackToTaskWindow();          
+    }
   }
   
 }

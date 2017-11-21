@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { Task } from '../task.model';
 import { TaskService } from '../task.service';
+import { TimeIncrementService } from '../time-increment.service';
 
 import * as $ from 'jquery';
 
@@ -41,7 +42,7 @@ export class MouseContainerComponent implements OnInit {
  	task: Task;
  	taskSubscription: Subscription;
 
-  constructor(private taskService: TaskService) { }
+  constructor(private taskService: TaskService, private incService: TimeIncrementService) { }
 
   ngOnInit() {
   	this.taskSubscription = this.taskService.mouseContainer
@@ -64,9 +65,26 @@ export class MouseContainerComponent implements OnInit {
           // this.state == 'left' ? this.state = 'centered' : this.state = 'left';
 
           $('.animate-mouse').css({width: initialWidth, height: initialHeight, left: taskX-mouseX-20, top: -1*(20+mouseY-taskY)});
-          $('.animate-mouse').animate({width: '100%', height: ((task.time/15)*32)-6, left: 0, top: 0}, 200);
+          $('.animate-mouse').animate({width: '90%', height: ((task.time/15)*32)-6, left: 0, top: 0}, 200);
   			}
   			);
+  }
+
+  onMouseUp(){
+    if (this.taskService.selectedTask !== null){
+      if (this.taskService.selectedTask.previousDate !== null){
+        this.incService.moveTask(this.taskService.selectedTask, this.taskService.selectedTask.previousDate);
+        if (this.incService.moveSuccessful === true){
+          this.taskService.selectedTask.date=this.taskService.selectedTask.previousDate;
+          this.taskService.selectedTask.previousDate = new Date(0);
+          this.taskService.emitTask(this.taskService.selectedTask);
+          this.taskService.selectedTask = null;
+        }
+      } else if (this.taskService.selectedTask.previousDate === null){
+        this.taskService.sendBackToTaskWindow();
+      }
+          
+    }
   }
 
 }
