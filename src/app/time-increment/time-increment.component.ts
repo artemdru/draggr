@@ -69,6 +69,31 @@ export class TimeIncrementComponent implements OnInit, OnDestroy {
                 var targetIncrement = new Date(targetDate+(task.time*60000));
                 var previousOccupantID = this.occupantID;
 
+                var movingTask = this.taskService.tasks[this.taskService.getTaskArrayPos(previousOccupantID)];
+
+
+                //TODO: implement a better way to asyncronously emit task. Simply making the moveTask
+                // method return a promise is not enough, maybe try breaking up the entire moveTask
+                // method into multiple promises and .then() calls within itself
+
+                this.incService.moveTask(movingTask, targetIncrement);
+
+                if (this.incService.moveSuccessful === true){
+                  movingTask.date= targetIncrement;
+                }
+                
+                if (movingTask.time === 15){
+                  
+                  setTimeout(() => {
+                    this.taskService.emitTask(movingTask);
+                  }, 1);
+                } else 
+
+                this.taskService.emitTask(movingTask);
+              }
+              this.incService.storeOccupationStatus(this.isOccupied);
+                
+              
 
                 // this.doAsyncTask(this.taskService.tasks[previousOccupantID], targetIncrement)
                 //   .then((result: Task) => {
@@ -103,29 +128,6 @@ export class TimeIncrementComponent implements OnInit, OnDestroy {
                 //     console.log("moving " + task.name + " took this long: " + (Date.now() - startTime));
                 //   });
 
-
-                //TODO: implement a better way to asyncronously emit task. Simply making the moveTask
-                // method return a promise is not enough, maybe try breaking up the entire moveTask
-                // method into multiple promises and .then() calls within itself
-
-                this.incService.moveTask(this.taskService.tasks[previousOccupantID], targetIncrement);
-
-                if (this.incService.moveSuccessful === true){
-                  this.taskService.tasks[previousOccupantID].date= targetIncrement;
-                }
-                
-                if (this.taskService.tasks[previousOccupantID].time === 15){
-                  
-                  setTimeout(() => {
-                    this.taskService.emitTask(this.taskService.tasks[previousOccupantID]);
-                  }, 1);
-                } else 
-
-                this.taskService.emitTask(this.taskService.tasks[previousOccupantID]);
-              }
-              this.incService.storeOccupationStatus(this.isOccupied);
-                
-              
               
 
             } else if (date === this.date.getTime() && code === 1){
@@ -133,6 +135,9 @@ export class TimeIncrementComponent implements OnInit, OnDestroy {
               // unoccupy myself, task is leaving me
               this.isOccupied = false;
               this.occupantID = undefined;
+              if (this.task && !this.task.name){
+                this.task = undefined;
+              }
 
             } else if (date === this.date.getTime() && code === 2){
 
@@ -195,7 +200,7 @@ export class TimeIncrementComponent implements OnInit, OnDestroy {
   }
 
   onClick(){
-    // console.log(this.task, this.occupantID, this.isOccupied);
+    console.log(this.task, this.occupantID, this.isOccupied);
   }
 
   ngOnDestroy(){

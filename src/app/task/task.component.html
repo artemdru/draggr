@@ -4,7 +4,6 @@
 
 #taskContainer
 class="container task-container in-queue unselectable"
-(mousedown)="onMouseDown($event)"
 >
 	<td class="minutes" #timeContainer>
 		<img class="time-icon" src="assets/time.svg" alt="">
@@ -15,14 +14,20 @@ class="container task-container in-queue unselectable"
 		<div class="alignleft" id="hover-buttons" #colorSelector>
 			<img src="assets/color.svg" class="color-selector" alt="">
 		</div>
-		<div class="alignright" id="hover-buttons" #deleteButton>
-			<img src="assets/delete.svg" alt="">
+		<div class="alignright unselectable" id="hover-buttons" #deleteButton style="z-index: 20">
+			<img src="assets/delete.svg" (click)="onDelete()">
 		</div>
+	<div 
+	(mousedown)="onMouseDown($event)"
+	#dragger
+	[style.height]="draggerHeight"
+	class="dragger">
+	</div>
 </div>
 
-<!-- ON CALENDAR -->
+<!-- ON CALENDAR INCOMPLETE -->
 <div
-*ngIf="task.date !== null && task.date.getTime() !== 0"
+*ngIf="task.date !== null && task.date.getTime() !== 0 && task.isComplete === false"
 mwlResizable
 [ngStyle]="style"
 [resizeEdges]="{bottom: true}"
@@ -34,8 +39,8 @@ mwlResizable
 #taskContainer
 class="container task-container on-calendar unselectable"
 >
-	<div class="align-top-left unselectable" id="hover-buttons">
-		<img class="complete-icon" src="assets/complete.svg">
+	<div class="align-top-left unselectable" id="hover-buttons" style="z-index: 20">
+		<img class="complete-icon" src="assets/complete.svg" (click)="onComplete()">
 	</div>
 	
 	<div class="minutes unselectable" #timeContainer>
@@ -49,7 +54,41 @@ class="container task-container on-calendar unselectable"
 		<img src="assets/color.svg" class="color-selector">
 	</div>
 	<div class="alignright unselectable" id="hover-buttons" #deleteButton>
-		<img src="assets/delete.svg">
+		<img src="assets/delete.svg" (click)="onDelete()">
+	</div>
+	<div 
+	(mousedown)="onMouseDown($event)"
+	#dragger
+	[style.height]="draggerHeight"
+	class="dragger">
+	</div>
+	
+</div>
+
+<!-- ON CALENDAR COMPLETE -->
+<div
+*ngIf="task.date !== null && task.date.getTime() !== 0 && task.isComplete"
+[style.height.px]="((task.time/15)*32)-6"
+#taskContainer
+class="container task-container on-calendar unselectable"
+style="background-color: rgba(0, 166, 81, 0.3); cursor: initial !important;"
+>
+	<div class="align-top-left-complete unselectable" id="hover-buttons" style="z-index: 20">
+	<img class="complete-icon" src="assets/complete.svg">
+	</div>
+	
+	<div class="minutes unselectable" #timeContainer style="visibility: hidden;">
+		<img class="time-icon" src="assets/time.svg">
+		<span>{{ getHour(task.time) }} {{ getMinutes(task.time) }}m</span>
+	</div>
+	<div align="center" class="task-name unselectable">
+		<h3 #taskName>{{ (task.name.length>containerWidth)? (task.name | slice:0:containerWidth)+'...':(task.name) }}</h3>
+	</div>
+	<div class="alignleft unselectable" id="hover-buttons" #colorSelector style="visibility: hidden;">
+		<img src="assets/color.svg" class="color-selector">
+	</div>
+	<div class="alignright unselectable" id="hover-buttons" #deleteButton>
+		<img src="assets/delete.svg" (click)="onDelete()" style="cursor: pointer !important;">
 	</div>
 	<div 
 	(mousedown)="onMouseDown($event)"
@@ -60,9 +99,9 @@ class="container task-container on-calendar unselectable"
 	
 </div>
 
-<!-- IN MOUSE CONTAINER -->
+<!-- IN MOUSE CONTAINER INCOMPLETE -->
 <div
-*ngIf="task.date !== null && task.date.getTime() === 0"
+*ngIf="task.date !== null && task.date.getTime() === 0 && task.isComplete === false"
 #taskContainer
 class="container task-container in-mouse-container unselectable"
 >
@@ -92,7 +131,38 @@ class="container task-container in-mouse-container unselectable"
 	
 </div>
 
-
+<!-- IN MOUSE CONTAINER COMPLETE -->
+<div
+*ngIf="task.date !== null && task.date.getTime() === 0 && task.isComplete"
+#taskContainer
+class="container task-container in-mouse-container unselectable"
+style="background-color: rgba(0, 166, 81, 0.3);"
+>
+	<div class="align-top-left-complete unselectable" id="hover-buttons">
+	<img class="complete-icon" src="assets/complete.svg">
+	</div>
+	
+	<div class="minutes unselectable" #timeContainer style="visibility: hidden;">
+		<img class="time-icon" src="assets/time.svg">
+		<span>{{ getHour(task.time) }} {{ getMinutes(task.time) }}m</span>
+	</div>
+	<div align="center" class="task-name unselectable">
+		<h3 #taskName>{{ (task.name.length>containerWidth)? (task.name | slice:0:containerWidth)+'...':(task.name) }}</h3>
+	</div>
+	<div class="alignleft unselectable" id="hover-buttons" #colorSelector style="visibility: hidden;">
+		<img src="assets/color.svg" class="color-selector">
+	</div>
+	<div class="alignright unselectable" id="hover-buttons" #deleteButton>
+		<img src="assets/delete.svg">
+	</div>
+	<div 
+	(mousedown)="onMouseDown($event)"
+	#dragger
+	[style.height]="draggerHeight"
+	class="dragger">
+	</div>	
+	
+</div>
 
 <!-- <div
 *ngIf="task.date !== null"

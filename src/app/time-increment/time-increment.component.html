@@ -3,7 +3,8 @@
 <div 
 [hidden]="isOccupied"
 (mouseup)="onMouseUp()"
-[ngStyle]="style" 
+[ngStyle]="style"
+(click)="onClick()" 
 class="time-increment unoccupied"
 #timeIncrement>
 <div *ngIf="this.date.getMinutes() === 15" class="half-hour"></div>
@@ -16,7 +17,8 @@ class="time-increment unoccupied"
 <div 
 *ngIf="isOccupied"
 (mouseup)="onMouseUp()"
-[ngStyle]="style" 
+[ngStyle]="style"
+(click)="onClick()" 
 class="time-increment">
 	<div *ngIf="this.date.getMinutes() === 15" class="half-hour"></div>
 	<div class="task-holder" #myTask>

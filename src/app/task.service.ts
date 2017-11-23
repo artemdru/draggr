@@ -13,22 +13,40 @@ export class TaskService {
 	isDialogOpen: boolean = false;
 
 	tasks=[
-	new Task(0, 'Implement flux capacitator marginal dynamicism in quantum field', 60, null, null),
-	new Task(1, 'Stand-up Meeting', 45, null, null)
+	new Task(0, 'Implement flux capacitator marginal dynamicism in quantum field', 60, null, null, false),
+	new Task(1, 'Stand-up Meeting', 45, null, null, false),
+	new Task(2, 'Write unit test for tasks', 75, null, null, false),
+	new Task(3, 'Debug task snapping on complete', 45, null, null, false),
+
 	];
 
 	selectedTask: Task = null;
 
+	public nextTaskID: number;
+
 	getNewTaskID(){
-		return this.tasks.length;
+		return this.nextTaskID;
+	}
+
+	getTaskArrayPos(taskID: number){
+		let _i = 0;
+		for (let task of this.tasks){
+			if (task.id === taskID){
+				return _i;
+			}
+		_i++;	
+		}
 	}
 
 	addTask(task: Task){
 		this.tasks.push(task);
+		this.nextTaskID++;
+		console.log(this.tasks);
 	}
 
 	selectTask(taskNumb: number){
-		this.selectedTask=this.tasks[taskNumb];
+		this.selectedTask=this.tasks[this.getTaskArrayPos(taskNumb)];
+
 	}
 
 	emitTask(task: Task){
@@ -50,10 +68,10 @@ export class TaskService {
 	}
 
 	addToMouseContainer(id: number, taskX: number, taskY:number, mouseX: number, mouseY: number){
-		this.selectedTask=this.tasks[id];
+		this.selectTask(id);
 		this.selectedTask.previousDate = this.selectedTask.date;
 		this.selectedTask.date = new Date(0);
-		this.mouseContainer.next([this.tasks[id], taskX, taskY, mouseX, mouseY]);
+		this.mouseContainer.next([this.tasks[this.getTaskArrayPos(id)], taskX, taskY, mouseX, mouseY]);
 	}
 
 	sendBackToTaskWindow(){
@@ -61,6 +79,22 @@ export class TaskService {
 		this.taskRefresher.next(this.tasks);
 		this.selectedTask.previousDate = null;
 		this.selectedTask = null;
+	}
+
+	deleteTask(taskID: number){
+		let i = this.getTaskArrayPos(taskID);
+
+		if (this.tasks[i].date !== null){
+		this.emitTask(new Task(undefined, null, null, this.tasks[i].date, null, null));
+		}
+
+
+		if (this.selectedTask !== null){
+			this.mouseContainer.next([new Task(undefined, null, null, new Date(0), null, null), 0, 0, 0, 0]);
+		}
+		this.tasks.splice(i, 1);
+		this.selectedTask = null;
+		console.log(this.tasks);
 	}
 
   constructor() { }

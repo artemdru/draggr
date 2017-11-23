@@ -38,12 +38,18 @@ export class TaskComponent implements OnInit, AfterViewInit {
   timeContainerEl: any;
   colorSelectorEl: any;
   deleteButtonEl: any;
+  completeButtonEl: any;
 
   previousHeight: number;
   containerWidth: number;
   draggerHeight = "80%";
 
   offset: string = '89px';
+
+  completeClickable: boolean = true;
+  initSinceCompleted: boolean = false;
+
+  recordedRect: any;
 
   taskRefresher: Subscription;
 
@@ -65,12 +71,16 @@ export class TaskComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(){
+    if (this.task.isComplete){
+      this.initSinceCompleted = true;
+    }
 
     this.taskEl = this.taskContainer.nativeElement;
     this.taskNameEl = this.taskNameElRef.nativeElement;
     this.timeContainerEl = this.timeContainerElRef.nativeElement;
     this.colorSelectorEl = this.colorSelectorElRef.nativeElement;
     this.deleteButtonEl = this.deleteButtonElRef.nativeElement;
+
 
     if (this.task.date === null){
       this.containerWidth = (Math.round(this.taskEl.offsetWidth/9));
@@ -102,7 +112,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
 
       let freedBlocks = (this.previousHeight - event.rectangle.height)/32
 
-      let proposedTask: Task = new Task(this.task.id, this.task.name, ((event.rectangle.height+6)/32) * 15, this.task.date, this.task.date);
+      let proposedTask: Task = new Task(this.task.id, this.task.name, ((event.rectangle.height+6)/32) * 15, this.task.date, this.task.date, this.task.isComplete);
       this.incService.moveTask(proposedTask, proposedTask.date);
       if (this.incService.moveSuccessful){
         console.log("freed blocks " + freedBlocks);
@@ -122,7 +132,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
     if (event.rectangle.height > this.previousHeight){
       // console.log("taskComponent saw increase in size");
 
-      let proposedTask: Task = new Task(this.task.id, this.task.name, ((event.rectangle.height+6)/32) * 15, this.task.date, this.task.previousDate);
+      let proposedTask: Task = new Task(this.task.id, this.task.name, ((event.rectangle.height+6)/32) * 15, this.task.date, this.task.previousDate, this.task.isComplete);
       this.incService.moveTask(proposedTask, proposedTask.date);
       if (this.incService.moveSuccessful){
             // $(this.taskEl).stop();
@@ -141,7 +151,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
 
     setTimeout(() => {
       if (this.draggerHeight === "0"){
-        this.draggerHeight = "60%";
+        this.draggerHeight = "80%";
       }
       
       
@@ -212,7 +222,27 @@ export class TaskComponent implements OnInit, AfterViewInit {
     const rect = this.taskEl.getBoundingClientRect();
     this.taskService.selectTask(this.task.id);
     this.incService.moveTask(this.taskService.selectedTask, new Date(0));
-    this.taskService.addToMouseContainer(this.task.id, rect.left, rect.top, event.pageX, event.pageY);
+
+
+    // this logic fixes bug where dragging a completed task before it has triggered ngAfterViewInit causes
+    // the rect to have coords of 0,0 - thus, being dragged in to mouse container from top left
+    if (this.task.isComplete && !this.initSinceCompleted){
+      this.taskService.addToMouseContainer(this.task.id, this.recordedRect.left, this.recordedRect.top, event.pageX, event.pageY);
+      this.initSinceCompleted = true;
+    } this.taskService.addToMouseContainer(this.task.id, rect.left, rect.top, event.pageX, event.pageY);
     
+  }
+
+  onComplete(){
+      this.recordedRect = this.taskEl.getBoundingClientRect();
+      this.task.isComplete = !this.task.isComplete;
+  }
+
+  onDelete(){
+      this.taskService.deleteTask(this.task.id);
+
+      if (this.task.date !== null){
+      this.incService.unoccupyLastTime(this.task, this.task.date, this.task.time/15);
+      }
   }
 }

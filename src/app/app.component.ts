@@ -25,6 +25,8 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.dates = this.dateService.dates;
+
+    this.taskService.nextTaskID = this.taskService.tasks[this.taskService.tasks.length-1].id + 1;
   }
 
   ngAfterViewInit() {
@@ -51,6 +53,9 @@ export class AppComponent implements OnInit, AfterViewInit {
         $('app-mouse-container').css("z-index", "-20");
       });
     });
+
+    // scroll to the present hour
+    $('.vert-scroll').scrollTop((new Date().getHours()-1)*128);
   }
 
   onResize(){

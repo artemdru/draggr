@@ -110,7 +110,8 @@ export class AddTaskDialogComponent implements OnInit, AfterViewInit {
       this.taskName.nativeElement.value,
       (this.selectorPos+109)/109*15,
       null,
-      null
+      null,
+      false
       );
 
     this.taskService.addTask(newTask);

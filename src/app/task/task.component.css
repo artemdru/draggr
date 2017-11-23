@@ -27,7 +27,7 @@
 
 .dragger{
 	position: absolute;
-	width: 100%;
+	width: 80%;
 	top: 0;
 }
 
@@ -116,6 +116,12 @@ h3{
 
 .align-top-left{
 	opacity: 0;
+	position: absolute;
+	top: 1.5px;
+	left: 4px;
+}
+
+.align-top-left-complete{
 	position: absolute;
 	top: 1.5px;
 	left: 4px;
