@@ -1,0 +1,24 @@
+
+.present{
+/*	top: 600px;*/
+	z-index: 0;
+	position: absolute;
+	height: 1px;
+	width: 23.7916vw;
+	min-width: 388.5px;
+}
+
+.present-arrow{
+	height: 7px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+
+.present-bar{
+	position: absolute;
+	top: 3.5px;
+	background-color: #ec1e24;
+	height: 1px;
+	width: 100%;
+}

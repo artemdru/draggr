@@ -9,7 +9,7 @@ import { Task } from '../task.model';
   templateUrl: './date.component.html',
   styleUrls: ['./date.component.css']
 })
-export class DateComponent implements OnInit, OnDestroy {
+export class DateComponent implements OnInit, OnDestroy{
 
 	@Input() date: Date;
   task: Task;
@@ -19,6 +19,8 @@ export class DateComponent implements OnInit, OnDestroy {
 	thisDay;
   incrementedDate: Date;
   timeIncrements: Date[] = [];
+
+  isToday: boolean = false;
 
   constructor(private taskService: TaskService) { }
 
@@ -31,7 +33,12 @@ export class DateComponent implements OnInit, OnDestroy {
         this.timeIncrements[_i] = this.incrementedDate;
         this.incrementedDate = this.taskService.addMinutesToDate(this.incrementedDate, 15);
       }
+
+    if (this.date.getDate() == new Date().getDate()){
+      this.isToday = true;
+    }
   }
+
 
   ngOnDestroy() {
     // this.subscription.unsubscribe();

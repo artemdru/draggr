@@ -9,6 +9,7 @@ html,body
 
 .vert-scroll{
   overflow-x: hidden;
+  /*overflow-y: hidden;*/
   overflow-y: scroll;
       height: 93.8005vh;
 }

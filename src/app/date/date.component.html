@@ -1,6 +1,9 @@
 <div class="col day" style="padding: 0; margin: 0">
-<app-time-increment
-*ngFor="let timeIncrement of timeIncrements" [date]=timeIncrement></app-time-increment>
+	<app-present-indicator *ngIf="isToday"></app-present-indicator>
+
+	<app-time-increment
+	*ngFor="let timeIncrement of timeIncrements" [date]=timeIncrement></app-time-increment>
+	
 </div>
 
 

@@ -23,6 +23,7 @@ import { AddTaskDialogComponent } from './task-window/add-task-dialog/add-task-d
 import { MatDialogModule } from '@angular/material';
 import { MatFormFieldModule, MatInputModule } from '@angular/material';
 import { MouseContainerComponent } from './mouse-container/mouse-container.component';
+import { PresentIndicatorComponent } from './date/present-indicator/present-indicator.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { MouseContainerComponent } from './mouse-container/mouse-container.compo
     TimebarComponent,
     DayButtonComponent,
     AddTaskDialogComponent,
-    MouseContainerComponent
+    MouseContainerComponent,
+    PresentIndicatorComponent
   ],
   imports: [
     BrowserModule,
