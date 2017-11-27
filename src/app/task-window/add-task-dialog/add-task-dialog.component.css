@@ -21,10 +21,12 @@ mat-form-field{
 		width: 326.64px;
 	background: -webkit-linear-gradient(left, white, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, transparent, white);
 	position: relative;
+	overflow-y: hidden;
 }
 
 .time-selector{
 	overflow-x: hidden;
+	overflow-y: hidden;
 	height: 80px;
 	width: 326.64px;
 	margin-top: 10px !important;

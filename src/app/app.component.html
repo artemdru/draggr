@@ -7,60 +7,83 @@
   </div>
 
 
-  <div class="col" style="padding: 0; height: 100vh; width: 75.1388vw; min-width: 417.66px;">
+  <div class="col" style="padding: 0; height: 100vh; min-width: 417.66px;">
 
     
     <div class="row" style="margin: 0; padding: 0;" (mouseup)="onMouseUp()">
-    <!-- LEFT BUTTON -->
-    <div class="col-md-auto col-12" style="margin: 0; padding: 0;">
-      <app-day-button (click)="backDay()" [dir]="'L'"></app-day-button>
-    </div>
+      <!-- LEFT BUTTON -->
+      <div class="col-md-auto col-12" style="margin: 0; padding: 0;">
+        <!-- <div style="background-color: red; width: 42px; height: 40px;"></div> -->
+        <app-day-button (click)="backDay()" [dir]="'L'"></app-day-button>
+      </div>
 
 
-    <!-- DAYS OTW -->
-    <div class="col" style="margin: 0; padding: 0; width: 4%">
-          <div class="days-otw" id="hor-scroll">
-      <div class="row wrapper">
-      <app-days-otw *ngFor="let date of dates" [date]=date></app-days-otw>
-    </div>
-    </div>
-    </div>
+      <!-- DAYS OTW -->
+      <div class="col" style="margin: 0; padding: 0; width: 4%">
+        <div class="days-otw" id="hor-scroll">
+          <div class="row wrapper">
+            <app-days-otw *ngFor="let date of dates" [date]=date></app-days-otw>
+          </div>
+        </div>
+      </div>
 
 
 
-    <!-- RIGHT BUTTON -->
-    <div class="col-md-auto col-12" style="margin: 0; padding: 0;">
-      <app-day-button (click)="fwdDay()" [dir]="'R'"></app-day-button>
-    </div>
+      <!-- RIGHT BUTTON -->
+      <div class="right-button" style="margin: 0; padding: 0;">
+        <!-- <div style="background-color: red; width: 42px; height: 40px;"></div> -->
+        <app-day-button (click)="fwdDay()" [dir]="'R'"></app-day-button>
+      </div>
 
     </div>
     
-    <div class="vert-scroll" (scroll)="keepScroll()">
+    <!-- CHROME/SAFARI CALENDAR -->
+    <div *ngIf="browserName == 'chrome'" class="vert-scroll" (scroll)="keepScroll()" #vertScroll>
 
       
       <div class="row" style="margin: 0; padding: 0">
 
-      <!-- TIME BAR -->
-      <div class="col-md-auto col-12" style="margin: 0; padding: 0;">
-        <app-timebar></app-timebar>
+        <!-- TIME BAR -->
+        <div class="col-md-auto col-12" style="margin: 0; padding: 0;">
+          <app-timebar></app-timebar>
+        </div>
+
+
+        <!-- TIME INCREMENTS -->
+        <div class="col" style="padding: 0 0 0 0; width: 4%">
+          <div class="calendar" id="hor-scroll" style="margin: 0; padding: 0">
+              <div class="row wrapper" style="margin: 0; padding: 0">
+                <app-date *ngFor="let date of dates" [date]=date id="date"></app-date>
+              </div>
+            </div>  
+        </div>
       </div>
-
-
-      <!-- TIME INCREMENTS -->
-      <div class="col" style="padding: 0 0 0 0; width: 4%">
-        <div class="calendar" id="hor-scroll" style="margin: 0; padding: 0">
-            <div class="row wrapper" style="margin: 0; padding: 0">
-              <app-date *ngFor="let date of dates" [date]=date id="date"></app-date>
-            </div>
-          </div>  
-      </div>
-      </div>
-
-
-
-
-        
     </div>
+
+
+    <!-- FIREFOX CALENDAR -->
+    <div *ngIf="browserName == 'firefox'" class="vert-scroll" (scroll)="keepScroll()" malihu-scrollbar [scrollbarOptions]="scrollbarOptions" #vertScroll>
+
+      
+      <div class="row" style="margin: 0; padding: 0">
+
+        <!-- TIME BAR -->
+        <div class="col-md-auto col-12" style="margin: 0; padding: 0;">
+          <app-timebar></app-timebar>
+        </div>
+
+
+        <!-- TIME INCREMENTS -->
+        <div class="col" style="padding: 0 0 0 0; width: 4%">
+          <div class="calendar" id="hor-scroll" style="margin: 0; padding: 0">
+              <div class="row wrapper" style="margin: 0; padding: 0">
+                <app-date *ngFor="let date of dates" [date]=date id="date"></app-date>
+              </div>
+            </div>  
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 

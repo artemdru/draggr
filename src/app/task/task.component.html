@@ -14,7 +14,7 @@ class="container task-container in-queue unselectable"
 		<div class="alignleft" id="hover-buttons" #colorSelector>
 			<img src="assets/color.svg" class="color-selector" alt="">
 		</div>
-		<div class="alignright unselectable" id="hover-buttons" #deleteButton style="z-index: 20">
+		<div class="alignright unselectable" id="hover-buttons" #deleteButton>
 			<img src="assets/delete.svg" (click)="onDelete()">
 		</div>
 	<div 
@@ -53,7 +53,7 @@ class="container task-container on-calendar unselectable"
 	<div class="alignleft unselectable" id="hover-buttons" #colorSelector>
 		<img src="assets/color.svg" class="color-selector">
 	</div>
-	<div class="alignright unselectable" id="hover-buttons" #deleteButton>
+	<div class="alignright unselectable" id="hover-buttons" style="z-index: 20" #deleteButton>
 		<img src="assets/delete.svg" (click)="onDelete()">
 	</div>
 	<div 
@@ -74,7 +74,7 @@ class="container task-container on-calendar unselectable"
 style="background-color: rgba(0, 166, 81, 0.3); cursor: initial !important;"
 >
 	<div class="align-top-left-complete unselectable" id="hover-buttons" style="z-index: 20">
-	<img class="complete-icon" src="assets/complete.svg">
+	<img class="complete-icon" src="assets/complete.svg" (click)="onComplete()">
 	</div>
 	
 	<div class="minutes unselectable" #timeContainer style="visibility: hidden;">
@@ -87,7 +87,7 @@ style="background-color: rgba(0, 166, 81, 0.3); cursor: initial !important;"
 	<div class="alignleft unselectable" id="hover-buttons" #colorSelector style="visibility: hidden;">
 		<img src="assets/color.svg" class="color-selector">
 	</div>
-	<div class="alignright unselectable" id="hover-buttons" #deleteButton>
+	<div class="alignright unselectable" id="hover-buttons" style="z-index: 20"  #deleteButton>
 		<img src="assets/delete.svg" (click)="onDelete()" style="cursor: pointer !important;">
 	</div>
 	<div 

@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "ng build --prod --base-href https://artemdru.github.io/draggr/" 
+    "deploy": "ng build --prod --base-href https://artemdru.github.io/draggr/"
   },
   "private": true,
   "dependencies": {
@@ -27,6 +27,7 @@
     "angular-resizable-element": "^1.2.4",
     "bootstrap": "^4.0.0-beta.2",
     "core-js": "^2.4.1",
+    "detect-browser": "^2.0.0",
     "jquery": "^3.2.1",
     "ngx-bootstrap": "^1.9.3",
     "ngx-malihu-scrollbar": "^1.2.2",

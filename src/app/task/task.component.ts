@@ -224,18 +224,40 @@ export class TaskComponent implements OnInit, AfterViewInit {
     this.incService.moveTask(this.taskService.selectedTask, new Date(0));
 
 
+    // * DEPRECATED * left here in case it's needed
     // this logic fixes bug where dragging a completed task before it has triggered ngAfterViewInit causes
     // the rect to have coords of 0,0 - thus, being dragged in to mouse container from top left
-    if (this.task.isComplete && !this.initSinceCompleted){
-      this.taskService.addToMouseContainer(this.task.id, this.recordedRect.left, this.recordedRect.top, event.pageX, event.pageY);
-      this.initSinceCompleted = true;
-    } this.taskService.addToMouseContainer(this.task.id, rect.left, rect.top, event.pageX, event.pageY);
+    // if (this.task.isComplete && !this.initSinceCompleted){
+    //   this.taskService.addToMouseContainer(this.task.id, this.recordedRect.left, this.recordedRect.top, event.pageX, event.pageY);
+    //   this.initSinceCompleted = true;
+    // }
+
+    this.taskService.addToMouseContainer(this.task.id, rect.left, rect.top, event.pageX, event.pageY);
     
   }
 
   onComplete(){
       this.recordedRect = this.taskEl.getBoundingClientRect();
       this.task.isComplete = !this.task.isComplete;
+
+        // Quickly send to mouse container and back to trigger AfterViewInit
+        // Properly styles task when (un)completed
+        this.taskService.selectTask(this.task.id);
+        this.incService.moveTask(this.taskService.selectedTask, new Date(0));        
+        this.taskService.addToMouseContainer(this.task.id, this.recordedRect.left, this.recordedRect.top, this.recordedRect.left, this.recordedRect.top);
+
+        setTimeout(() => {
+          if (this.taskService.selectedTask !== null){
+          this.incService.moveTask(this.taskService.selectedTask, this.task.previousDate);
+            if (this.incService.moveSuccessful === true){
+              this.taskService.selectedTask.date=this.task.previousDate;
+              this.taskService.emitTask(this.taskService.selectedTask);
+              this.taskService.selectedTask = null;
+            }
+          }
+        }, 1);        
+        
+      
   }
 
   onDelete(){

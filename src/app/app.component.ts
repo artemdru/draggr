@@ -1,11 +1,14 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import * as $ from 'jquery';
+import { detect } from 'detect-browser';
 
 import { DateService } from './date.service';
 
 import { TaskService } from './task.service';
 import { TimeIncrementService } from './time-increment.service';
+
+import { MalihuScrollbarService } from 'ngx-malihu-scrollbar';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +16,9 @@ import { TimeIncrementService } from './time-increment.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, AfterViewInit {
+
+  @ViewChild('vertScroll') vertScroll: ElementRef;
+
   title = 'app';
 
   dates: Date[];
@@ -21,12 +27,27 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   isScrollable = true;
 
-  constructor(private dateService: DateService, private taskService: TaskService, private incService: TimeIncrementService){}
+  browserName: string;
+  public scrollbarOptions = {};
+
+  constructor(private dateService: DateService, 
+    private taskService: TaskService, 
+    private incService: TimeIncrementService,
+    private mScrollbarService: MalihuScrollbarService){}
 
   ngOnInit() {
     this.dates = this.dateService.dates;
 
     this.taskService.nextTaskID = this.taskService.tasks[this.taskService.tasks.length-1].id + 1;
+
+    const browser = detect();
+    if (browser) {
+      this.browserName = browser.name;
+    }
+
+    if (this.browserName === 'firefox'){
+      this.scrollbarOptions = { axis: 'y', theme: 'minimal-dark', scrollInertia: 300 };
+    } else this.scrollbarOptions = { axis: 'y', theme: 'minimal-dark', scrollInertia: 75, mouseWheel:{ scrollAmount: 50 } };
   }
 
   ngAfterViewInit() {
@@ -39,6 +60,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     //   e.stopPropagation();
     //   return false;
     // })
+
+    // Hide the scrollbar on calendar
+    $('#mCSB_1_scrollbar_vertical').css("right", "-20px");
+
     (<any>$('body')).mousedown((e) => {
       $('app-mouse-container').css("z-index", "20");
       $('app-mouse-container').offset({ left: e.pageX+20, top: e.pageY+20 });
@@ -55,6 +80,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     });
 
     // scroll to the present hour
+    this.mScrollbarService.scrollTo(this.vertScroll.nativeElement, (new Date().getHours()-1)*128, this.scrollbarOptions);
     $('.vert-scroll').scrollTop((new Date().getHours()-1)*128);
   }
 

@@ -14,7 +14,18 @@
 			<div class="field-container" align="center"><input class="search-field" placeholder="Search tasks..."></div>
 			
 		</div>
-		<div class="task-window">
+
+		<!-- CHROME/SAFARI TASK WINDOW -->
+		<div *ngIf="browserName != 'firefox'" class="task-window">
+			<ng-container *ngFor="let task of tasks; let i = index">
+				<app-task *ngIf="task.date === null"
+				[task]="task"
+				[id]="i"></app-task>
+			</ng-container>
+		</div>
+
+		<!-- FIREFOX TASK WINDOW -->
+		<div *ngIf="browserName == 'firefox'" class="task-window" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
 			<ng-container *ngFor="let task of tasks; let i = index">
 				<app-task *ngIf="task.date === null"
 				[task]="task"

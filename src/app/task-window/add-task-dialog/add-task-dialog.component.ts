@@ -36,8 +36,8 @@ export class AddTaskDialogComponent implements OnInit, AfterViewInit {
   	$('.time-selector').scrollLeft(109*3);
   	this.selectorPos = 109*3;
 
-  	(<any>$('body')).on('mousewheel', (event) => {
-  		if (event.originalEvent.deltaY < 0) {
+  	(<any>$('body')).on('mousewheel DOMMouseScroll', (event) => {
+  		if (event.originalEvent.deltaY < 0 || event.detail<0) {
   			            if (this.selectorPos < 2507){
             	this.selectorPos+=109;
             	$('.time-selector').animate({scrollLeft: this.selectorPos}, 50);
@@ -47,7 +47,7 @@ export class AddTaskDialogComponent implements OnInit, AfterViewInit {
             
             
         }
-        else if (event.originalEvent.deltaY > 0){
+        else if (event.originalEvent.deltaY > 0 || event.detail>0){
         	            if (this.selectorPos > 0){
             this.selectorPos-=109;
             $('.time-selector').animate({scrollLeft:  this.selectorPos}, 50);

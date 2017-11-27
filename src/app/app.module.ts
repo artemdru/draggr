@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ResizableModule } from 'angular-resizable-element';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCheckboxModule } from '@angular/material';
+import { MalihuScrollbarModule } from 'ngx-malihu-scrollbar';
 
 import { AppComponent } from './app.component';
 import { DateComponent } from './date/date.component';
@@ -51,7 +52,8 @@ import { PresentIndicatorComponent } from './date/present-indicator/present-indi
     MatCheckboxModule,
     MatDialogModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MalihuScrollbarModule.forRoot()
   ],
   providers: [
     TaskService, 

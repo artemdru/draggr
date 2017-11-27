@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { detect } from 'detect-browser';
 
 import { TaskService } from '../task.service';
 import { Task } from '../task.model';
@@ -18,6 +19,10 @@ export class TaskWindowComponent implements OnInit {
 
   taskSubscription: Subscription;
 
+  public scrollbarOptions = {};
+
+  browserName: string;
+
   constructor(private taskService: TaskService, public dialog: MatDialog) { }
 
   ngOnInit() {
@@ -29,6 +34,15 @@ export class TaskWindowComponent implements OnInit {
           this.tasks = tasks;
         }
       );
+
+    const browser = detect();
+    if (browser) {
+      this.browserName = browser.name;
+    }
+
+    if (this.browserName === 'firefox'){
+      this.scrollbarOptions = { axis: 'y', theme: 'minimal-dark', scrollInertia: 300, scrollbarPosition: 'inside' };
+    }
   }
 
   openDialog(){

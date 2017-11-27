@@ -12,6 +12,7 @@
 }
 
 .task-window{
+	position: relative;
 	margin-top: 30px;
 	min-height: 200px;
 	height: 80vh;

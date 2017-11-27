@@ -7,6 +7,10 @@ html,body
 /*    overflow: hidden; */
 }
 
+.row{
+  flex-wrap: nowrap;
+}
+
 .vert-scroll{
   overflow-x: hidden;
   /*overflow-y: hidden;*/
@@ -33,8 +37,15 @@ html,body
 .days-otw{
     overflow-x: hidden;
  /* width: 63.6111vw;*/
- width: 100%;
+ /*width: 100%;*/
  min-width: 388.5px;
+}
+
+.right-button{
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 56.97px;
 }
 
 app-mouse-container{
@@ -53,3 +64,4 @@ app-mouse-container{
     width: 0px;
     background: transparent;
 }
+
