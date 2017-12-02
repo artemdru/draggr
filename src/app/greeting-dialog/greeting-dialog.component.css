@@ -1,0 +1,140 @@
+.backdrop{
+	background-color: #43544B;
+	width: 750px;
+	position: absolute;
+	top: -24px;
+	left: -100px;
+	height: 160px;
+}
+
+input{
+	font-size: 24px;
+	font-weight: 300;
+	font-family: 'Roboto', sans-serif;
+}
+
+h3{
+	font-family: 'Roboto', sans-serif;
+	font-size: 32px;
+	text-align: center;
+}
+
+mat-form-field{
+	width: 300px;
+}
+
+
+.btn-primary:active, .btn-primary:visited {
+    background-color: #006d34 !important;
+}
+
+.add-task{
+	position: relative;
+	background-color: #00A651;	
+	color: white;
+	border-color: transparent;
+}
+
+.cancel-button{
+	background-color: transparent;
+}
+
+.cancel-button:hover, .cancel-button:active, .cancel-button:visited {
+    background-color: silver !important;
+}
+
+button{
+	font-family: 'Roboto', sans-serif;
+	font-weight: 250;
+	margin-top: 20px;
+	width: 200px;
+	height: 80px;
+	font-size: 30px;
+}
+
+.sign-up-link{
+	font-family: 'Roboto', sans-serif;
+	font-weight: 2000;
+	font-size: 24px !important;
+}
+
+.sign-up-link:hover{
+	color:  #00A651;
+}
+
+input#sign-up-input{
+	display: none;
+}
+
+input#sign-up-input:checked ~ .log-in-screen{
+	max-height: 0px;
+
+  	-o-transition: max-height 0.5s ease-in;
+	-moz-transition: max-height 0.5s ease-in;
+	-ms-transition: max-height 0.5s ease-in;
+	-webkit-transition: max-height 0.5s ease-in;
+  	transition: max-height 0.5s ease-in;
+}
+
+input#sign-up-input:checked ~ .register-screen{
+	max-height: 324px;
+
+  	-o-transition: max-height 0.5s ease-in;
+	-moz-transition: max-height 0.5s ease-in;
+	-ms-transition: max-height 0.5s ease-in;
+	-webkit-transition: max-height 0.5s ease-in;
+  	transition: max-height 0.5s ease-in;
+}
+
+input#sign-up-input:checked ~ .nevermind{
+	opacity: 1;
+}
+
+
+
+.log-in-screen{
+	max-height: 324px;
+	overflow: hidden;
+	transition: max-height 0.5s ease-out;
+}
+
+.register-screen{
+	max-height: 0px;
+	overflow: hidden;
+	transition: max-height 0.5s ease-out;
+}
+
+.nevermind{
+	opacity: 0;
+	cursor: pointer;
+	position: absolute;
+	top: 150px;
+	right: -30px;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 2000;
+
+  	-o-transition: opacity 0.5s ease-out;
+	-moz-transition: opacity 0.5s ease-out;
+	-ms-transition: opacity 0.5s ease-out;
+	-webkit-transition: opacity 0.5s ease-out;
+	transition: opacity 0.5s ease-out;
+}
+
+.nevermind:hover{
+	color:  #00A651;
+}
+
+.arrow-up {
+  width: 0; 
+  height: 0; 
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  
+  border-bottom: 5px solid black;
+}
+
+::-webkit-scrollbar {
+    height: 0px;
+    width: 0px;
+    background: transparent;
+}

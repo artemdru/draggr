@@ -31,39 +31,39 @@
 	width: 240px;
 }
 
+.btn-primary:active, .btn-primary:visited {
+    background-color: #006d34 !important;
+}
+
+
 .task-modal{
-	float: left;
 	background-color: #00A651;
-	
 	height: 36px;
 	width: 36px;
-	padding: 0;
-	margin-left: 10%;
-	margin-right: 0;
 	border-radius: 7px;
+	border-color: transparent !important;
 }
 
 .button-plus{
+	position: absolute;
+	top: 7px;
+	left: 7px;
 	height: 23px;
 	color: white;
-
-	margin: 0;
-	padding: 0;
-	position: relative;
-	top: 0px;
-	bottom: 0px;
 }
 
 .search-and-add{
 	margin-top: 20px;
+	height: 36px; 
+	width: 80%; 
+	margin-left: 10%;
 }
 
 .field-container{
 	background-color: white;
 	border-radius: 7px;
 	height: 36px;
-	width: 69%;
-	margin-left: 21%;
+	width: 100%;
 }
 
 .search-field{
@@ -77,6 +77,64 @@
 	font-family: 'Roboto', sans-serif;
 }
 
+input#options-toggle{
+	display: none;
+}
+
+input:checked ~ ul.submenu{
+  	max-height: 300px;
+  	-o-transition: max-height 0.5s ease-in;
+	-moz-transition: max-height 0.5s ease-in;
+	-ms-transition: max-height 0.5s ease-in;
+	-webkit-transition: max-height 0.5s ease-in;
+  	transition: max-height 0.5s ease-in;
+}
+
+input:checked ~ label{
+	-o-transform: rotate(90deg);
+	-moz-transform: rotate(90deg);
+	-ms-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+label{
+	-o-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-ms-transition: all 0.5s ease;
+	-webkit-transition: all 0.5s ease;
+	transition: all 0.5s ease; 
+}
+
+ul.submenu{
+	max-height: 0;
+	padding: 0;
+	overflow: hidden;
+	transition: max-height 0.5s ease-out;
+	position: absolute;
+	top: 36px;
+	right: -180px;
+	width: 200px;
+	z-index: 25;
+	list-style-type: none;
+	background: white;
+  	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+ul.submenu li a{
+	padding: 8px;
+	font-size: 16px;
+	font-weight: 300;
+	font-family: 'Roboto', sans-serif;
+}
+
+ul.submenu li {
+	border-bottom: solid 1px rgba(0,0,0,.1);
+}
+
+ul.submenu li:hover{
+  	background: rgba(0,0,0,.1);
+}
 
 ::-webkit-scrollbar {
     width: 0px;

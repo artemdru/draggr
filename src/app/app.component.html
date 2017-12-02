@@ -38,7 +38,7 @@
     </div>
     
     <!-- CHROME/SAFARI CALENDAR -->
-    <div *ngIf="browserName == 'chrome'" class="vert-scroll" (scroll)="keepScroll()" #vertScroll>
+    <div *ngIf="browserName == 'chrome' || browserName == 'safari'" class="vert-scroll" (scroll)="keepScroll()" #vertScroll>
 
       
       <div class="row" style="margin: 0; padding: 0">

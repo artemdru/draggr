@@ -62,19 +62,42 @@ svg{
 	margin-top:-40px;
 }
 
-.add-task{
-			margin-left: -205px;
-	background-color: #00A651;	
-	color: white;
+.btn-primary:active, .btn-primary:visited {
+    background-color: #006d34 !important;
 }
 
-.clicked{
+
+
+
+.add-task{
+	position: absolute;
+			/*margin-left: -205px;*/
 	background-color: #00A651;	
 	color: white;
+	border-color: transparent;
 	filter: brightness(80%);
 }
 
+.clicked{
+	position: relative;
+	background-color: #00A651;	
+	color: white;
+	border-color: transparent;
+	
+}
+
+.cancel-button{
+	background-color: transparent;
+}
+
+.cancel-button:hover, .cancel-button:active, .cancel-button:visited {
+    background-color: silver !important;
+}
+
+
 button{
+	font-family: 'Roboto', sans-serif;
+	font-weight: 250;
 	margin-top: 40px;
 	width: 200px;
 	height: 80px;

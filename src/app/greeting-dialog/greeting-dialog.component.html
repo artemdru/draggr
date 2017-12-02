@@ -1,0 +1,58 @@
+
+<div class="container" id="dialog" style="width: 550px; height: 300px; position: relative;">
+	<div class="backdrop"></div>
+	<div class="container-fluid" align="center" style="width: 500px; position: relative;">
+
+		<img src="assets/logo.svg" class="logo" alt="">
+		<input id="sign-up-input" type="checkbox">
+		<div class="log-in-screen" id="log-in-screen">
+
+			<mat-form-field style="margin-top: 20px;">
+				<input matInput placeholder="Email" #email>
+			</mat-form-field>
+
+			<mat-form-field>
+				<input matInput placeholder="Password" #password>
+			</mat-form-field>
+
+
+
+			<div>
+				<button 
+				type="button"
+				class="btn btn-primary add-task"
+				(click)="addTask()">
+				Log In</button>
+
+					<button class="btn cancel-button" (click)="closeDialog()">Try Demo</button>
+			</div>
+			<p style="margin-top: 15px; font-size: 20px;">New? 
+				
+				<label for="sign-up-input" class="sign-up-link" style="cursor: pointer;">Sign up</label>
+
+				 now!</p>
+		</div>
+
+		<div class="register-screen">
+			<mat-form-field>		
+				<h3 style="margin-bottom: 10px;">Email</h3>
+				<input style="text-align: center;" matInput #taskName>
+			</mat-form-field>
+			<mat-form-field style="border-top: none !important;">		
+				<h3 style="margin-bottom: 10px;">Password</h3>
+				<input style="text-align: center;" matInput #taskName>
+			</mat-form-field>
+				<button
+				style="margin-top: 0px !important;" 
+				type="button"
+				class="btn btn-primary add-task"
+				(click)="addTask()">
+				Sign up</button>
+
+		</div>
+		<label for="sign-up-input" class="nevermind"><div class="arrow-up"></div>Nevermind...</label>
+
+		
+				
+	</div>
+</div>

@@ -23,6 +23,8 @@ export class TaskWindowComponent implements OnInit {
 
   browserName: string;
 
+  searchValue: string = '';
+
   constructor(private taskService: TaskService, public dialog: MatDialog) { }
 
   ngOnInit() {
@@ -51,6 +53,7 @@ export class TaskWindowComponent implements OnInit {
       height: '500px'
     });
 
+    // this.taskService.getTasks();
   }
 
   onDrop(event){
@@ -65,6 +68,10 @@ export class TaskWindowComponent implements OnInit {
       console.log("mouseup");        
       this.taskService.deleteTask(this.taskService.selectedTask.id);
     }
+  }
+
+  onKey(searchValue: string){
+    this.searchValue = searchValue.toLowerCase();
   }
   
 }

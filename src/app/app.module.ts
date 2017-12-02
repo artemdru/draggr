@@ -25,6 +25,8 @@ import { MatDialogModule } from '@angular/material';
 import { MatFormFieldModule, MatInputModule } from '@angular/material';
 import { MouseContainerComponent } from './mouse-container/mouse-container.component';
 import { PresentIndicatorComponent } from './date/present-indicator/present-indicator.component';
+import { GreetingDialogComponent } from './greeting-dialog/greeting-dialog.component';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import { PresentIndicatorComponent } from './date/present-indicator/present-indi
     DayButtonComponent,
     AddTaskDialogComponent,
     MouseContainerComponent,
-    PresentIndicatorComponent
+    PresentIndicatorComponent,
+    GreetingDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -53,6 +56,7 @@ import { PresentIndicatorComponent } from './date/present-indicator/present-indi
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
+    HttpModule,
     MalihuScrollbarModule.forRoot()
   ],
   providers: [
@@ -61,6 +65,7 @@ import { PresentIndicatorComponent } from './date/present-indicator/present-indi
     TimeIncrementService,
   ],
   bootstrap: [AppComponent],
-  entryComponents: [AddTaskDialogComponent]
+  entryComponents: [AddTaskDialogComponent,
+  GreetingDialogComponent]
 })
 export class AppModule { }

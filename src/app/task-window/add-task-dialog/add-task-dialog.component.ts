@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import * as $ from 'jquery';
+import { detect } from 'detect-browser';
 
 import { Task } from '../../task.model';
 import { TaskService } from '../../task.service';
@@ -20,6 +21,7 @@ export class AddTaskDialogComponent implements OnInit, AfterViewInit {
   	times: number[] = [];
   	timewidth: number = 108.88;
   	selectorPos: number = 0;
+    browserName: string;
 
   ngOnInit(){
   	var time: number = 15;
@@ -27,6 +29,11 @@ export class AddTaskDialogComponent implements OnInit, AfterViewInit {
   		this.times[_i] = time;
   		time += 15;
   	}
+
+    const browser = detect();
+    if (browser) {
+      this.browserName = browser.name;
+    }
   }
 
   ngAfterViewInit(){
@@ -64,10 +71,10 @@ export class AddTaskDialogComponent implements OnInit, AfterViewInit {
   		}
 
   		if (e.keyCode === 13 && clickable === true){
-  			$('.add-task').css("opacity", '0');
+  			$('.clicked').css("opacity", '0');
   			clickable = false;
   			this.addTask();
-  			$('.add-task').animate({ opacity: 1}, 500, function(){
+  			$('.clicked').animate({ opacity: 1}, 500, function(){
   				clickable = true;
   			});
   		} else if (e.keyCode === 39 && clickable === true){

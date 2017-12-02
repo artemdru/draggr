@@ -1,37 +1,54 @@
 <div id="task-window" (mouseup)="onMouseUp()">
 	<div class="col-xs-12" style="margin: 0 0 0 0">
 		<div align="right">
-			<img src="assets/options.svg" class="options" alt="">
+
+			<input id="options-toggle" type="checkbox" name="options">
+			<label for="options-toggle" style="cursor: pointer;"><img src="assets/options.svg" class="options"></label>
+			<ul class="submenu">
+            	<li><a style="cursor: pointer;">About</a></li>
+            	<li><a style="cursor: pointer;">Log out</a></li>
+            	<li><a style="cursor: pointer;">Log in/Sign up</a></li>
+          	</ul>
 		</div>
 		
 		<div align="center">
 			<img src="assets/logo.svg" class="logo" alt="">
-		</div>
-		<div class="search-and-add">
-			<button mat-raised-button style="outline: none !important;" class="task-modal" (click)="openDialog()">
-				<img src="assets/plus.svg" class="button-plus" alt="">
-			</button>
-			<div class="field-container" align="center"><input class="search-field" placeholder="Search tasks..."></div>
 			
 		</div>
 
+		<div class="search-and-add">
+			<div class="row" style="margin: 0; padding: 0;">
+				<div class="col-md-auto col-12" style="margin: 0; padding: 0;">
+					<button style="outline: none !important;" class="btn btn-primary task-modal" (click)="openDialog()">
+						<img src="assets/plus.svg" class="button-plus" alt="">
+					</button>
+				</div>
+				<div class="col" style="padding-right: 0">
+					<div class="field-container" align="center">
+						<input #search (keyup)="onKey(search.value)" class="search-field" placeholder="Search tasks...">
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<!-- CHROME/SAFARI TASK WINDOW -->
-		<div *ngIf="browserName != 'firefox'" class="task-window">
-			<ng-container *ngFor="let task of tasks; let i = index">
-				<app-task *ngIf="task.date === null"
+		<div *ngIf="browserName == 'chrome' || browserName == 'safari'" class="task-window">
+			<ng-container *ngFor="let task of tasks">
+				<app-task *ngIf="task.date === null && task.name.toLowerCase().includes(searchValue)"
 				[task]="task"
-				[id]="i"></app-task>
+				></app-task>
 			</ng-container>
 		</div>
 
 		<!-- FIREFOX TASK WINDOW -->
 		<div *ngIf="browserName == 'firefox'" class="task-window" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
-			<ng-container *ngFor="let task of tasks; let i = index">
-				<app-task *ngIf="task.date === null"
+			<ng-container *ngFor="let task of tasks">
+				<app-task *ngIf="task.date === null && task.name.toLowerCase().includes(searchValue)"
 				[task]="task"
-				[id]="i"></app-task>
+				></app-task>
 			</ng-container>
 		</div>
+
 	</div>
 </div>
 

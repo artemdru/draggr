@@ -1,3 +1,4 @@
+import { Http, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 
@@ -5,6 +6,9 @@ import { Task } from './task.model';
 
 @Injectable()
 export class TaskService {
+
+  constructor( private http: Http) { }
+
 	taskAdded = new Subject<Task>();
 	mouseContainer = new Subject<[Task, number, number, number, number]>();
 
@@ -24,6 +28,26 @@ export class TaskService {
 
 	public nextTaskID: number;
 
+	// updateTasks(){
+	// 	this.http.put('https://draggr-73506.firebaseio.com/tasks.json', this.tasks)
+	// 		.subscribe(
+	// 			(response: Response) => {
+	// 				console.log(response);
+	// 			}
+	// 			);
+	// }
+
+	// getTasks(){
+	// 	this.http.get('https://draggr-73506.firebaseio.com/tasks.json')
+	// 		.subscribe(
+	// 			(response: Response) => {
+	// 				const tasks: Task[] = response.json();
+	// 				this.tasks = tasks;
+	// 				console.log(this.tasks);
+	// 			}
+	// 		);
+	// }
+
 	getNewTaskID(){
 		return this.nextTaskID;
 	}
@@ -42,6 +66,8 @@ export class TaskService {
 		this.tasks.push(task);
 		this.nextTaskID++;
 		console.log(this.tasks);
+
+		// this.updateTasks();
 	}
 
 	selectTask(taskNumb: number){
@@ -97,6 +123,7 @@ export class TaskService {
 		console.log(this.tasks);
 	}
 
-  constructor() { }
+	
+
 
 }

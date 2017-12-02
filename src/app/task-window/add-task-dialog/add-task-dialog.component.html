@@ -11,7 +11,8 @@
   			</div>
   			
   		</div>
-		<div class="gradient-wrapper">
+
+		<div *ngIf="browserName != 'safari'" class="gradient-wrapper">
 
 		</div>
 
@@ -20,19 +21,19 @@
 		  	<polygon points="7,0 14,31 0,31" style="fill:#2f2f2f;" />
 		</svg>
 		<p id="hint" style="margin-top:-25px !important;">Scroll or arrow key to change</p>
-		<div class="buttons">
-			<button mat-raised-button
-
-			class="clicked"
+		<div>
+			<button 
+			type="button"
+			class="btn btn-primary add-task"
 			(click)="addTask()">
 			Add Task</button>
-			<button mat-raised-button
-
-			class="add-task"
+			<button 
+			type="button"
+			class="btn btn-primary clicked"
 			(click)="addTask()">
 			Add Task</button>
 
-				<button mat-button class="cancel-button" (click)="closeDialog()">Cancel</button>
+				<button class="btn cancel-button" (click)="closeDialog()">Cancel</button>
 				<p id="hint" style="margin-left:-200px !important;">Press Enter</p>
 		</div>
 				

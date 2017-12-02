@@ -1,4 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+
 import { Subscription } from 'rxjs/Subscription';
 import * as $ from 'jquery';
 import { detect } from 'detect-browser';
@@ -9,6 +11,7 @@ import { TaskService } from './task.service';
 import { TimeIncrementService } from './time-increment.service';
 
 import { MalihuScrollbarService } from 'ngx-malihu-scrollbar';
+import { GreetingDialogComponent } from './greeting-dialog/greeting-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -33,7 +36,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   constructor(private dateService: DateService, 
     private taskService: TaskService, 
     private incService: TimeIncrementService,
-    private mScrollbarService: MalihuScrollbarService){}
+    private mScrollbarService: MalihuScrollbarService,
+    public dialog: MatDialog){}
 
   ngOnInit() {
     this.dates = this.dateService.dates;
@@ -48,6 +52,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     if (this.browserName === 'firefox'){
       this.scrollbarOptions = { axis: 'y', theme: 'minimal-dark', scrollInertia: 300 };
     } else this.scrollbarOptions = { axis: 'y', theme: 'minimal-dark', scrollInertia: 75, mouseWheel:{ scrollAmount: 50 } };
+
+    console.log(this.browserName);
+
+    
   }
 
   ngAfterViewInit() {
@@ -82,6 +90,14 @@ export class AppComponent implements OnInit, AfterViewInit {
     // scroll to the present hour
     this.mScrollbarService.scrollTo(this.vertScroll.nativeElement, (new Date().getHours()-1)*128, this.scrollbarOptions);
     $('.vert-scroll').scrollTop((new Date().getHours()-1)*128);
+
+    setTimeout(() => {
+        let dialogRef = this.dialog.open(GreetingDialogComponent, {
+        width: '750px',
+        height: '500px'
+      })
+      }, 300);
+    
   }
 
   onResize(){
