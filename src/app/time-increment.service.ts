@@ -40,7 +40,7 @@ export class TimeIncrementService {
       }
 
       // unoccupy previous time increments, if the task had any
-      if (task.previousDate !== null){
+      if (task.previousDate.getTime() !== 1){
         timeIncrement = task.date.getTime();
         for (var _j = 0; _j < iterations; _j++){
           this.dateSubject.next([task, 1, timeIncrement, targetDate]);
@@ -60,6 +60,10 @@ export class TimeIncrementService {
       this.moveSuccessful = true;
       // task.previousDate = date;
       // console.log(this.taskService.tasks);
+
+      setTimeout(() => {
+        this.taskService.updateTasks();
+      }, 500);
  	
   }
 

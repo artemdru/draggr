@@ -42,7 +42,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.dates = this.dateService.dates;
 
-    this.taskService.nextTaskID = this.taskService.tasks[this.taskService.tasks.length-1].id + 1;
+    this.taskService.getTasks();
 
     const browser = detect();
     if (browser) {

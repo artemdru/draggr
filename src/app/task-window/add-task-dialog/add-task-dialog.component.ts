@@ -112,16 +112,18 @@ export class AddTaskDialogComponent implements OnInit, AfterViewInit {
 
   	if (this.taskName.nativeElement.value !== ''){
 
-    var newTask = new Task(
-      this.taskService.getNewTaskID(),
-      this.taskName.nativeElement.value,
-      (this.selectorPos+109)/109*15,
-      null,
-      null,
-      false
-      );
+      var newTask = new Task(
+        this.taskService.getNewTaskID(),
+        this.taskName.nativeElement.value,
+        (this.selectorPos+109)/109*15,
+        new Date(1),
+        new Date(1),
+        false
+        );
 
-    this.taskService.addTask(newTask);
+      console.log(newTask);
+
+      this.taskService.addTask(newTask);
   	}
 
     $('input').animate({opacity: 0}, 150, function(){

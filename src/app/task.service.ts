@@ -7,7 +7,7 @@ import { Task } from './task.model';
 @Injectable()
 export class TaskService {
 
-  constructor( private http: Http) { }
+  constructor(private http: Http) { }
 
 	taskAdded = new Subject<Task>();
 	mouseContainer = new Subject<[Task, number, number, number, number]>();
@@ -16,37 +16,45 @@ export class TaskService {
 
 	isDialogOpen: boolean = false;
 
-	tasks=[
-	new Task(0, 'Implement flux capacitator marginal dynamicism in quantum field', 60, null, null, false),
-	new Task(1, 'Stand-up Meeting', 45, null, null, false),
-	new Task(2, 'Write unit test for tasks', 75, null, null, false),
-	new Task(3, 'Debug task snapping on complete', 45, null, null, false),
-
-	];
+	tasks: Task[] = [];
 
 	selectedTask: Task = null;
 
 	public nextTaskID: number;
 
-	// updateTasks(){
-	// 	this.http.put('https://draggr-73506.firebaseio.com/tasks.json', this.tasks)
-	// 		.subscribe(
-	// 			(response: Response) => {
-	// 				console.log(response);
-	// 			}
-	// 			);
-	// }
+	updateTasks(){
+		this.http.put('https://draggr-73506.firebaseio.com/tasks.json', this.tasks)
+			.subscribe(
+				(response: Response) => {
+					console.log(response);
+				}
+				);
+	}
 
-	// getTasks(){
-	// 	this.http.get('https://draggr-73506.firebaseio.com/tasks.json')
-	// 		.subscribe(
-	// 			(response: Response) => {
-	// 				const tasks: Task[] = response.json();
-	// 				this.tasks = tasks;
-	// 				console.log(this.tasks);
-	// 			}
-	// 		);
-	// }
+	getTasks(){
+		this.http.get('https://draggr-73506.firebaseio.com/tasks.json')
+			.map(
+				(response: Response) => {
+					const tasks: Task[] = response.json();
+					return tasks;
+				}
+			)
+			.subscribe(
+				(tasks: Task[]) => {
+					for (let task of tasks){
+						if (task !== null){
+							this.tasks.push(new Task(task.id, task.name, task.time, new Date(task.date), new Date(task.previousDate), task.isComplete));
+						}
+					}
+					
+					console.log(this.tasks);
+					for (let task of this.tasks){
+						this.emitTask(task);
+					}
+					this.nextTaskID = this.tasks[this.tasks.length-1].id + 1;
+				}
+			);
+	}
 
 	getNewTaskID(){
 		return this.nextTaskID;
@@ -67,7 +75,7 @@ export class TaskService {
 		this.nextTaskID++;
 		console.log(this.tasks);
 
-		// this.updateTasks();
+		this.updateTasks();
 	}
 
 	selectTask(taskNumb: number){
@@ -85,7 +93,7 @@ export class TaskService {
 
 	getTaskByDate(date: Date){
 		for (let task of this.tasks){
-			if (task.date !== null){
+			if (task.date.getTime() !== 1){
 				if (task.date.getTime() === date.getTime()){
 					return task;
 				}
@@ -101,26 +109,28 @@ export class TaskService {
 	}
 
 	sendBackToTaskWindow(){
-		this.selectedTask.date = null;
+		this.selectedTask.date = new Date(1);
 		this.taskRefresher.next(this.tasks);
-		this.selectedTask.previousDate = null;
+		this.selectedTask.previousDate = new Date(1);
 		this.selectedTask = null;
 	}
 
 	deleteTask(taskID: number){
 		let i = this.getTaskArrayPos(taskID);
 
-		if (this.tasks[i].date !== null){
-		this.emitTask(new Task(undefined, null, null, this.tasks[i].date, null, null));
+		if (this.tasks[i].date.getTime() !== 1){
+		this.emitTask(new Task(undefined, null, null, this.tasks[i].date, new Date(1), null));
 		}
 
 
 		if (this.selectedTask !== null){
-			this.mouseContainer.next([new Task(undefined, null, null, new Date(0), null, null), 0, 0, 0, 0]);
+			this.mouseContainer.next([new Task(undefined, null, null, new Date(0), new Date(1), null), 0, 0, 0, 0]);
 		}
 		this.tasks.splice(i, 1);
 		this.selectedTask = null;
 		console.log(this.tasks);
+
+		this.updateTasks();
 	}
 
 	

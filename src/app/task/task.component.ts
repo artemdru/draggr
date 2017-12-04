@@ -82,7 +82,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
     this.deleteButtonEl = this.deleteButtonElRef.nativeElement;
 
 
-    if (this.task.date === null){
+    if (this.task.date.getTime() === 1){
       this.containerWidth = (Math.round(this.taskEl.offsetWidth/9));
     } else this.stylizeTaskContainer(this.task.time);
 
@@ -90,7 +90,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
     this.cdref.detectChanges();
 
 
-    if (this.task.date !== null && this.task.previousDate !== null && this.task.previousDate.getTime() == 0){
+    if (this.task.date.getTime() !== 1 && this.task.previousDate.getTime() !== 1 && this.task.previousDate.getTime() == 0){
 
       let mouseCoords = $('.animate-mouse').offset();
       const rect = this.taskEl.getBoundingClientRect();
@@ -98,9 +98,13 @@ export class TaskComponent implements OnInit, AfterViewInit {
       $(this.taskEl).css({left: mouseCoords.left-rect.left, top: mouseCoords.top-rect.top+33});
       $(this.taskEl).animate({left: 0, top: 3}, 200, () => {this.task.previousDate = this.task.date});
       
-    } else if (this.task.previousDate !== null && this.task.date.getTime() != 0 && this.task.date.getTime() != this.task.previousDate.getTime()){
+    } else if (this.task.previousDate.getTime() !== 1 && this.task.date.getTime() != 0 && this.task.date.getTime() != this.task.previousDate.getTime()){
       $(this.taskEl).css({top: -10});
       $(this.taskEl).animate({top: 3}, 100, () => {this.task.previousDate = this.task.date});
+    }
+
+    if (this.task.date.getTime() > 1){
+      this.incService.initTimes(this.task, this.task.date);
     }
     
   }
@@ -263,7 +267,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
   onDelete(){
       this.taskService.deleteTask(this.task.id);
 
-      if (this.task.date !== null){
+      if (this.task.date.getTime() !== 1){
       this.incService.unoccupyLastTime(this.task, this.task.date, this.task.time/15);
       }
   }
