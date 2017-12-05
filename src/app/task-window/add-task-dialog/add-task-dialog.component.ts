@@ -5,6 +5,7 @@ import { detect } from 'detect-browser';
 
 import { Task } from '../../task.model';
 import { TaskService } from '../../task.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-add-task-dialog',
@@ -15,7 +16,7 @@ export class AddTaskDialogComponent implements OnInit, AfterViewInit {
 
 	@ViewChild('taskName') taskName: ElementRef;
 
-  constructor(private taskService: TaskService, public dialogRef: MatDialogRef<AddTaskDialogComponent>,
+  constructor(private taskService: TaskService, private authService: AuthService, public dialogRef: MatDialogRef<AddTaskDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   	times: number[] = [];
@@ -124,6 +125,7 @@ export class AddTaskDialogComponent implements OnInit, AfterViewInit {
       console.log(newTask);
 
       this.taskService.addTask(newTask);
+      this.authService.updateTasks();
   	}
 
     $('input').animate({opacity: 0}, 150, function(){

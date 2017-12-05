@@ -6,6 +6,7 @@ import { ResizableModule } from 'angular-resizable-element';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatCheckboxModule } from '@angular/material';
 import { MalihuScrollbarModule } from 'ngx-malihu-scrollbar';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { DateComponent } from './date/date.component';
@@ -26,7 +27,7 @@ import { MatFormFieldModule, MatInputModule } from '@angular/material';
 import { MouseContainerComponent } from './mouse-container/mouse-container.component';
 import { PresentIndicatorComponent } from './date/present-indicator/present-indicator.component';
 import { GreetingDialogComponent } from './greeting-dialog/greeting-dialog.component';
-import { HttpModule } from '@angular/http';
+import { AuthService } from './auth/auth.service';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { HttpModule } from '@angular/http';
     TaskService, 
     DateService,
     TimeIncrementService,
+    AuthService
   ],
   bootstrap: [AppComponent],
   entryComponents: [AddTaskDialogComponent,

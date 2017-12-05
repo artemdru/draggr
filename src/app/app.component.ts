@@ -3,6 +3,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { Subscription } from 'rxjs/Subscription';
 import * as $ from 'jquery';
+import * as firebase from 'firebase';
 import { detect } from 'detect-browser';
 
 import { DateService } from './date.service';
@@ -42,7 +43,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.dates = this.dateService.dates;
 
-    this.taskService.getTasks();
+    // this.taskService.getTasks();
 
     const browser = detect();
     if (browser) {
@@ -55,7 +56,11 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     console.log(this.browserName);
 
-    
+    firebase.initializeApp({
+      apiKey: "AIzaSyCQC_Iu0az3PaK9mmDETp3IN6eQa0vDiFM",
+      authDomain: "draggr-73506.firebaseapp.com",
+      databaseURL: "https://draggr-73506.firebaseio.com"
+    });
   }
 
   ngAfterViewInit() {

@@ -7,25 +7,44 @@
 		<input id="sign-up-input" type="checkbox">
 		<div class="log-in-screen" id="log-in-screen">
 
-			<mat-form-field style="margin-top: 20px;">
-				<input matInput placeholder="Email" #email>
-			</mat-form-field>
+			<form (ngSubmit)="submitLogIn()" #f="ngForm">
+				<div ngModelGroup="loginData" #loginData="ngModelGroup">
+					<div class="form-group" style="margin-bottom: 0px;">
+						<mat-form-field style="margin-top: 20px;">
+							<input 
+							matInput
+							type="email"
+							ngModel
+							name="email"
+							required 
+							email
+							placeholder="Email" 
+							#email>
+						</mat-form-field>
 
-			<mat-form-field>
-				<input matInput placeholder="Password" #password>
-			</mat-form-field>
-
-
-
+						<mat-form-field>
+							<input 
+							matInput
+							type="password"
+							ngModel
+							name="password"
+							required
+							password
+							placeholder="Password" 
+							#password>
+						</mat-form-field>
+					</div>
+				</div>
+			</form>
 			<div>
 				<button 
 				type="button"
 				class="btn btn-primary add-task"
-				(click)="addTask()">
+				(click)="submitLogIn()">
 				Log In</button>
-
-					<button class="btn cancel-button" (click)="closeDialog()">Try Demo</button>
+				<button class="btn cancel-button" (click)="closeDialog()">Try Demo</button>
 			</div>
+			
 			<p style="margin-top: 15px; font-size: 20px;">New? 
 				
 				<label for="sign-up-input" class="sign-up-link" style="cursor: pointer;">Sign up</label>
@@ -34,20 +53,42 @@
 		</div>
 
 		<div class="register-screen">
-			<mat-form-field>		
-				<h3 style="margin-bottom: 10px;">Email</h3>
-				<input style="text-align: center;" matInput #taskName>
-			</mat-form-field>
-			<mat-form-field style="border-top: none !important;">		
-				<h3 style="margin-bottom: 10px;">Password</h3>
-				<input style="text-align: center;" matInput #taskName>
-			</mat-form-field>
-				<button
-				style="margin-top: 0px !important;" 
-				type="button"
-				class="btn btn-primary add-task"
-				(click)="addTask()">
-				Sign up</button>
+
+			<form (ngSubmit)="submitRegister()" #r="ngForm">
+				<div ngModelGroup="registerData" #registerData="ngModelGroup">
+					<div class="form-group" style="margin-bottom: 0px;">
+						<mat-form-field>		
+							<h3 style="margin-bottom: 10px;">Email</h3>
+							<input 
+							style="text-align: center;" 
+							matInput
+							type="email"
+							ngModel
+							name="email"
+							required 
+							email
+							#taskName>
+						</mat-form-field>
+						<mat-form-field style="border-top: none !important;">		
+							<h3 style="margin-bottom: 10px;">Password</h3>
+							<input style="text-align: center;" 
+							matInput
+							type="password"
+							ngModel
+							name="password"
+							required
+							password
+							#taskName>
+						</mat-form-field>
+					</div>
+				</div>
+			</form>
+			<button
+			style="margin-top: 0px !important;" 
+			type="button"
+			class="btn btn-primary add-task"
+			(click)="submitRegister()">
+			Sign up</button>
 
 		</div>
 		<label for="sign-up-input" class="nevermind"><div class="arrow-up"></div>Nevermind...</label>

@@ -1,6 +1,9 @@
 import { Http, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
+// import { AuthService } from './auth/auth.service';
+
+import * as firebase from 'firebase';
 
 import { Task } from './task.model';
 
@@ -23,41 +26,51 @@ export class TaskService {
 	public nextTaskID: number;
 
 	updateTasks(){
-		this.http.put('https://draggr-73506.firebaseio.com/tasks.json', this.tasks)
-			.subscribe(
-				(response: Response) => {
-					console.log(response);
-				}
-				);
+		// const token = this.authService.getToken();
+		// this.http.put('https://draggr-73506.firebaseio.com/tasks.json?auth=' + token, this.tasks)
+		// 	.subscribe(
+		// 		(response: Response) => {
+		// 			console.log(response);
+		// 		}
+		// 		);
 	}
 
 	getTasks(){
-		this.http.get('https://draggr-73506.firebaseio.com/tasks.json')
-			.map(
-				(response: Response) => {
-					const tasks: Task[] = response.json();
-					return tasks;
-				}
-			)
-			.subscribe(
-				(tasks: Task[]) => {
-					for (let task of tasks){
-						if (task !== null){
-							this.tasks.push(new Task(task.id, task.name, task.time, new Date(task.date), new Date(task.previousDate), task.isComplete));
-						}
-					}
+		// const token = this.authService.getToken();
+
+
+
+		// this.http.get('https://draggr-73506.firebaseio.com/tasks.json?auth=' + token)
+		// 	.map(
+		// 		(response: Response) => {
+		// 			const tasks: Task[] = response.json();
+		// 			return tasks;
+		// 		}
+		// 	)
+		// 	.subscribe(
+		// 		(tasks: Task[]) => {
+		// 			for (let task of tasks){
+		// 				if (task !== null){
+		// 					this.tasks.push(new Task(task.id, task.name, task.time, new Date(task.date), new Date(task.previousDate), task.isComplete));
+		// 				}
+		// 			}
 					
-					console.log(this.tasks);
-					for (let task of this.tasks){
-						this.emitTask(task);
-					}
-					this.nextTaskID = this.tasks[this.tasks.length-1].id + 1;
-				}
-			);
+		// 			console.log(this.tasks);
+		// 			for (let task of this.tasks){
+		// 				this.emitTask(task);
+		// 			}
+		// 			this.nextTaskID = this.tasks[this.tasks.length-1].id + 1;
+		// 		}
+		// 	);
 	}
 
 	getNewTaskID(){
-		return this.nextTaskID;
+		if (this.nextTaskID) { return this.nextTaskID };
+		return 0;
+	}
+
+	taskArray(){
+		return this.tasks.slice();
 	}
 
 	getTaskArrayPos(taskID: number){
