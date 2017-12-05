@@ -117,15 +117,15 @@ export class AddTaskDialogComponent implements OnInit, AfterViewInit {
         this.taskService.getNewTaskID(),
         this.taskName.nativeElement.value,
         (this.selectorPos+109)/109*15,
-        new Date(1),
-        new Date(1),
+        1,
+        1,
         false
         );
 
       console.log(newTask);
 
       this.taskService.addTask(newTask);
-      this.authService.updateTasks();
+      // this.authService.updateTasks();
   	}
 
     $('input').animate({opacity: 0}, 150, function(){

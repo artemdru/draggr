@@ -38,11 +38,11 @@ export class DroppableDirective implements OnInit {
 
 
   	@HostListener('drop') onDrop (event: Event){
-      this.timeIncService.moveTask(this.taskService.selectedTask, this.date);
+      // this.timeIncService.moveTask(this.taskService.selectedTask, this.date);
 
-      if (this.timeIncService.moveSuccessful === true){
-        this.taskService.selectedTask.date=this.date;
-        this.taskService.emitTask(this.taskService.selectedTask);
-      }  		
+      // if (this.timeIncService.moveSuccessful === true){
+      //   this.taskService.selectedTask.date=this.date;
+      //   this.taskService.emitTask(this.taskService.selectedTask);
+      // }  		
 	}
 }

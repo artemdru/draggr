@@ -7,8 +7,8 @@
 (click)="onClick()" 
 class="time-increment unoccupied"
 #timeIncrement>
-<div *ngIf="this.date.getMinutes() === 15" class="half-hour"></div>
-<app-task *ngIf="task !== undefined && task.date  && task.date.getTime() == date.getTime()"
+<div *ngIf="(this.date/60000)%60 === 15" class="half-hour"></div>
+<app-task *ngIf="task !== undefined && task.date  && task.date == date"
 [task]=task
 ></app-task>
 </div>
@@ -20,9 +20,9 @@ class="time-increment unoccupied"
 [ngStyle]="style"
 (click)="onClick()" 
 class="time-increment">
-	<div *ngIf="this.date.getMinutes() === 15" class="half-hour"></div>
+	<div *ngIf="(this.date/60000)%60 === 15" class="half-hour"></div>
 	<div class="task-holder" #myTask>
-		<app-task *ngIf="task !== undefined && task.date && task.date.getTime() == date.getTime()"
+		<app-task *ngIf="task !== undefined && task.date && task.date == date"
 		[task]=task
 		></app-task>
 	</div>

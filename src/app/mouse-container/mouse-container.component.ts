@@ -52,7 +52,7 @@ export class MouseContainerComponent implements OnInit {
           let initialWidth;
           let initialHeight;
 
-          if (task.previousDate === null){
+          if (task.previousDate === 1){
             initialWidth = $('.task-window').width()*0.8;
             initialHeight = 130;
           } else initialHeight = ((task.time/15)*32)-6;
@@ -66,21 +66,23 @@ export class MouseContainerComponent implements OnInit {
 
           $('.animate-mouse').css({width: initialWidth, height: initialHeight, left: taskX-mouseX-20, top: -1*(20+mouseY-taskY)});
           $('.animate-mouse').animate({width: '90%', height: ((task.time/15)*32)-6, left: 0, top: 0}, 200);
+
+          console.log(this.task);
   			}
   			);
   }
 
   onMouseUp(){
     if (this.taskService.selectedTask !== null){
-      if (this.taskService.selectedTask.previousDate !== null){
+      if (this.taskService.selectedTask.previousDate !== 1){
         this.incService.moveTask(this.taskService.selectedTask, this.taskService.selectedTask.previousDate);
         if (this.incService.moveSuccessful === true){
           this.taskService.selectedTask.date=this.taskService.selectedTask.previousDate;
-          this.taskService.selectedTask.previousDate = new Date(0);
+          this.taskService.selectedTask.previousDate = 0;
           this.taskService.emitTask(this.taskService.selectedTask);
           this.taskService.selectedTask = null;
         }
-      } else if (this.taskService.selectedTask.previousDate === null){
+      } else if (this.taskService.selectedTask.previousDate === 1){
         this.taskService.sendBackToTaskWindow();
       }
           

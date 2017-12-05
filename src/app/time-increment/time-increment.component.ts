@@ -15,7 +15,7 @@ import * as $ from 'jquery';
 export class TimeIncrementComponent implements OnInit, OnDestroy {
 
 	public style: Object = {};
-	@Input() date: Date;
+	@Input() date: number;
 	isHour = false;
 	isHalfHour = false;
 	taskSubscription: Subscription;
@@ -30,12 +30,12 @@ export class TimeIncrementComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-  	if (this.date.getMinutes() === 45){
+  	if ((this.date/60000)%60 === 45){
   		this.isHour = true;
   		this.style = {
         'box-shadow': '0px -1px 0px 0px #bcbec0 inset'
   		}
-  	} else if (this.date.getMinutes() === 15){
+  	} else if ((this.date/60000)%60 === 30){
   		this.isHalfHour = true;
       this.style = {
         // 'z-index': '-1',
@@ -47,7 +47,7 @@ export class TimeIncrementComponent implements OnInit, OnDestroy {
     this.taskSubscription = this.taskService.taskAdded
       .subscribe(
           (task: Task) => {
-            if (task.date.getTime() === this.date.getTime()){
+            if (task.date === this.date){
               this.task = task;
               this.isOccupied = true;
                 
@@ -58,7 +58,7 @@ export class TimeIncrementComponent implements OnInit, OnDestroy {
     this.incSubscription = this.incService.dateSubject
       .subscribe(
           ([task, code, date, targetDate]: [Task, number, number, number]) => {
-            if (date === this.date.getTime() && code === 0){
+            if (date === this.date && code === 0){
 
               // tell time increment service about my occupation status
               // proceed (return false isOccupied status) if task being moved is already my assigned task
@@ -66,7 +66,7 @@ export class TimeIncrementComponent implements OnInit, OnDestroy {
                 this.incService.storeOccupationStatus(false);
                 return false;
               } else if (this.isOccupied === true){
-                var targetIncrement = new Date(targetDate+(task.time*60000));
+                var targetIncrement = targetDate+(task.time*60000);
                 var previousOccupantID = this.occupantID;
 
                 var movingTask = this.taskService.tasks[this.taskService.getTaskArrayPos(previousOccupantID)];
@@ -130,7 +130,9 @@ export class TimeIncrementComponent implements OnInit, OnDestroy {
 
               
 
-            } else if (date === this.date.getTime() && code === 1){
+            } else if (date === this.date
+
+             && code === 1){
 
               // unoccupy myself, task is leaving me
               this.isOccupied = false;
@@ -139,7 +141,7 @@ export class TimeIncrementComponent implements OnInit, OnDestroy {
                 this.task = undefined;
               }
 
-            } else if (date === this.date.getTime() && code === 2){
+            } else if (date === this.date && code === 2){
 
               // new task has arrived, set myself to occupied and assign myself to a task
               this.occupantID = task.id;
@@ -172,22 +174,22 @@ export class TimeIncrementComponent implements OnInit, OnDestroy {
           this.incService.moveTask(this.taskService.selectedTask, this.date);
         if (this.incService.moveSuccessful === true){
         this.taskService.selectedTask.date=this.date;
-        this.taskService.selectedTask.previousDate = new Date(0);
+        this.taskService.selectedTask.previousDate = 0;
         this.taskService.emitTask(this.taskService.selectedTask);
         this.taskService.selectedTask = null;
         }
       }
     } else if (this.isOccupied){
       if (this.taskService.selectedTask !== null){
-      if (this.taskService.selectedTask.previousDate.getTime() !== 1){
+      if (this.taskService.selectedTask.previousDate !== 1){
         this.incService.moveTask(this.taskService.selectedTask, this.taskService.selectedTask.previousDate);
         if (this.incService.moveSuccessful === true){
           this.taskService.selectedTask.date=this.taskService.selectedTask.previousDate;
-          this.taskService.selectedTask.previousDate = new Date(0);
+          this.taskService.selectedTask.previousDate = 0;
           this.taskService.emitTask(this.taskService.selectedTask);
           this.taskService.selectedTask = null;
         }
-      } else if (this.taskService.selectedTask.previousDate.getTime() === 1){
+      } else if (this.taskService.selectedTask.previousDate === 1){
         this.taskService.sendBackToTaskWindow();
       }
           
@@ -200,7 +202,7 @@ export class TimeIncrementComponent implements OnInit, OnDestroy {
   }
 
   onClick(){
-    console.log(this.task, this.occupantID, this.isOccupied);
+    // console.log(this.task, this.occupantID, this.isOccupied);
   }
 
   ngOnDestroy(){

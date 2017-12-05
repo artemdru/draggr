@@ -34,7 +34,7 @@
 		<!-- CHROME/SAFARI TASK WINDOW -->
 		<div *ngIf="browserName == 'chrome' || browserName == 'safari'" class="task-window">
 			<ng-container *ngFor="let task of tasks">
-				<app-task *ngIf="task.date.getTime() === 1 && task.name.toLowerCase().includes(searchValue)"
+				<app-task *ngIf="task.date === 1 && task.name.toLowerCase().includes(searchValue)"
 				[task]="task"
 				></app-task>
 			</ng-container>
@@ -43,7 +43,7 @@
 		<!-- FIREFOX TASK WINDOW -->
 		<div *ngIf="browserName == 'firefox'" class="task-window" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
 			<ng-container *ngFor="let task of tasks">
-				<app-task *ngIf="task.date.getTime() === 1 && task.name.toLowerCase().includes(searchValue)"
+				<app-task *ngIf="task.date === 1 && task.name.toLowerCase().includes(searchValue)"
 				[task]="task"
 				></app-task>
 			</ng-container>

@@ -1,6 +1,6 @@
 <!-- IN TASK WINDOW -->
 <div
-*ngIf="task.date.getTime() === 1"
+*ngIf="task.date === 1"
 
 #taskContainer
 class="container task-container in-queue unselectable"
@@ -27,7 +27,7 @@ class="container task-container in-queue unselectable"
 
 <!-- ON CALENDAR INCOMPLETE -->
 <div
-*ngIf="task.date.getTime() !== 1 && task.date.getTime() !== 0 && task.isComplete === false"
+*ngIf="task.date !== 1 && task.date !== 0 && task.isComplete === false"
 mwlResizable
 [ngStyle]="style"
 [resizeEdges]="{bottom: true}"
@@ -67,7 +67,7 @@ class="container task-container on-calendar unselectable"
 
 <!-- ON CALENDAR COMPLETE -->
 <div
-*ngIf="task.date.getTime() !== 1 && task.date.getTime() !== 0 && task.isComplete"
+*ngIf="task.date !== 1 && task.date !== 0 && task.isComplete"
 [style.height.px]="((task.time/15)*32)-6"
 #taskContainer
 class="container task-container on-calendar unselectable"
@@ -101,7 +101,7 @@ style="background-color: rgba(0, 166, 81, 0.3); cursor: initial !important;"
 
 <!-- IN MOUSE CONTAINER INCOMPLETE -->
 <div
-*ngIf="task.date.getTime() !== 1 && task.date.getTime() === 0 && task.isComplete === false"
+*ngIf="task.date === 0 && task.isComplete === false"
 #taskContainer
 class="container task-container in-mouse-container unselectable"
 >
@@ -133,7 +133,7 @@ class="container task-container in-mouse-container unselectable"
 
 <!-- IN MOUSE CONTAINER COMPLETE -->
 <div
-*ngIf="task.date.getTime() !== 1 && task.date.getTime() === 0 && task.isComplete"
+*ngIf="task.date !== 1 && task.date === 0 && task.isComplete"
 #taskContainer
 class="container task-container in-mouse-container unselectable"
 style="background-color: rgba(0, 166, 81, 0.3);"

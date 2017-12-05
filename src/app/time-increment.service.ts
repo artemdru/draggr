@@ -20,11 +20,11 @@ export class TimeIncrementService {
 
   constructor(private taskService: TaskService) { }
 
-  moveTask(task: Task, date: Date){
+  moveTask(task: Task, date: number){
       this.moveSuccessful = false;
-      var timeIncrement: number = date.getTime();
+      var timeIncrement: number = date;
       var iterations: number = Math.round(task.time/15); //TODO: proper calculations from time to integers
-      var targetDate: number = date.getTime();
+      var targetDate: number = date;
 
 
       // check if there's enough onoccupied blocks
@@ -40,8 +40,8 @@ export class TimeIncrementService {
       }
 
       // unoccupy previous time increments, if the task had any
-      if (task.previousDate.getTime() !== 1){
-        timeIncrement = task.date.getTime();
+      if (task.previousDate !== 1){
+        timeIncrement = task.date;
         for (var _j = 0; _j < iterations; _j++){
           this.dateSubject.next([task, 1, timeIncrement, targetDate]);
           timeIncrement = timeIncrement + (15*60000); //TODO: proper calculations from time to integers
@@ -49,7 +49,7 @@ export class TimeIncrementService {
       }
 
       // occupy the new time increments
-      timeIncrement = date.getTime();
+      timeIncrement = date;
       for (var _y = 0; _y < iterations; _y++){
         this.dateSubject.next([task, 2, timeIncrement, targetDate]);
         timeIncrement = timeIncrement + (15*60000); //TODO: proper calculations from time to integers
@@ -71,8 +71,8 @@ export class TimeIncrementService {
   	this.storedOccupation = bool;
   }
 
-  initTimes(task: Task, date: Date){
-    var timeIncrement: number = date.getTime();
+  initTimes(task: Task, date: number){
+    var timeIncrement: number = date;
     var iterations: number = task.time/15; //TODO: proper calculations from time to integers
 
     for (var _y = 0; _y < iterations; _y++){
@@ -82,7 +82,7 @@ export class TimeIncrementService {
     }
   }
 
-  unoccupyLastTime(task: Task, date: Date, iterations: number){
+  unoccupyLastTime(task: Task, date: number, iterations: number){
 
     // Iterating multiple times is necessary because the onResize event can skip firing if task
     // is resized too quickly. The iterations passed in are the amount of blocks that are being
@@ -91,7 +91,7 @@ export class TimeIncrementService {
     for (var _x = 0; _x < iterations; _x++){
         var modifier = _x*15;
 
-        var timeIncrement: number = task.date.getTime() + ((task.time-15-modifier)*60000);
+        var timeIncrement: number = task.date + ((task.time-15-modifier)*60000);
 
         this.dateSubject.next([task, 1, timeIncrement, null]);
     }

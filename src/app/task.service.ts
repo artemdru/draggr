@@ -65,8 +65,7 @@ export class TaskService {
 	}
 
 	getNewTaskID(){
-		if (this.nextTaskID) { return this.nextTaskID };
-		return 0;
+		if (this.tasks.length > 0) { return this.tasks[this.tasks.length-1].id + 1; } else return 0;
 	}
 
 	taskArray(){
@@ -101,13 +100,13 @@ export class TaskService {
 	}
 
 	addMinutesToDate(date, minutes){
-		return new Date(date.getTime() + minutes*60000);
+		return (date + minutes*60000);
 	}
 
-	getTaskByDate(date: Date){
+	getTaskByDate(date: number){
 		for (let task of this.tasks){
-			if (task.date.getTime() !== 1){
-				if (task.date.getTime() === date.getTime()){
+			if (task.date > 1){
+				if (task.date === date){
 					return task;
 				}
 			}
@@ -117,27 +116,27 @@ export class TaskService {
 	addToMouseContainer(id: number, taskX: number, taskY:number, mouseX: number, mouseY: number){
 		this.selectTask(id);
 		this.selectedTask.previousDate = this.selectedTask.date;
-		this.selectedTask.date = new Date(0);
+		this.selectedTask.date = 0;
 		this.mouseContainer.next([this.tasks[this.getTaskArrayPos(id)], taskX, taskY, mouseX, mouseY]);
 	}
 
 	sendBackToTaskWindow(){
-		this.selectedTask.date = new Date(1);
+		this.selectedTask.date = 1;
 		this.taskRefresher.next(this.tasks);
-		this.selectedTask.previousDate = new Date(1);
+		this.selectedTask.previousDate = 1;
 		this.selectedTask = null;
 	}
 
 	deleteTask(taskID: number){
 		let i = this.getTaskArrayPos(taskID);
 
-		if (this.tasks[i].date.getTime() !== 1){
-		this.emitTask(new Task(undefined, null, null, this.tasks[i].date, new Date(1), null));
+		if (this.tasks[i].date !== 1){
+		this.emitTask(new Task(undefined, null, null, this.tasks[i].date, 1, null));
 		}
 
 
 		if (this.selectedTask !== null){
-			this.mouseContainer.next([new Task(undefined, null, null, new Date(0), new Date(1), null), 0, 0, 0, 0]);
+			this.mouseContainer.next([new Task(undefined, null, null, 0, 1, null), 0, 0, 0, 0]);
 		}
 		this.tasks.splice(i, 1);
 		this.selectedTask = null;

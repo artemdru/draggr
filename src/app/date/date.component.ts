@@ -17,8 +17,8 @@ export class DateComponent implements OnInit, OnDestroy{
 
 	thisDate;
 	thisDay;
-  incrementedDate: Date;
-  timeIncrements: Date[] = [];
+  incrementedDate: number;
+  timeIncrements: number[] = [];
 
   isToday: boolean = false;
 
@@ -27,11 +27,11 @@ export class DateComponent implements OnInit, OnDestroy{
   ngOnInit() {
     this.date.setHours(0,0,0,0);
   	
-      this.incrementedDate = this.date;
+      this.incrementedDate = this.date.getTime();
 
       for (var _i = 0; _i < 96; _i++){
         this.timeIncrements[_i] = this.incrementedDate;
-        this.incrementedDate = this.taskService.addMinutesToDate(this.incrementedDate, 15);
+        this.incrementedDate += 15*60000;
       }
 
     if (this.date.getDate() == new Date().getDate()){

@@ -1,6 +1,6 @@
 <div class="unselectable animate-mouse" (mouseup)="onMouseUp()">
 	<app-task 
-	*ngIf="task && task.date && task.date.getTime() === 0"
+	*ngIf="task && task.date === 0"
 	[task]="task">
 </app-task>
 </div>

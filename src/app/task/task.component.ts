@@ -82,7 +82,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
     this.deleteButtonEl = this.deleteButtonElRef.nativeElement;
 
 
-    if (this.task.date.getTime() === 1){
+    if (this.task.date === 1){
       this.containerWidth = (Math.round(this.taskEl.offsetWidth/9));
     } else this.stylizeTaskContainer(this.task.time);
 
@@ -90,7 +90,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
     this.cdref.detectChanges();
 
 
-    if (this.task.date.getTime() !== 1 && this.task.previousDate.getTime() !== 1 && this.task.previousDate.getTime() == 0){
+    if (this.task.date !== 1 && this.task.previousDate !== 1 && this.task.previousDate === 0){
 
       let mouseCoords = $('.animate-mouse').offset();
       const rect = this.taskEl.getBoundingClientRect();
@@ -98,12 +98,12 @@ export class TaskComponent implements OnInit, AfterViewInit {
       $(this.taskEl).css({left: mouseCoords.left-rect.left, top: mouseCoords.top-rect.top+33});
       $(this.taskEl).animate({left: 0, top: 3}, 200, () => {this.task.previousDate = this.task.date});
       
-    } else if (this.task.previousDate.getTime() !== 1 && this.task.date.getTime() != 0 && this.task.date.getTime() != this.task.previousDate.getTime()){
+    } else if (this.task.previousDate !== 1 && this.task.date != 0 && this.task.date != this.task.previousDate){
       $(this.taskEl).css({top: -10});
       $(this.taskEl).animate({top: 3}, 100, () => {this.task.previousDate = this.task.date});
     }
 
-    if (this.task.date.getTime() > 1){
+    if (this.task.date > 1){
       this.incService.initTimes(this.task, this.task.date);
     }
     
@@ -225,7 +225,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
   onMouseDown(event){
     const rect = this.taskEl.getBoundingClientRect();
     this.taskService.selectTask(this.task.id);
-    this.incService.moveTask(this.taskService.selectedTask, new Date(0));
+    this.incService.moveTask(this.taskService.selectedTask, 0);
 
 
     // * DEPRECATED * left here in case it's needed
@@ -247,7 +247,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
         // Quickly send to mouse container and back to trigger AfterViewInit
         // Properly styles task when (un)completed
         this.taskService.selectTask(this.task.id);
-        this.incService.moveTask(this.taskService.selectedTask, new Date(0));        
+        this.incService.moveTask(this.taskService.selectedTask, 0);        
         this.taskService.addToMouseContainer(this.task.id, this.recordedRect.left, this.recordedRect.top, this.recordedRect.left, this.recordedRect.top);
 
         setTimeout(() => {
@@ -267,7 +267,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
   onDelete(){
       this.taskService.deleteTask(this.task.id);
 
-      if (this.task.date.getTime() !== 1){
+      if (this.task.date !== 1){
       this.incService.unoccupyLastTime(this.task, this.task.date, this.task.time/15);
       }
   }

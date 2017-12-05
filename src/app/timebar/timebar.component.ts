@@ -29,15 +29,15 @@ export class TimebarComponent implements OnInit {
 
   onMouseUp(){
     if (this.taskService.selectedTask !== null){
-      if (this.taskService.selectedTask.previousDate.getTime() !== 1){
+      if (this.taskService.selectedTask.previousDate !== 1){
         this.incService.moveTask(this.taskService.selectedTask, this.taskService.selectedTask.previousDate);
         if (this.incService.moveSuccessful === true){
           this.taskService.selectedTask.date=this.taskService.selectedTask.previousDate;
-          this.taskService.selectedTask.previousDate = new Date(0);
+          this.taskService.selectedTask.previousDate = 0;
           this.taskService.emitTask(this.taskService.selectedTask);
           this.taskService.selectedTask = null;
         }
-      } else if (this.taskService.selectedTask.previousDate.getTime() === 1){
+      } else if (this.taskService.selectedTask.previousDate === 1){
         this.taskService.sendBackToTaskWindow();
       }
           
