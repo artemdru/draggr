@@ -28,6 +28,7 @@ import { MouseContainerComponent } from './mouse-container/mouse-container.compo
 import { PresentIndicatorComponent } from './date/present-indicator/present-indicator.component';
 import { GreetingDialogComponent } from './greeting-dialog/greeting-dialog.component';
 import { AuthService } from './auth/auth.service';
+import { TutorialService } from './tutorial.service';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { AuthService } from './auth/auth.service';
     TaskService, 
     DateService,
     TimeIncrementService,
-    AuthService
+    AuthService,
+    TutorialService
   ],
   bootstrap: [AppComponent],
   entryComponents: [AddTaskDialogComponent,

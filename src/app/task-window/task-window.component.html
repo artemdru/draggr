@@ -4,7 +4,7 @@
 
 			<input id="options-toggle" type="checkbox" name="options" [checked]="showMenu">
 			<!-- <label for="options-toggle" style="cursor: pointer;"><img src="assets/options.svg" class="options"></label> -->
-			<img src="assets/options.svg" style="cursor: pointer;" class="options" (click)="showMenu = !showMenu">
+			<img src="assets/options.svg" style="cursor: pointer;" class="options" (click)="menuClicked()">
 			<ul class="submenu">
             	<li><a style="cursor: pointer;">About</a></li>
             	<li *ngIf="isLoggedIn"><a style="cursor: pointer;" (click)="logoutUser()">Log out</a></li>
@@ -23,6 +23,9 @@
 					<button style="outline: none !important;" class="btn btn-primary task-modal" (click)="openDialog()">
 						<img src="assets/plus.svg" class="button-plus" alt="">
 					</button>
+					<div *ngIf="tutorialProgress==1" class="tutorial" id="tutorial1"></div>
+					<div *ngIf="tutorialProgress==2" class="tutorial" id="tutorial2"></div>
+					<div *ngIf="tutorialProgress==5" class="tutorial" id="tutorial5"></div>
 				</div>
 				<div class="col" style="padding-right: 0">
 					<div class="field-container" align="center">

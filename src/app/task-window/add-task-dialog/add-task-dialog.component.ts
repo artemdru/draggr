@@ -6,6 +6,7 @@ import { detect } from 'detect-browser';
 import { Task } from '../../task.model';
 import { TaskService } from '../../task.service';
 import { AuthService } from '../../auth/auth.service';
+import { TutorialService } from '../../tutorial.service';
 
 @Component({
   selector: 'app-add-task-dialog',
@@ -16,7 +17,10 @@ export class AddTaskDialogComponent implements OnInit, AfterViewInit {
 
 	@ViewChild('taskName') taskName: ElementRef;
 
-  constructor(private taskService: TaskService, private authService: AuthService, public dialogRef: MatDialogRef<AddTaskDialogComponent>,
+  constructor(private taskService: TaskService, 
+    private authService: AuthService,
+    private tutorialService: TutorialService, 
+    public dialogRef: MatDialogRef<AddTaskDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   	times: number[] = [];
@@ -125,17 +129,18 @@ export class AddTaskDialogComponent implements OnInit, AfterViewInit {
       console.log(newTask);
 
       this.taskService.addTask(newTask);
-      // this.authService.updateTasks();
-  	}
+      this.authService.updateTasks();
+      this.tutorialService.completeTutorial(1);
+      console.log(this.tutorialService.tutorialProgress);
+    }
 
     $('input').animate({opacity: 0}, 150, function(){
-  	  $('input').val('');
+      $('input').val('');
       $('input').css("opacity", 1);
     });
     $('.time-selector').animate({scrollLeft: (109*3)}, 50);
     this.selectorPos = 109*3;
 
-    this.authService.updateTasks();
   }
 
   closeDialog(){

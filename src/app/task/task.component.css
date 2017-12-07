@@ -149,6 +149,15 @@ h3{
     transition: all 0.2s ease-in-out;
 }
 
+#tutorial3{
+	bottom: 0px;
+	right: -100px;
+}
+
+#tutorial4{
+	top: -100px;
+	left: 0px;
+}
 
 
 

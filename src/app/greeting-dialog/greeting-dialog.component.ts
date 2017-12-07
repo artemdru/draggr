@@ -56,8 +56,6 @@ export class GreetingDialogComponent implements OnInit {
 
   	this.authService.loginUser(this.loginEmail, this.loginPassword);
 
-  	console.log(this.loginEmail, this.loginPassword);
-
   	// this.loginForm.reset();
   }
 
@@ -68,8 +66,6 @@ export class GreetingDialogComponent implements OnInit {
 
   	this.authService.registerUser(this.registerEmail, this.registerPassword);
 
-  	console.log(this.registerEmail, this.registerPassword);
-
   	// this.registerForm.reset();
   }
 
@@ -79,7 +75,8 @@ export class GreetingDialogComponent implements OnInit {
 
   switchScreens(){
     this.showSignInScreen = !this.showSignInScreen;
-    
+    this.showLogInError = false;
+    this.showSignUpError = false;    
   }
 
   onEnter(code: number){

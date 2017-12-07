@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 
 import { TaskService } from './task.service';
+import { TutorialService } from './tutorial.service';
 import { Task } from './task.model';
 
 @Injectable()
@@ -18,7 +19,7 @@ export class TimeIncrementService {
 	storedOccupation: boolean;
 	moveSuccessful: boolean = false;
 
-  constructor(private taskService: TaskService) { }
+  constructor(private taskService: TaskService, private tutorialService: TutorialService) { }
 
   moveTask(task: Task, date: number){
       this.moveSuccessful = false;
@@ -58,6 +59,7 @@ export class TimeIncrementService {
       // console.log("enough room for task!");
 
       this.moveSuccessful = true;
+      this.tutorialService.completeTutorial(2);
       // task.previousDate = date;
       // console.log(this.taskService.tasks);
 

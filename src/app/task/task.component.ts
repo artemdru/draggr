@@ -16,6 +16,7 @@ import { Subject } from 'rxjs/Subject';
 import { TimeIncrementService } from '../time-increment.service';
 
 import { TaskService } from '../task.service';
+import { TutorialService } from '../tutorial.service';
 import { Task } from '../task.model';
 
 @Component({
@@ -51,13 +52,29 @@ export class TaskComponent implements OnInit, AfterViewInit {
 
   recordedRect: any;
 
-  taskRefresher: Subscription;
+  tutorialProgress: number;
 
-  constructor(private taskService: TaskService, private incService: TimeIncrementService, private renderer: Renderer2, private cdref: ChangeDetectorRef) {}
+  taskRefresher: Subscription;
+  tutorialSubscription: Subscription;
+
+  constructor(private taskService: TaskService, 
+    private incService: TimeIncrementService, 
+    private renderer: Renderer2,
+    private tutorialService: TutorialService, 
+    private cdref: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.previousHeight = ((this.task.time/15)*32)-6;
 
+    if (this.tutorialService.tutorialProgress !== 0){
+      this.tutorialSubscription = this.tutorialService.tutorialCompleted
+        .subscribe(
+          (progress: number) => {
+            this.tutorialProgress = progress;
+          }
+        );
+      this.tutorialProgress = this.tutorialService.tutorialProgress;
+    }
 
     // this.taskRefresher = this.taskService.taskRefresher
     //   .subscribe(
@@ -162,6 +179,8 @@ export class TaskComponent implements OnInit, AfterViewInit {
     }, 100);
 
     this.stylizeTaskContainer(this.task.time);
+
+    this.tutorialService.completeTutorial(3);
   }
 
   getHour(number: number){
@@ -261,7 +280,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
           }
         }, 1);        
         
-      
+      this.tutorialService.completeTutorial(4);
   }
 
   onDelete(){

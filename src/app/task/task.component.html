@@ -62,6 +62,8 @@ class="container task-container on-calendar unselectable"
 	[style.height]="draggerHeight"
 	class="dragger">
 	</div>
+	<div *ngIf="tutorialProgress==3" class="tutorial" id="tutorial3"></div>
+	<div *ngIf="tutorialProgress==4" class="tutorial" id="tutorial4"></div>
 	
 </div>
 
@@ -95,7 +97,9 @@ style="background-color: rgba(0, 166, 81, 0.3); cursor: initial !important;"
 	#dragger
 	[style.height]="draggerHeight"
 	class="dragger">
-	</div>	
+	</div>
+	<div *ngIf="tutorialProgress==3" class="tutorial" id="tutorial3"></div>
+	<div *ngIf="tutorialProgress==4" class="tutorial" id="tutorial4"></div>
 	
 </div>
 

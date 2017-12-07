@@ -11,3 +11,11 @@ html,body
     overflow-x: hidden;
     overflow-y: hidden; 
 }
+
+.tutorial{
+	z-index: 10;
+	position: absolute;
+	background-color: red;
+	height: 100px;
+	width: 100px;
+}

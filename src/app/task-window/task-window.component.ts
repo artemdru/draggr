@@ -6,6 +6,7 @@ import * as firebase from 'firebase';
 
 import { TaskService } from '../task.service';
 import { AuthService } from '../auth/auth.service';
+import { TutorialService } from '../tutorial.service';
 import { Task } from '../task.model';
 import { AddTaskDialogComponent } from './add-task-dialog/add-task-dialog.component';
 import { GreetingDialogComponent } from '../greeting-dialog/greeting-dialog.component';
@@ -25,6 +26,8 @@ export class TaskWindowComponent implements OnInit {
 
   loggedOut: Subscription;
 
+  tutorialSubscription: Subscription;
+
   public scrollbarOptions = {};
 
   browserName: string;
@@ -34,7 +37,12 @@ export class TaskWindowComponent implements OnInit {
   showMenu: boolean = false;
   isLoggedIn: boolean;
 
-  constructor(private taskService: TaskService, private authService: AuthService, public dialog: MatDialog) { }
+  tutorialProgress: number;
+
+  constructor(private taskService: TaskService, 
+    private authService: AuthService, 
+    private tutorialService: TutorialService, 
+    public dialog: MatDialog) { }
 
   ngOnInit() {
   	this.tasks=this.taskService.tasks;
@@ -65,6 +73,16 @@ export class TaskWindowComponent implements OnInit {
       if (user) {this.isLoggedIn = true;}
       else {this.isLoggedIn = false;}
     })
+
+    if (this.tutorialService.tutorialProgress !== 0){
+      this.tutorialSubscription = this.tutorialService.tutorialCompleted
+        .subscribe(
+          (progress: number) => {
+            this.tutorialProgress = progress;
+          }
+        );
+      this.tutorialProgress = this.tutorialService.tutorialProgress;
+    }
   }
 
   openDialog(){
@@ -115,6 +133,11 @@ export class TaskWindowComponent implements OnInit {
       .subscribe(
         () => { this.taskService.isDialogOpen = false; }
       );
+  }
+
+  menuClicked(){
+    this.showMenu = !this.showMenu;
+    this.tutorialService.completeTutorial(5);
   }
   
 }
