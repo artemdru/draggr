@@ -66,7 +66,7 @@ button{
 	color:  #00A651;
 }
 
-input#sign-up-input{
+input#sign-up-input, input#show-login-error, input#show-signup-error{
 	display: none;
 }
 
@@ -88,6 +88,14 @@ input#sign-up-input:checked ~ .register-screen{
 	-ms-transition: max-height 0.5s ease-in;
 	-webkit-transition: max-height 0.5s ease-in;
   	transition: max-height 0.5s ease-in;
+}
+
+input#sign-up-input:checked ~ .login-error{
+	opacity: 0 !important;
+}
+
+input#sign-up-input:not(:checked) ~ .signup-error{
+	opacity: 0 !important;
 }
 
 input#sign-up-input:checked ~ .nevermind{
@@ -135,6 +143,40 @@ input#sign-up-input:checked ~ .nevermind{
   border-right: 5px solid transparent;
   
   border-bottom: 5px solid black;
+}
+
+input#show-login-error:checked ~ .login-error{
+	top: 220px;
+	opacity: 1;
+
+  	-o-transition: opacity 0.25s ease-out, top 0.25s ease-in;
+	-moz-transition: opacity 0.25s ease-out, top 0.25s ease-in;
+	-ms-transition: opacity 0.25s ease-out, top 0.25s ease-in;
+	-webkit-transition: opacity 0.25s ease-out, top 0.25s ease-in;
+	transition: opacity 0.25s ease-out, top 0.25s ease-in;
+}
+
+input#show-signup-error:checked ~ .signup-error{
+	top: 220px;
+	opacity: 1;
+
+  	-o-transition: opacity 0.25s ease-out, top 0.25s ease-in;
+	-moz-transition: opacity 0.25s ease-out, top 0.25s ease-in;
+	-ms-transition: opacity 0.25s ease-out, top 0.25s ease-in;
+	-webkit-transition: opacity 0.25s ease-out, top 0.25s ease-in;
+	transition: opacity 0.25s ease-out, top 0.25s ease-in;
+}
+
+.login-error, .signup-error{
+	opacity: 0;
+	position: absolute;
+	top: 260px;
+	left: -100px;
+	width: 180px;
+	height: 70px;
+	color: #C62828;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 2000;
 }
 
 ::-webkit-scrollbar {

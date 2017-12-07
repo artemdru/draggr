@@ -2,9 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { detect } from 'detect-browser';
 
+import * as firebase from 'firebase';
+
 import { TaskService } from '../task.service';
+import { AuthService } from '../auth/auth.service';
 import { Task } from '../task.model';
 import { AddTaskDialogComponent } from './add-task-dialog/add-task-dialog.component';
+import { GreetingDialogComponent } from '../greeting-dialog/greeting-dialog.component';
 
 import { Subscription } from 'rxjs/Subscription';
 
@@ -19,16 +23,27 @@ export class TaskWindowComponent implements OnInit {
 
   taskSubscription: Subscription;
 
+  loggedOut: Subscription;
+
   public scrollbarOptions = {};
 
   browserName: string;
 
   searchValue: string = '';
 
-  constructor(private taskService: TaskService, public dialog: MatDialog) { }
+  showMenu: boolean = false;
+  isLoggedIn: boolean;
+
+  constructor(private taskService: TaskService, private authService: AuthService, public dialog: MatDialog) { }
 
   ngOnInit() {
   	this.tasks=this.taskService.tasks;
+
+    this.loggedOut = this.authService.loggedOut
+      .subscribe( () => {
+        this.openGreetingDialog();
+      }
+      );
 
     this.taskSubscription = this.taskService.taskRefresher
       .subscribe(
@@ -45,6 +60,11 @@ export class TaskWindowComponent implements OnInit {
     if (this.browserName === 'firefox'){
       this.scrollbarOptions = { axis: 'y', theme: 'minimal-dark', scrollInertia: 300, scrollbarPosition: 'inside' };
     }
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {this.isLoggedIn = true;}
+      else {this.isLoggedIn = false;}
+    })
   }
 
   openDialog(){
@@ -53,7 +73,12 @@ export class TaskWindowComponent implements OnInit {
       height: '500px'
     });
 
+    dialogRef.afterClosed()
+      .subscribe(
+        () => { this.taskService.isDialogOpen = false; }
+      );
   }
+
 
   onDrop(event){
     console.log(event);
@@ -71,6 +96,25 @@ export class TaskWindowComponent implements OnInit {
 
   onKey(searchValue: string){
     this.searchValue = searchValue.toLowerCase();
+  }
+
+  logoutUser(){
+    this.authService.logoutUser();
+    this.showMenu = false;
+  }
+
+  openGreetingDialog(){
+    this.showMenu = false;
+
+    let dialogRef = this.dialog.open(GreetingDialogComponent, {
+      width: '750px',
+      height: '500px'
+    });
+
+    dialogRef.afterClosed()
+      .subscribe(
+        () => { this.taskService.isDialogOpen = false; }
+      );
   }
   
 }

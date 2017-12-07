@@ -2,12 +2,13 @@
 	<div class="col-xs-12" style="margin: 0 0 0 0">
 		<div align="right">
 
-			<input id="options-toggle" type="checkbox" name="options">
-			<label for="options-toggle" style="cursor: pointer;"><img src="assets/options.svg" class="options"></label>
+			<input id="options-toggle" type="checkbox" name="options" [checked]="showMenu">
+			<!-- <label for="options-toggle" style="cursor: pointer;"><img src="assets/options.svg" class="options"></label> -->
+			<img src="assets/options.svg" style="cursor: pointer;" class="options" (click)="showMenu = !showMenu">
 			<ul class="submenu">
             	<li><a style="cursor: pointer;">About</a></li>
-            	<li><a style="cursor: pointer;">Log out</a></li>
-            	<li><a style="cursor: pointer;">Log in/Sign up</a></li>
+            	<li *ngIf="isLoggedIn"><a style="cursor: pointer;" (click)="logoutUser()">Log out</a></li>
+            	<li *ngIf="!isLoggedIn"><a style="cursor: pointer;" (click)="openGreetingDialog()">Log in/Sign up</a></li>
           	</ul>
 		</div>
 		

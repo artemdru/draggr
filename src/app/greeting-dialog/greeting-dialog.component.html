@@ -5,9 +5,13 @@
 
 		<img src="assets/logo.svg" class="logo" alt="">
 		<input id="sign-up-input" type="checkbox">
+		<input id="show-login-error" type="checkbox" [checked]="showLogInError">
+		<input id="show-signup-error" type="checkbox" [checked]="showSignUpError">
+		<div class="login-error">Email or password is incorrect.</div>
+		<div class="signup-error">Email or password is invalid.</div>
 		<div class="log-in-screen" id="log-in-screen">
 
-			<form (ngSubmit)="submitLogIn()" #f="ngForm">
+			<form (keyup.enter)="onEnter(0)" (ngSubmit)="submitLogIn()" #f="ngForm">
 				<div ngModelGroup="loginData" #loginData="ngModelGroup">
 					<div class="form-group" style="margin-bottom: 0px;">
 						<mat-form-field style="margin-top: 20px;">
@@ -16,7 +20,7 @@
 							type="email"
 							ngModel
 							name="email"
-							required 
+							
 							email
 							placeholder="Email" 
 							#email>
@@ -28,7 +32,7 @@
 							type="password"
 							ngModel
 							name="password"
-							required
+							
 							password
 							placeholder="Password" 
 							#password>
@@ -47,14 +51,20 @@
 			
 			<p style="margin-top: 15px; font-size: 20px;">New? 
 				
-				<label for="sign-up-input" class="sign-up-link" style="cursor: pointer;">Sign up</label>
+				<label 
+				for="sign-up-input" 
+				class="sign-up-link" 
+				style="cursor: pointer;"
+				(click)="switchScreens()"		
+				>
+				Sign up</label>
 
 				 now!</p>
 		</div>
 
 		<div class="register-screen">
 
-			<form (ngSubmit)="submitRegister()" #r="ngForm">
+			<form (keyup.enter)="onEnter(1)" (ngSubmit)="submitRegister()" #r="ngForm">
 				<div ngModelGroup="registerData" #registerData="ngModelGroup">
 					<div class="form-group" style="margin-bottom: 0px;">
 						<mat-form-field>		
@@ -91,7 +101,7 @@
 			Sign up</button>
 
 		</div>
-		<label for="sign-up-input" class="nevermind"><div class="arrow-up"></div>Nevermind...</label>
+		<label for="sign-up-input" class="nevermind" (click)="switchScreens()"><div class="arrow-up"></div>Nevermind...</label>
 
 		
 				

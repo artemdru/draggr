@@ -2,6 +2,8 @@ import { Component, OnInit, Inject, ChangeDetectorRef, ViewChild } from '@angula
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { NgForm } from '@angular/forms';
 
+import { Subscription } from 'rxjs/Subscription';
+
 import { AuthService } from '../auth/auth.service';
 import { TaskService } from '../task.service';
 
@@ -19,6 +21,12 @@ export class GreetingDialogComponent implements OnInit {
 	registerPassword = '';
 	submitted = false;
 
+  showSignInScreen = false;
+  showLogInError = false;
+  showSignUpError = false;
+
+  loggedIn: Subscription;
+
   constructor(private cdref: ChangeDetectorRef,
   	private taskService: TaskService,
   	private authService: AuthService,
@@ -26,12 +34,22 @@ export class GreetingDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
+    this.authService.checkIfLoggedIn();
   	this.taskService.isDialogOpen = true;
   	// this line is to remove ExpressionChangedAfterItHasBeenCheckedError
     // this.cdref.detectChanges();
+
+    this.loggedIn = this.authService.loggedIn
+      .subscribe(
+        (bool: boolean) => {
+          if (bool === true) {this.closeDialog();}
+          else {this.showLogInError = true; this.showSignUpError = true;}
+        }
+      );
   }
 
   submitLogIn(){
+
   	this.submitted = true;
   	this.loginEmail = this.loginForm.value.loginData.email;
   	this.loginPassword = this.loginForm.value.loginData.password;
@@ -40,7 +58,7 @@ export class GreetingDialogComponent implements OnInit {
 
   	console.log(this.loginEmail, this.loginPassword);
 
-  	this.loginForm.reset();
+  	// this.loginForm.reset();
   }
 
   submitRegister(){
@@ -52,11 +70,23 @@ export class GreetingDialogComponent implements OnInit {
 
   	console.log(this.registerEmail, this.registerPassword);
 
-  	this.registerForm.reset();
+  	// this.registerForm.reset();
   }
 
   closeDialog(){
   	this.dialogRef.close();
+  }
+
+  switchScreens(){
+    this.showSignInScreen = !this.showSignInScreen;
+    
+  }
+
+  onEnter(code: number){
+    this.showLogInError = false;
+    this.showSignUpError = false;
+    if (code === 0) {this.submitLogIn();}
+    else if (code === 1) {this.submitRegister();}
   }
 
 }

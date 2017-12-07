@@ -10,6 +10,7 @@ import { DateService } from './date.service';
 
 import { TaskService } from './task.service';
 import { TimeIncrementService } from './time-increment.service';
+import { AuthService } from './auth/auth.service';
 
 import { MalihuScrollbarService } from 'ngx-malihu-scrollbar';
 import { GreetingDialogComponent } from './greeting-dialog/greeting-dialog.component';
@@ -38,12 +39,40 @@ export class AppComponent implements OnInit, AfterViewInit {
     private taskService: TaskService, 
     private incService: TimeIncrementService,
     private mScrollbarService: MalihuScrollbarService,
+    private authService: AuthService,
     public dialog: MatDialog){}
 
   ngOnInit() {
     this.dates = this.dateService.dates;
 
-    // this.taskService.getTasks();
+    firebase.initializeApp({
+      apiKey: "AIzaSyCQC_Iu0az3PaK9mmDETp3IN6eQa0vDiFM",
+      authDomain: "draggr-73506.firebaseapp.com",
+      databaseURL: "https://draggr-73506.firebaseio.com"
+    });
+
+    // setTimeout(() => {
+      this.authService.checkIfLoggedIn()
+        .then((code: number) => {
+          if (code === 0) {
+            console.log("Logged in!");
+          } else if (code === 1){
+            let dialogRef = this.dialog.open(GreetingDialogComponent, {
+            width: '750px',
+            height: '500px'
+          });
+
+            dialogRef.afterClosed()
+              .subscribe(
+                () => { this.taskService.isDialogOpen = false; }
+              );
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    // }, 300);
+    
 
     const browser = detect();
     if (browser) {
@@ -56,11 +85,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     console.log(this.browserName);
 
-    firebase.initializeApp({
-      apiKey: "AIzaSyCQC_Iu0az3PaK9mmDETp3IN6eQa0vDiFM",
-      authDomain: "draggr-73506.firebaseapp.com",
-      databaseURL: "https://draggr-73506.firebaseio.com"
-    });
+    
   }
 
   ngAfterViewInit() {
@@ -96,12 +121,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.mScrollbarService.scrollTo(this.vertScroll.nativeElement, (new Date().getHours()-1)*128, this.scrollbarOptions);
     $('.vert-scroll').scrollTop((new Date().getHours()-1)*128);
 
-    setTimeout(() => {
-        let dialogRef = this.dialog.open(GreetingDialogComponent, {
-        width: '750px',
-        height: '500px'
-      })
-      }, 300);
+    
     
   }
 

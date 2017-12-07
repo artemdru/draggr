@@ -25,15 +25,18 @@ export class TaskService {
 
 	public nextTaskID: number;
 
+	isLoggedIn: boolean = false;
+	uid: string;
+
 	updateTasks(){
-		// const token = this.authService.getToken();
-		// this.http.put('https://draggr-73506.firebaseio.com/tasks.json?auth=' + token, this.tasks)
-		// 	.subscribe(
-		// 		(response: Response) => {
-		// 			console.log(response);
-		// 		}
-		// 		);
-	}
+	    if (this.isLoggedIn){
+	  		firebase.database().ref('tasks/' + this.uid).set({
+	  			tasks: this.tasks
+	  		})
+	  		.then(() => console.log("Added tasks to firebase"))
+	  		.catch(error => console.log(error));
+	    }
+  	}
 
 	getTasks(){
 		// const token = this.authService.getToken();
@@ -141,8 +144,20 @@ export class TaskService {
 		this.tasks.splice(i, 1);
 		this.selectedTask = null;
 		console.log(this.tasks);
+	}
 
-		this.updateTasks();
+	nukeTasks(){
+		for (let task of this.tasks){
+			if (task.date !== 1){
+				this.selectTask(task.id)
+				this.selectedTask.date = 1;
+			}
+		}
+		// this.selectedTask = null;
+
+		this.tasks = [];
+
+		this.taskRefresher.next(this.tasks);
 	}
 
 	

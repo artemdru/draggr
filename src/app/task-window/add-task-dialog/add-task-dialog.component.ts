@@ -134,6 +134,8 @@ export class AddTaskDialogComponent implements OnInit, AfterViewInit {
     });
     $('.time-selector').animate({scrollLeft: (109*3)}, 50);
     this.selectorPos = 109*3;
+
+    this.authService.updateTasks();
   }
 
   closeDialog(){
