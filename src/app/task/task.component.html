@@ -62,8 +62,18 @@ class="container task-container on-calendar unselectable"
 	[style.height]="draggerHeight"
 	class="dragger">
 	</div>
-	<div *ngIf="tutorialProgress==3" class="tutorial" id="tutorial3"></div>
-	<div *ngIf="tutorialProgress==4" class="tutorial" id="tutorial4"></div>
+
+	<div *ngIf="tutorialProgress==3" class="tutorial" id="tutorial3">
+		<svg width="31" height="14" id="tutorial3-pointer">
+			<polygon points="31,0 31,14 0,7" style="fill:#246d46;" />
+		</svg>
+		<span class="tutorial-text">Resize the task by dragging at the bottom</span>
+	</div>
+	<div *ngIf="tutorialProgress==4" class="tutorial" id="tutorial4">
+		<svg width="14" height="31" id="tutorial4-pointer">
+			<polygon points="7,31 14,0 0,0" style="fill:#246d46;" />
+		</svg>
+		<span class="tutorial-text">Complete the task by clicking here.</span></div>
 	
 </div>
 
@@ -98,8 +108,8 @@ style="background-color: rgba(0, 166, 81, 0.3); cursor: initial !important;"
 	[style.height]="draggerHeight"
 	class="dragger">
 	</div>
-	<div *ngIf="tutorialProgress==3" class="tutorial" id="tutorial3"></div>
-	<div *ngIf="tutorialProgress==4" class="tutorial" id="tutorial4"></div>
+	<div *ngIf="tutorialProgress==3" class="tutorial" id="tutorial3"><span class="tutorial-text">Resize the task by dragging at the bottom</span></div>
+	<div *ngIf="tutorialProgress==4" class="tutorial" id="tutorial4"><span class="tutorial-text">Complete the task by clicking here.</span></div>
 	
 </div>
 

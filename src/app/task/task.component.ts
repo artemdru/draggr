@@ -49,6 +49,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
 
   completeClickable: boolean = true;
   initSinceCompleted: boolean = false;
+  completeThisTask: boolean = false;
 
   recordedRect: any;
 
@@ -64,17 +65,22 @@ export class TaskComponent implements OnInit, AfterViewInit {
     private cdref: ChangeDetectorRef) {}
 
   ngOnInit() {
+
     this.previousHeight = ((this.task.time/15)*32)-6;
 
-    if (this.tutorialService.tutorialProgress !== 0){
+    if (this.tutorialService.tutorialProgress !== 0 && this.tutorialService.tutorialTaskID === this.task.id){
       this.tutorialSubscription = this.tutorialService.tutorialCompleted
         .subscribe(
           (progress: number) => {
-            this.tutorialProgress = progress;
+            if (this.task.id == this.tutorialService.tutorialTaskID){
+              this.tutorialProgress = progress;
+            } else this.tutorialProgress = 0;
           }
         );
       this.tutorialProgress = this.tutorialService.tutorialProgress;
     }
+
+    console.log("tutorial progress: " + this.tutorialProgress, this.tutorialSubscription);
 
     // this.taskRefresher = this.taskService.taskRefresher
     //   .subscribe(
@@ -88,6 +94,8 @@ export class TaskComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(){
+
+
     if (this.task.isComplete){
       this.initSinceCompleted = true;
     }
@@ -122,7 +130,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
 
     if (this.task.date > 1){
       this.incService.initTimes(this.task, this.task.date);
-    }
+    }    
     
   }
 

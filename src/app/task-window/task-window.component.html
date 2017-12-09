@@ -1,5 +1,17 @@
 <div id="task-window" (mouseup)="onMouseUp()">
 	<div class="col-xs-12" style="margin: 0 0 0 0">
+		<div *ngIf="tutorialProgress==5" class="tutorial" id="tutorial5">
+			<svg width="31" height="14" id="tutorial5-pointer">
+				<polygon points="31,0 31,14 0,7" style="fill:#246d46;" />
+			</svg>
+			<span class="tutorial-text">Sign up or log in to save your progress!</span>
+		</div>
+		<div *ngIf="tutorialProgress==2" class="tutorial" id="tutorial2">
+			<svg width="32" height="32" id="tutorial2-pointer">
+				<polygon points="0,32 24,0 28,12" style="fill:#246d46;" />
+			</svg>
+			<span class="tutorial-text">Click on the task to start dragging...</span>
+		</div>
 		<div align="right">
 
 			<input id="options-toggle" type="checkbox" name="options" [checked]="showMenu">
@@ -23,9 +35,15 @@
 					<button style="outline: none !important;" class="btn btn-primary task-modal" (click)="openDialog()">
 						<img src="assets/plus.svg" class="button-plus" alt="">
 					</button>
-					<div *ngIf="tutorialProgress==1" class="tutorial" id="tutorial1"></div>
-					<div *ngIf="tutorialProgress==2" class="tutorial" id="tutorial2"></div>
-					<div *ngIf="tutorialProgress==5" class="tutorial" id="tutorial5"></div>
+
+					<div *ngIf="tutorialProgress==1" class="tutorial" id="tutorial1">
+						<svg width="14" height="50" id="tutorial1-pointer">
+							<polygon points="7,0 14,31 0,31" style="fill:#246d46;" />
+						</svg>
+						<span class="tutorial-text">Start by creating a task!</span></div>
+
+					
+
 				</div>
 				<div class="col" style="padding-right: 0">
 					<div class="field-container" align="center">

@@ -13,6 +13,8 @@ export class TutorialService {
 
 	public tutorialProgress: number = 1;
 
+	public tutorialTaskID: number;
+
 	tutorialCompleted = new Subject<number>();
 
   constructor() { }
@@ -23,6 +25,9 @@ export class TutorialService {
   		this.tutorialCompleted.next(this.tutorialProgress);
   	} else if (completed === 5){
   		this.tutorialProgress = 0;
+  	} 
+  	else if (completed === 2 && this.tutorialProgress > 2){
+  		this.tutorialCompleted.next(this.tutorialProgress);
   	}
   }
 

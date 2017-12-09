@@ -59,6 +59,7 @@ export class TimeIncrementService {
       // console.log("enough room for task!");
 
       this.moveSuccessful = true;
+      this.tutorialService.tutorialTaskID = task.id;
       this.tutorialService.completeTutorial(2);
       // task.previousDate = date;
       // console.log(this.taskService.tasks);

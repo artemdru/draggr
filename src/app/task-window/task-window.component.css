@@ -136,14 +136,36 @@ ul.submenu li:hover{
   	background: rgba(0,0,0,.1);
 }
 
+#tutorial1{
+	top: 50px;
+}
+
+#tutorial1-pointer{
+	position: absolute;
+	top:-20px;
+	left: 11px;
+}
+
 #tutorial2{
-	top: 20px;
-	left: 420px;
+	top: 150px;
+	right: -160px;
+}
+
+#tutorial2-pointer{
+	position: absolute;
+	bottom: -16px;
+	left:-16px;
 }
 
 #tutorial5{
-	top: -100px;
-	right: -500px;
+	top: 10px;
+	right: -210px;
+}
+
+#tutorial5-pointer{
+	position: absolute;
+	top: 0;
+	left: -20px;
 }
 
 ::-webkit-scrollbar {

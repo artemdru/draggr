@@ -131,7 +131,7 @@ export class AddTaskDialogComponent implements OnInit, AfterViewInit {
       this.taskService.addTask(newTask);
       this.authService.updateTasks();
       this.tutorialService.completeTutorial(1);
-      console.log(this.tutorialService.tutorialProgress);
+      this.tutorialService.tutorialTaskID = newTask.id;
     }
 
     $('input').animate({opacity: 0}, 150, function(){

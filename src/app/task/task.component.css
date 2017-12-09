@@ -150,13 +150,25 @@ h3{
 }
 
 #tutorial3{
-	bottom: 0px;
-	right: -100px;
+	bottom: -6px;
+	right: -200px;
+}
+
+#tutorial3-pointer{
+	position: absolute;
+	bottom: 0;
+	left: -20px;
 }
 
 #tutorial4{
-	top: -100px;
+	top: -70px;
 	left: 0px;
+}
+
+#tutorial4-pointer{
+	position: absolute;
+	bottom:-30px;
+	left: 6px;
 }
 
 
