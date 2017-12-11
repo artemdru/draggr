@@ -30,4 +30,39 @@ html,body
     display: flex;
     align-items: center;
     justify-content: center;
+
+    -webkit-animation: fadein ease-in 1s;
+       -moz-animation: fadein ease-in 1s;
+        -ms-animation: fadein ease-in 1s;
+         -o-animation: fadein ease-in 1s;
+            animation: fadein ease-in 1s;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Opera < 12.1 */
+@-o-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
+import * as firebase from 'firebase';
 
 @Injectable()
 export class TutorialService {
@@ -11,7 +12,7 @@ export class TutorialService {
 	//Sign up or log in to save your progress!		5
 	//No tutorial									0
 
-	public tutorialProgress: number = 1;
+	public tutorialProgress: number = 0;
 
 	public tutorialTaskID: number;
 
@@ -19,11 +20,17 @@ export class TutorialService {
 
   constructor() { }
 
+  startTutorial(){
+    console.log("tutorial started!");
+    this.tutorialProgress = 1;
+    this.tutorialCompleted.next(this.tutorialProgress);
+  }
+
   completeTutorial(completed: number){
   	if (this.tutorialProgress === completed) {
   		this.tutorialProgress++;
   		this.tutorialCompleted.next(this.tutorialProgress);
-  	} else if (completed === 5){
+  	} else if (this.tutorialProgress === completed && completed === 5){
   		this.tutorialProgress = 0;
   	} 
   	else if (completed === 2 && this.tutorialProgress > 2){

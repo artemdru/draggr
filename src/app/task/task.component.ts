@@ -77,8 +77,8 @@ export class TaskComponent implements OnInit, AfterViewInit {
             } else this.tutorialProgress = 0;
           }
         );
-      this.tutorialProgress = this.tutorialService.tutorialProgress;
     }
+    this.tutorialProgress = this.tutorialService.tutorialProgress;
 
     console.log("tutorial progress: " + this.tutorialProgress, this.tutorialSubscription);
 

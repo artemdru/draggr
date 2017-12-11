@@ -5,6 +5,7 @@ import { Subject } from 'rxjs/Subject';
 
 import { TimeIncrementService } from '../time-increment.service';
 import { TaskService } from '../task.service';
+import { TutorialService } from '../tutorial.service';
 import { Task } from '../task.model';
 
 @Injectable()
@@ -17,7 +18,8 @@ export class AuthService {
   loggedOut = new Subject<null>();
 
   constructor(private taskService: TaskService, 
-    private http: Http, 
+    private http: Http,
+    private tutorialService: TutorialService, 
     private incService: TimeIncrementService) { }
 
 
@@ -71,6 +73,7 @@ export class AuthService {
   			(error) => {
           console.log(error);
           this.loggedIn.next(false);
+          this.tutorialService.startTutorial();
         }
 		  );
   }
@@ -85,7 +88,7 @@ export class AuthService {
   							this.token = token;
                 this.uid = firebase.auth().currentUser.uid;
                 this.taskService.uid = this.uid;
-  							this.getTasks(this.token, this.uid);
+                this.getTasks(this.token, this.uid);
                 this.isLoggedIn = true;
                 this.taskService.isLoggedIn = true;
                 this.loggedIn.next(true);
@@ -98,6 +101,7 @@ export class AuthService {
 			error => {
         console.log(error);
         this.loggedIn.next(false);
+        this.tutorialService.startTutorial();
       }
 		);
   }
@@ -113,6 +117,7 @@ export class AuthService {
       this.isLoggedIn = false;
       this.taskService.isLoggedIn = false;
       this.loggedOut.next();
+      this.tutorialService.startTutorial();
     },
     (error) => console.log(error));
   }

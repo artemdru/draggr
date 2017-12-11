@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { AuthService } from '../auth/auth.service';
 import { TaskService } from '../task.service';
+import { TutorialService } from '../tutorial.service';
 
 @Component({
   selector: 'app-greeting-dialog',
@@ -30,6 +31,7 @@ export class GreetingDialogComponent implements OnInit {
   constructor(private cdref: ChangeDetectorRef,
   	private taskService: TaskService,
   	private authService: AuthService,
+    private tutorialService: TutorialService,
   	public dialogRef: MatDialogRef<GreetingDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
@@ -70,6 +72,7 @@ export class GreetingDialogComponent implements OnInit {
   }
 
   closeDialog(){
+    // this.tutorialService.startTutorial();
   	this.dialogRef.close();
   }
 

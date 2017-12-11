@@ -4,7 +4,7 @@
 			<svg width="31" height="14" id="tutorial5-pointer">
 				<polygon points="31,0 31,14 0,7" style="fill:#246d46;" />
 			</svg>
-			<span class="tutorial-text">Sign up or log in to save your progress!</span>
+			<span class="tutorial-text">Stay logged in or sign up to save your progress!</span>
 		</div>
 		<div *ngIf="tutorialProgress==2" class="tutorial" id="tutorial2">
 			<svg width="32" height="32" id="tutorial2-pointer">
@@ -18,15 +18,14 @@
 			<!-- <label for="options-toggle" style="cursor: pointer;"><img src="assets/options.svg" class="options"></label> -->
 			<img src="assets/options.svg" style="cursor: pointer;" class="options" (click)="menuClicked()">
 			<ul class="submenu">
-            	<li><a style="cursor: pointer;">About</a></li>
+            	<li><a href="https://github.com/artemdru/draggr" target="_blank" style="cursor: pointer; text-decoration: none;">About</a></li>
             	<li *ngIf="isLoggedIn"><a style="cursor: pointer;" (click)="logoutUser()">Log out</a></li>
             	<li *ngIf="!isLoggedIn"><a style="cursor: pointer;" (click)="openGreetingDialog()">Log in/Sign up</a></li>
           	</ul>
 		</div>
 		
 		<div align="center">
-			<img src="assets/logo.svg" class="logo" alt="">
-			
+			<img src="assets/logo.svg" class="logo" alt="">			
 		</div>
 
 		<div class="search-and-add">

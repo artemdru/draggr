@@ -149,8 +149,9 @@ export class TaskService {
 	nukeTasks(){
 		for (let task of this.tasks){
 			if (task.date !== 1){
-				this.selectTask(task.id)
-				this.selectedTask.date = 1;
+				this.selectTask(task.id);
+				// this.selectedTask.date = 1;
+				this.sendBackToTaskWindow();
 			}
 		}
 		// this.selectedTask = null;

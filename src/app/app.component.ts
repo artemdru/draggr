@@ -11,6 +11,7 @@ import { DateService } from './date.service';
 import { TaskService } from './task.service';
 import { TimeIncrementService } from './time-increment.service';
 import { AuthService } from './auth/auth.service';
+import { TutorialService } from './tutorial.service';
 
 import { MalihuScrollbarService } from 'ngx-malihu-scrollbar';
 import { GreetingDialogComponent } from './greeting-dialog/greeting-dialog.component';
@@ -32,14 +33,17 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   isScrollable = true;
 
+  unchecker: boolean = false;
+
   browserName: string;
   public scrollbarOptions = {};
 
   constructor(private dateService: DateService, 
-    private taskService: TaskService, 
+    private taskService: TaskService,
     private incService: TimeIncrementService,
     private mScrollbarService: MalihuScrollbarService,
     private authService: AuthService,
+    private tutorialService: TutorialService,
     public dialog: MatDialog){}
 
   ngOnInit() {
@@ -51,27 +55,26 @@ export class AppComponent implements OnInit, AfterViewInit {
       databaseURL: "https://draggr-73506.firebaseio.com"
     });
 
-    // setTimeout(() => {
-      this.authService.checkIfLoggedIn()
-        .then((code: number) => {
-          if (code === 0) {
-            console.log("Logged in!");
-          } else if (code === 1){
-            let dialogRef = this.dialog.open(GreetingDialogComponent, {
-            width: '750px',
-            height: '500px'
-          });
-
-            dialogRef.afterClosed()
-              .subscribe(
-                () => { this.taskService.isDialogOpen = false; }
-              );
-          }
-        })
-        .catch((error) => {
-          console.log(error);
+    this.authService.checkIfLoggedIn()
+      .then((code: number) => {
+        if (code === 0) {
+          console.log("Logged in!");
+        } else if (code === 1){
+          this.tutorialService.startTutorial();
+          let dialogRef = this.dialog.open(GreetingDialogComponent, {
+          width: '750px',
+          height: '500px'
         });
-    // }, 300);
+
+          dialogRef.afterClosed()
+            .subscribe(
+              () => { this.taskService.isDialogOpen = false; }
+            );
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     
 
     const browser = detect();
@@ -103,6 +106,9 @@ export class AppComponent implements OnInit, AfterViewInit {
     $('#mCSB_1_scrollbar_vertical').css("right", "-20px");
 
     (<any>$('body')).mousedown((e) => {
+
+      this.unchecker = !this.unchecker; //uncheck options input, closing options menu
+
       $('app-mouse-container').css("z-index", "20");
       $('app-mouse-container').offset({ left: e.pageX+20, top: e.pageY+20 });
       (<any>$('body')).mousemove((e) => {
@@ -114,6 +120,9 @@ export class AppComponent implements OnInit, AfterViewInit {
       }).mouseup((e) => {
         $('body').unbind('mousemove');
         $('app-mouse-container').css("z-index", "-20");
+
+
+        
       });
     });
 
@@ -131,6 +140,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   backDay(){
+
     if (this.isScrollable){
       this.dateService.addDay('back');
       $('.days-otw, .calendar').scrollLeft(this.dateWidth*2);
@@ -175,6 +185,8 @@ export class AppComponent implements OnInit, AfterViewInit {
       }
           
     }
+
+
   }
 
 }

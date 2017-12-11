@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { detect } from 'detect-browser';
 
@@ -18,7 +18,9 @@ import { Subscription } from 'rxjs/Subscription';
   templateUrl: './task-window.component.html',
   styleUrls: ['./task-window.component.css']
 })
-export class TaskWindowComponent implements OnInit {
+export class TaskWindowComponent implements OnInit, OnChanges {
+
+  @Input() unchecker: boolean;
 
 	tasks: Task[];
 
@@ -43,6 +45,10 @@ export class TaskWindowComponent implements OnInit {
     private authService: AuthService, 
     private tutorialService: TutorialService, 
     public dialog: MatDialog) { }
+
+  ngOnChanges(){
+    this.showMenu = false; //listens to mousedown anywhere on app
+  }
 
   ngOnInit() {
   	this.tasks=this.taskService.tasks;
@@ -74,15 +80,15 @@ export class TaskWindowComponent implements OnInit {
       else {this.isLoggedIn = false;}
     })
 
-    if (this.tutorialService.tutorialProgress !== 0){
-      this.tutorialSubscription = this.tutorialService.tutorialCompleted
-        .subscribe(
-          (progress: number) => {
-            this.tutorialProgress = progress;
-          }
-        );
-      this.tutorialProgress = this.tutorialService.tutorialProgress;
-    }
+
+    this.tutorialSubscription = this.tutorialService.tutorialCompleted
+      .subscribe(
+        (progress: number) => {
+          this.tutorialProgress = progress;
+        }
+      );
+    this.tutorialProgress = this.tutorialService.tutorialProgress;
+
   }
 
   openDialog(){
