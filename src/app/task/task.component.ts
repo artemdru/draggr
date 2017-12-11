@@ -13,10 +13,10 @@ import * as $ from 'jquery';
 import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 
-import { TimeIncrementService } from '../time-increment.service';
+import { TimeIncrementService } from '../services/time-increment.service';
 
-import { TaskService } from '../task.service';
-import { TutorialService } from '../tutorial.service';
+import { TaskService } from '../services/task.service';
+import { TutorialService } from '../services/tutorial.service';
 import { Task } from '../task.model';
 
 @Component({

@@ -6,12 +6,12 @@ import * as $ from 'jquery';
 import * as firebase from 'firebase';
 import { detect } from 'detect-browser';
 
-import { DateService } from './date.service';
+import { DateService } from './services/date.service';
 
-import { TaskService } from './task.service';
-import { TimeIncrementService } from './time-increment.service';
-import { AuthService } from './auth/auth.service';
-import { TutorialService } from './tutorial.service';
+import { TaskService } from './services/task.service';
+import { TimeIncrementService } from './services/time-increment.service';
+import { AuthService } from './services/auth.service';
+import { TutorialService } from './services/tutorial.service';
 
 import { MalihuScrollbarService } from 'ngx-malihu-scrollbar';
 import { GreetingDialogComponent } from './greeting-dialog/greeting-dialog.component';

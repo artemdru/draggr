@@ -1,11 +1,11 @@
 import { Http, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-// import { AuthService } from './auth/auth.service';
+// import { AuthService } from './services/auth.service';
 
 import * as firebase from 'firebase';
 
-import { Task } from './task.model';
+import { Task } from '../task.model';
 
 @Injectable()
 export class TaskService {

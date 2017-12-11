@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef } from '@ang
 import { Subscription } from 'rxjs/Subscription';
 
 import { Task } from '../task.model';
-import { TaskService } from '../task.service';
-import { TimeIncrementService } from '../time-increment.service';
+import { TaskService } from '../services/task.service';
+import { TimeIncrementService } from '../services/time-increment.service';
 
 import * as $ from 'jquery';
 

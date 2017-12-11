@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
-import { TaskService } from '../task.service';
+import { TaskService } from '../services/task.service';
 import { Task } from '../task.model';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Directive, HostListener, Output, EventEmitter, Input, NgZone, OnInit, ElementRef } from '@angular/core';
 
-import { TaskService } from './task.service';
-import { TimeIncrementService } from './time-increment.service';
+import { TaskService } from './services/task.service';
+import { TimeIncrementService } from './services/time-increment.service';
 import { Task } from './task.model';
 
 @Directive({

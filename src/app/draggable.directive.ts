@@ -1,6 +1,6 @@
 import { Directive, HostBinding, HostListener, OnInit, Input } from '@angular/core';
 
-import { TaskService } from './task.service';
+import { TaskService } from './services/task.service';
 
 @Directive({
   selector: '[appDraggable]'

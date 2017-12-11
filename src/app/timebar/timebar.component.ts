@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { TaskService } from '../task.service';
-import { TimeIncrementService } from '../time-increment.service';
+import { TaskService } from '../services/task.service';
+import { TimeIncrementService } from '../services/time-increment.service';
 
 @Component({
   selector: 'app-timebar',

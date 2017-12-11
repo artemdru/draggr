@@ -3,9 +3,9 @@ import * as firebase from 'firebase';
 import { Http, Response } from '@angular/http';
 import { Subject } from 'rxjs/Subject';
 
-import { TimeIncrementService } from '../time-increment.service';
-import { TaskService } from '../task.service';
-import { TutorialService } from '../tutorial.service';
+import { TimeIncrementService } from '../services/time-increment.service';
+import { TaskService } from '../services/task.service';
+import { TutorialService } from '../services/tutorial.service';
 import { Task } from '../task.model';
 
 @Injectable()

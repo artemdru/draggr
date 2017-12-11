@@ -4,9 +4,9 @@ import { NgForm } from '@angular/forms';
 
 import { Subscription } from 'rxjs/Subscription';
 
-import { AuthService } from '../auth/auth.service';
-import { TaskService } from '../task.service';
-import { TutorialService } from '../tutorial.service';
+import { AuthService } from '../services/auth.service';
+import { TaskService } from '../services/task.service';
+import { TutorialService } from '../services/tutorial.service';
 
 @Component({
   selector: 'app-greeting-dialog',

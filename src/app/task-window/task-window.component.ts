@@ -4,9 +4,9 @@ import { detect } from 'detect-browser';
 
 import * as firebase from 'firebase';
 
-import { TaskService } from '../task.service';
-import { AuthService } from '../auth/auth.service';
-import { TutorialService } from '../tutorial.service';
+import { TaskService } from '../services/task.service';
+import { AuthService } from '../services/auth.service';
+import { TutorialService } from '../services/tutorial.service';
 import { Task } from '../task.model';
 import { AddTaskDialogComponent } from './add-task-dialog/add-task-dialog.component';
 import { GreetingDialogComponent } from '../greeting-dialog/greeting-dialog.component';
@@ -55,7 +55,7 @@ export class TaskWindowComponent implements OnInit, OnChanges {
       }
       setTimeout(() => {
         this.showMenuIsChangeable = true;
-      }, 500);
+      }, 300);
     //listens to mousedown anywhere on app
 
     // if (this.showMenuIsChangeable) {this.showMenu = false;} 

@@ -4,9 +4,9 @@ import * as $ from 'jquery';
 import { detect } from 'detect-browser';
 
 import { Task } from '../../task.model';
-import { TaskService } from '../../task.service';
-import { AuthService } from '../../auth/auth.service';
-import { TutorialService } from '../../tutorial.service';
+import { TaskService } from '../../services/task.service';
+import { AuthService } from '../../services/auth.service';
+import { TutorialService } from '../../services/tutorial.service';
 
 @Component({
   selector: 'app-add-task-dialog',

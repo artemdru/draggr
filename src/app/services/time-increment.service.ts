@@ -3,7 +3,7 @@ import { Subject } from 'rxjs/Subject';
 
 import { TaskService } from './task.service';
 import { TutorialService } from './tutorial.service';
-import { Task } from './task.model';
+import { Task } from '../task.model';
 
 @Injectable()
 export class TimeIncrementService {
