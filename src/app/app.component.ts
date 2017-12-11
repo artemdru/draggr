@@ -1,7 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
-import { Subscription } from 'rxjs/Subscription';
 import * as $ from 'jquery';
 import * as firebase from 'firebase';
 import { detect } from 'detect-browser';
@@ -30,12 +29,11 @@ export class AppComponent implements OnInit, AfterViewInit {
   dates: Date[];
 
   dateWidth: number;
-
   isScrollable = true;
 
   unchecker: boolean = false;
-
   browserName: string;
+
   public scrollbarOptions = {};
 
   constructor(private dateService: DateService, 
@@ -47,14 +45,22 @@ export class AppComponent implements OnInit, AfterViewInit {
     public dialog: MatDialog){}
 
   ngOnInit() {
+    // If today is n, get the following dates:
+    // n-2, n-1, n, n+1, n+2
+    // Stored as javascript Date objects.
     this.dates = this.dateService.dates;
 
+
+    // Connect to firebase
     firebase.initializeApp({
       apiKey: "AIzaSyCQC_Iu0az3PaK9mmDETp3IN6eQa0vDiFM",
       authDomain: "draggr-73506.firebaseapp.com",
       databaseURL: "https://draggr-73506.firebaseio.com"
     });
 
+
+    // Check if user is logged in.
+    // If not logged in (code 1), open greeting-dialog and initiate tutorial
     this.authService.checkIfLoggedIn()
       .then((code: number) => {
         if (code === 0) {
@@ -77,6 +83,8 @@ export class AppComponent implements OnInit, AfterViewInit {
       });
     
 
+    // Detect user browser, which will determine which calendar to render.
+    // This also determines whether or not we use MalihuScrollbar, and it's options.
     const browser = detect();
     if (browser) {
       this.browserName = browser.name;
@@ -86,62 +94,71 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.scrollbarOptions = { axis: 'y', theme: 'minimal-dark', scrollInertia: 300 };
     } else this.scrollbarOptions = { axis: 'y', theme: 'minimal-dark', scrollInertia: 75, mouseWheel:{ scrollAmount: 50 } };
 
-    console.log(this.browserName);
+    console.log("opened on with browser: " + this.browserName);
 
     
   }
 
   ngAfterViewInit() {
+
+    // The calendar initiates with 5 days. If today is n, the calendar is:
+    // n-2, n-1, n, n+1, n+2
+    // After calendar renders, this sets the horizontal scroll to be precisely on day n-1
     this.dateWidth = $('#date').width();
     $('.days-otw, .calendar').scrollLeft(this.dateWidth+1);
 
-    // $('.vert-scroll').on('scroll touchmove mousewheel', function(e){
-    //   console.log("this thing scrolled");
-    //   e.preventDefault();
-    //   e.stopPropagation();
-    //   return false;
-    // })
-
-    // Hide the scrollbar on calendar
-    $('#mCSB_1_scrollbar_vertical').css("right", "-20px");
-
+    
+    // Move the mouse-container, which is a component rendering tasks while we drag them,
+    // to the current mouse location when we click anywhere on the screen.
     (<any>$('body')).mousedown((e) => {
-
-      this.unchecker = !this.unchecker; //uncheck options input, closing options menu
-      console.log("firing in app component: " + this.unchecker);
-
       $('app-mouse-container').css("z-index", "20");
       $('app-mouse-container').offset({ left: e.pageX+20, top: e.pageY+20 });
+
+      this.unchecker = !this.unchecker; //uncheck options input, closing options menu
+
+      // Keep the mouse-container glued to the mouse while we are dragging.
       (<any>$('body')).mousemove((e) => {
-        if (!this.taskService.isDialogOpen){document.getSelection().removeAllRanges();}
-        
         var offsetX = e.pageX;
         var offsetY = e.pageY;
         $('app-mouse-container').offset({ left: offsetX+20, top: offsetY+20 });
-      }).mouseup((e) => {
+
+        // Do not select/highlight anything else while we drag.
+        // Only works when a dialog is not open, so that users can select/highlight
+        // text in dialogs (such as username, task name, etc.).
+        if (!this.taskService.isDialogOpen){document.getSelection().removeAllRanges();}
+        // TODO: include logic for when user has selected task search input field.
+      })
+
+      // Stop moving the mouse container when we mouse-up or "drop" task.
+      .mouseup((e) => {
         $('body').unbind('mousemove');
         $('app-mouse-container').css("z-index", "-20");
-
-
-        
       });
     });
 
-    // scroll to the present hour
-    this.mScrollbarService.scrollTo(this.vertScroll.nativeElement, (new Date().getHours()-1)*128, this.scrollbarOptions);
+
+    // Scroll to the present hour
     $('.vert-scroll').scrollTop((new Date().getHours()-1)*128);
 
-    
-    
+    // Scroll to the present hour if we use MalihuScrollbar (non-webkit browsers)
+    this.mScrollbarService.scrollTo(this.vertScroll.nativeElement, (new Date().getHours()-1)*128, this.scrollbarOptions);
+
+    // Hide the scrollbar on calendar if we use MalihuScrollbar (non-webkit browsers)
+    $('#mCSB_1_scrollbar_vertical').css("right", "-20px");
   }
 
+
+  // When user resizes screen, keep the calendar horizontal scroll precisely on current days
   onResize(){
     this.dateWidth = $('#date').width();
     $('.days-otw, .calendar').scrollLeft(this.dateWidth+1);
   }
 
-  backDay(){
 
+  // Scroll left (back in time) a day on the calendar.
+  // Adds one day on the left and instantly scrolls right one day width.
+  // Then animates a scroll left to seemlessly and smoothly scroll one day left.
+  backDay(){
     if (this.isScrollable){
       this.dateService.addDay('back');
       $('.days-otw, .calendar').scrollLeft(this.dateWidth*2);
@@ -150,10 +167,13 @@ export class AppComponent implements OnInit, AfterViewInit {
       setTimeout(() => {
         this.isScrollable = true;
       }, 355);
-    }
-    
+    } 
   }
 
+
+  // Scroll right (forward in time) a day on the calendar.
+  // Adds one day on the right and instantly scrolls left one day width.
+  // Then animates a scroll right to seemlessly and smoothly scroll one day right.
   fwdDay(){
     if (this.isScrollable){
       this.dateService.addDay('fwd');
@@ -167,10 +187,14 @@ export class AppComponent implements OnInit, AfterViewInit {
     
   }
 
+
+  // Do not let users scroll horizontally on the calendar without using day buttons.
   keepScroll(){
     $('.vert-scroll').scrollLeft(0);
   }
 
+
+  // If user drops task not onto calendar, return task to it's origin.
   onMouseUp(){
     if (this.taskService.selectedTask !== null){
       if (this.taskService.selectedTask.previousDate !== 1){
