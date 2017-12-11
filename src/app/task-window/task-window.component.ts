@@ -37,6 +37,7 @@ export class TaskWindowComponent implements OnInit, OnChanges {
   searchValue: string = '';
 
   showMenu: boolean = false;
+  showMenuIsChangeable: boolean = true;
   isLoggedIn: boolean;
 
   tutorialProgress: number;
@@ -47,7 +48,17 @@ export class TaskWindowComponent implements OnInit, OnChanges {
     public dialog: MatDialog) { }
 
   ngOnChanges(){
-    this.showMenu = false; //listens to mousedown anywhere on app
+      
+      if (this.showMenu){
+        this.showMenuIsChangeable = false;
+        this.showMenu = false;
+      }
+      setTimeout(() => {
+        this.showMenuIsChangeable = true;
+      }, 500);
+    //listens to mousedown anywhere on app
+
+    // if (this.showMenuIsChangeable) {this.showMenu = false;} 
   }
 
   ngOnInit() {
@@ -142,7 +153,18 @@ export class TaskWindowComponent implements OnInit, OnChanges {
   }
 
   menuClicked(){
-    this.showMenu = !this.showMenu;
+    // console.log(this.showMenuIsChangeable);
+    // if (this.showMenuIsChangeable && this.showMenu){
+    //   this.showMenuIsChangeable = false;
+    //   this.showMenu = !this.showMenu;
+    //   setTimeout(() => {
+    //     this.showMenuIsChangeable = true;
+    //   }, 1500);
+    // } else this.showMenu = false;
+
+    if (this.showMenuIsChangeable) this.showMenu = !this.showMenu;
+
+    console.log("firing taskwindow");
     this.tutorialService.completeTutorial(5);
   }
   

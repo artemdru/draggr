@@ -28,6 +28,7 @@ export class AuthService {
     return new Promise( (resolve, reject) => {
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
+          // console.log(new Date(firebase.auth().currentUser.metadata.creationTime).getTime());
           firebase.auth().currentUser.getIdToken()
             .then(
               (token: string) => {
@@ -68,7 +69,7 @@ export class AuthService {
 
   registerUser(email: string, password: string){
   	firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then(() => this.loginUser(email, password))
+      .then(() => this.loginUser(email, password, true))
   		.catch(
   			(error) => {
           console.log(error);
@@ -78,7 +79,7 @@ export class AuthService {
 		  );
   }
 
-  loginUser(email: string, password: string){
+  loginUser(email: string, password: string, toStartTutorial: boolean){
   	firebase.auth().signInWithEmailAndPassword(email, password)
   		.then(
   			reponse => {
@@ -92,6 +93,11 @@ export class AuthService {
                 this.isLoggedIn = true;
                 this.taskService.isLoggedIn = true;
                 this.loggedIn.next(true);
+
+                if (!toStartTutorial){
+                  this.tutorialService.tutorialProgress = 5;
+                  this.tutorialService.completeTutorial(5);
+                }
   						}
 					)
 				console.log("Logged in!");

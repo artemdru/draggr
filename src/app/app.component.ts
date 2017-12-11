@@ -108,6 +108,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     (<any>$('body')).mousedown((e) => {
 
       this.unchecker = !this.unchecker; //uncheck options input, closing options menu
+      console.log("firing in app component: " + this.unchecker);
 
       $('app-mouse-container').css("z-index", "20");
       $('app-mouse-container').offset({ left: e.pageX+20, top: e.pageY+20 });

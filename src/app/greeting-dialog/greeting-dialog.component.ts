@@ -56,7 +56,7 @@ export class GreetingDialogComponent implements OnInit {
   	this.loginEmail = this.loginForm.value.loginData.email;
   	this.loginPassword = this.loginForm.value.loginData.password;
 
-  	this.authService.loginUser(this.loginEmail, this.loginPassword);
+  	this.authService.loginUser(this.loginEmail, this.loginPassword, false);
 
   	// this.loginForm.reset();
   }
