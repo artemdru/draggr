@@ -1,10 +1,6 @@
-html,body
-{
-    width: 100%;
-    height: 100%;
-    margin: 0px;
-    padding: 0px;
-/*    overflow: hidden; */
+.row, .col-md-auto, .col-12, .col, .right-button, .calendar, .wrapper{
+  margin: 0;
+  padding: 0;
 }
 
 .row{
@@ -13,32 +9,26 @@ html,body
 
 .vert-scroll{
   overflow-x: hidden;
-  /*overflow-y: hidden;*/
   overflow-y: scroll;
-      height: 93.8005vh;
+  height: 93.8005vh;
 }
 
 .calendar{
   overflow: hidden;
-  /*width: 69.375vw;*/
   width: 100%;
   min-width: 388.5px;
 }
 
 .wrapper {
-    padding: 0px;
-    margin: 0px;
-    /*overflow: hidden;*/
-    /*width: 115.625vw;*/
-    width: 118.9581vw;
-    min-width: 1942.5px;
+  padding: 0px;
+  margin: 0px;
+  width: 118.9581vw;
+  min-width: 1942.5px;
 }
 
 .days-otw{
-    overflow-x: hidden;
- /* width: 63.6111vw;*/
- /*width: 100%;*/
- min-width: 388.5px;
+  overflow-x: hidden;
+  min-width: 388.5px;
 }
 
 .right-button{
@@ -49,7 +39,6 @@ html,body
 }
 
 app-mouse-container{
-  /*background-color: red;*/
   width: 23.7916vw;
   min-width: 388.5px;
   height: 280px;

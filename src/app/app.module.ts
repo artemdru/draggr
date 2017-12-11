@@ -13,8 +13,6 @@ import { DateComponent } from './date/date.component';
 import { TaskWindowComponent } from './task-window/task-window.component';
 import { TaskService } from './services/task.service';
 import { TaskComponent } from './task/task.component';
-import { DraggableDirective } from './draggable.directive';
-import { DroppableDirective } from './droppable.directive';
 import { TimeIncrementComponent } from './time-increment/time-increment.component';
 import { DaysOtwComponent } from './days-otw/days-otw.component';
 import { TimebarComponent } from './timebar/timebar.component';
@@ -36,8 +34,6 @@ import { TutorialService } from './services/tutorial.service';
     DateComponent,
     TaskWindowComponent,
     TaskComponent,
-    DraggableDirective,
-    DroppableDirective,
     TimeIncrementComponent,
     DaysOtwComponent,
     TimebarComponent,
