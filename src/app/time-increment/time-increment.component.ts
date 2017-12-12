@@ -78,9 +78,9 @@ export class TimeIncrementComponent implements OnInit, OnDestroy {
 
                 this.incService.moveTask(movingTask, targetIncrement);
 
-                if (this.incService.moveSuccessful === true){
+                // if (this.incService.moveSuccessful === true){
                   movingTask.date= targetIncrement;
-                }
+                // }
                 
                 if (movingTask.time === 15){
                   
@@ -172,23 +172,23 @@ export class TimeIncrementComponent implements OnInit, OnDestroy {
     if (!this.isOccupied){
       if (this.taskService.selectedTask !== null){
           this.incService.moveTask(this.taskService.selectedTask, this.date);
-        if (this.incService.moveSuccessful === true){
+        // if (this.incService.moveSuccessful === true){
         this.taskService.selectedTask.date=this.date;
         this.taskService.selectedTask.previousDate = 0;
         this.taskService.emitTask(this.taskService.selectedTask);
         this.taskService.selectedTask = null;
-        }
+        // }
       }
     } else if (this.isOccupied){
       if (this.taskService.selectedTask !== null){
       if (this.taskService.selectedTask.previousDate !== 1){
         this.incService.moveTask(this.taskService.selectedTask, this.taskService.selectedTask.previousDate);
-        if (this.incService.moveSuccessful === true){
+        // if (this.incService.moveSuccessful === true){
           this.taskService.selectedTask.date=this.taskService.selectedTask.previousDate;
           this.taskService.selectedTask.previousDate = 0;
           this.taskService.emitTask(this.taskService.selectedTask);
           this.taskService.selectedTask = null;
-        }
+        // }
       } else if (this.taskService.selectedTask.previousDate === 1){
         this.taskService.sendBackToTaskWindow();
       }

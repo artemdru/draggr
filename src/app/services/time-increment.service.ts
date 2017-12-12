@@ -7,9 +7,10 @@ import { Task } from '../task.model';
 
 // The Time Increment service handles the logic of 'moving' tasks - changing their date, and
 // rendering them in a new time increment block. Tasks are rendered on the block with their
-// corresponding date, and the task overfills other time increments (if it's 15+ minutes).
+// corresponding date, and the task overfills other time increments (if it's >15 minutes).
+//
 // After task moving, additional time increments are then changed to 'occupied'. All logic
-// changing time increments is handled with the dateSubject observable.
+// changing time increments is handled by emitting with the dateSubject observable.
 
 @Injectable()
 export class TimeIncrementService {
@@ -22,19 +23,22 @@ export class TimeIncrementService {
 	dateSubject = new Subject<[Task, number, number, number]>();
 
 	storedOccupation: boolean;
-	moveSuccessful: boolean = false;
+	moveSuccessful: boolean = false; // TODO: remove moveSuccessful and dependancies to it
 
   constructor(private taskService: TaskService, private tutorialService: TutorialService) { }
 
 
   // Moves the task to the time increment with the passed in date.
+  // Each code is fired chronologically in this method - first, we check for occupation (CODE 0),
+  // then we unoccupy time increments used previously (CODE 1), finally we occupy the new time
+  // increments (CODE 2).
   moveTask(task: Task, date: number){
       this.moveSuccessful = false;
       var timeIncrement: number = date;
       var iterations: number = Math.round(task.time/15);
       var targetDate: number = date;
 
-
+      // CODE 0:
       // Check if there's enough onoccupied blocks.
       for (var _i = 0; _i < iterations; _i++){
         this.dateSubject.next([task, 0, timeIncrement, targetDate]);
@@ -47,6 +51,8 @@ export class TimeIncrementService {
         timeIncrement = timeIncrement + (15*60000); // check the next time increment.
       }
 
+
+      // CODE 1:
       // Unoccupy previously occupied time increments, if the task was on calendar
       // before being transferred to mouse-container (which has a date of 1).
       if (task.previousDate !== 1){
@@ -57,6 +63,8 @@ export class TimeIncrementService {
         }
       }
 
+
+      // CODE 2:
       // Occupy the target time increments with our task.
       timeIncrement = date;
       for (var _y = 0; _y < iterations; _y++){
