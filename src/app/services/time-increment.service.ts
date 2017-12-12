@@ -5,14 +5,19 @@ import { TaskService } from './task.service';
 import { TutorialService } from './tutorial.service';
 import { Task } from '../task.model';
 
+// The Time Increment service handles the logic of 'moving' tasks - changing their date, and
+// rendering them in a new time increment block. Tasks are rendered on the block with their
+// corresponding date, and the task overfills other time increments (if it's 15+ minutes).
+// After task moving, additional time increments are then changed to 'occupied'. All logic
+// changing time increments is handled with the dateSubject observable.
+
 @Injectable()
 export class TimeIncrementService {
 
-	// SUBJECT CODES for first variable sent:
-	// 0 - for checking if all increments are unoccupied, and if increments are occupied by same task being moved
+	// CODES to be supplied in second parameter:
+	// 0 - for checking if all increments are unoccupied or occupied by same task being moved
 	// 1 - for onoccupying increments previously occupied by task being dropped
 	// 2 - for occupying new increments
-	// First number is code
   //                         Task, code,   timeInc, targetTime
 	dateSubject = new Subject<[Task, number, number, number]>();
 
@@ -21,49 +26,55 @@ export class TimeIncrementService {
 
   constructor(private taskService: TaskService, private tutorialService: TutorialService) { }
 
+
+  // Moves the task to the time increment with the passed in date.
   moveTask(task: Task, date: number){
       this.moveSuccessful = false;
       var timeIncrement: number = date;
-      var iterations: number = Math.round(task.time/15); //TODO: proper calculations from time to integers
+      var iterations: number = Math.round(task.time/15);
       var targetDate: number = date;
 
 
-      // check if there's enough onoccupied blocks
+      // Check if there's enough onoccupied blocks.
       for (var _i = 0; _i < iterations; _i++){
         this.dateSubject.next([task, 0, timeIncrement, targetDate]);
         
         if (this.storedOccupation === true){
-          // console.log("not enough room for task");
+          // Time increment is already occupied, not enough room for task.
           return false;
         }
 
-        timeIncrement = timeIncrement + (15*60000); //TODO: proper calculations from time to integers
+        timeIncrement = timeIncrement + (15*60000); // check the next time increment.
       }
 
-      // unoccupy previous time increments, if the task had any
+      // Unoccupy previously occupied time increments, if the task was on calendar
+      // before being transferred to mouse-container (which has a date of 1).
       if (task.previousDate !== 1){
         timeIncrement = task.date;
         for (var _j = 0; _j < iterations; _j++){
           this.dateSubject.next([task, 1, timeIncrement, targetDate]);
-          timeIncrement = timeIncrement + (15*60000); //TODO: proper calculations from time to integers
+          timeIncrement = timeIncrement + (15*60000); // unoccupy the next time increment.
         }
       }
 
-      // occupy the new time increments
+      // Occupy the target time increments with our task.
       timeIncrement = date;
       for (var _y = 0; _y < iterations; _y++){
         this.dateSubject.next([task, 2, timeIncrement, targetDate]);
-        timeIncrement = timeIncrement + (15*60000); //TODO: proper calculations from time to integers
+        timeIncrement = timeIncrement + (15*60000); // occupy the next time increment.
       }
 
-      // console.log("enough room for task!");
 
       this.moveSuccessful = true;
+
+      // Assign this task to the tutorial to display further tutorials, and
+      // complete tutorial 'drag task' section.
       this.tutorialService.tutorialTaskID = task.id;
       this.tutorialService.completeTutorial(2);
-      // task.previousDate = date;
-      // console.log(this.taskService.tasks);
 
+
+      // Write new tasks to database for storage. Done with a delay,
+      // as multiple quick changes to tasks might not trigger a write action.
       setTimeout(() => {
         this.taskService.updateTasks();
       }, 500);
@@ -74,17 +85,22 @@ export class TimeIncrementService {
   	this.storedOccupation = bool;
   }
 
+
+  // Render tasks within time increments after they have been initiated,
+  // for example being loaded after scrolling days.
   initTimes(task: Task, date: number){
     var timeIncrement: number = date;
-    var iterations: number = task.time/15; //TODO: proper calculations from time to integers
+    var iterations: number = task.time/15;
 
     for (var _y = 0; _y < iterations; _y++){
 
       this.dateSubject.next([task, 2, timeIncrement, null]);
-      timeIncrement = timeIncrement + (15*60000); //TODO: proper calculations from time to integers
+      timeIncrement = timeIncrement + (15*60000);
     }
   }
 
+
+  // A method to unoccupy time increments specifically for resizing a task.
   unoccupyLastTime(task: Task, date: number, iterations: number){
 
     // Iterating multiple times is necessary because the onResize event can skip firing if task
