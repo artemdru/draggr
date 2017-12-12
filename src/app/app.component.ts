@@ -63,9 +63,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     // If not logged in (code 1), open greeting-dialog and initiate tutorial
     this.authService.checkIfLoggedIn()
       .then((code: number) => {
-        if (code === 0) {
-          console.log("Logged in!");
-        } else if (code === 1){
+        if (code === 1){
           this.tutorialService.startTutorial();
           let dialogRef = this.dialog.open(GreetingDialogComponent, {
           width: '750px',
@@ -94,7 +92,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.scrollbarOptions = { axis: 'y', theme: 'minimal-dark', scrollInertia: 300 };
     } else this.scrollbarOptions = { axis: 'y', theme: 'minimal-dark', scrollInertia: 75, mouseWheel:{ scrollAmount: 50 } };
 
-    console.log("opened on with browser: " + this.browserName);
+    console.log("Opened on browser: " + this.browserName);
 
     
   }

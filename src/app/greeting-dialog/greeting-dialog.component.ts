@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { NgForm } from '@angular/forms';
 
@@ -28,8 +28,7 @@ export class GreetingDialogComponent implements OnInit {
 
   loggedIn: Subscription;
 
-  constructor(private cdref: ChangeDetectorRef,
-  	private taskService: TaskService,
+  constructor(private taskService: TaskService,
   	private authService: AuthService,
     private tutorialService: TutorialService,
   	public dialogRef: MatDialogRef<GreetingDialogComponent>,
@@ -38,8 +37,6 @@ export class GreetingDialogComponent implements OnInit {
   ngOnInit() {
     this.authService.checkIfLoggedIn();
   	this.taskService.isDialogOpen = true;
-  	// this line is to remove ExpressionChangedAfterItHasBeenCheckedError
-    // this.cdref.detectChanges();
 
     this.loggedIn = this.authService.loggedIn
       .subscribe(

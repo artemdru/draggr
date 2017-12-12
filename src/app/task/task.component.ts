@@ -79,18 +79,6 @@ export class TaskComponent implements OnInit, AfterViewInit {
         );
     }
     this.tutorialProgress = this.tutorialService.tutorialProgress;
-
-    console.log("tutorial progress: " + this.tutorialProgress, this.tutorialSubscription);
-
-    // this.taskRefresher = this.taskService.taskRefresher
-    //   .subscribe(
-    //       () => {
-            
-    //         this.containerWidth = (Math.round(this.taskContainer.nativeElement.offsetWidth/9));
-    //         console.log(this.containerWidth);
-    //         this.cdref.detectChanges();
-    //       }
-    //     );
   }
 
   ngAfterViewInit(){
