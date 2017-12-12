@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { TaskService } from './task.service';
-
 @Injectable()
 export class DateService {
 
+  // Create 5 dates to render in the calendar. Left-most and right-most dates
+  // will always be out of view, but pre-rendered for smoothness in scrolling days.
 	today = new Date();
 	  leftMostDay = new Date(new Date().setDate(new Date().getDate()-2));
 	  leftDay = new Date(new Date().setDate(new Date().getDate()-1));
@@ -13,8 +13,10 @@ export class DateService {
 
     dates = [this.leftMostDay, this.leftDay, this.today, this.rightDay, this.rightMostDay];
 
-  constructor(private taskService: TaskService) { }
+  constructor() { }
 
+  // Modifies the dates array to shift one day left (back in time), or one day
+  // right (forward in time).
   addDay(dir: string){
   	if (dir === 'back'){
   		this.dates.splice(4, 1);
