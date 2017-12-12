@@ -35,7 +35,7 @@ export class AuthService {
   // Checks if user is logged in. Returns a promise to the component calling it
   // (the app component).
   checkIfLoggedIn(){
-    return new Promise( (resolve, reject) => {
+    return new Promise((resolve) => {
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
           firebase.auth().currentUser.getIdToken()
@@ -209,11 +209,14 @@ export class AuthService {
           }
           this.taskService.nukeTasks();
 
-          var mod = 0;
+          var _i = 0;
           for (let task of snapshot.val().tasks){
-            this.taskService.tasks[mod] = new Task(task.id, task.name, task.time, task.date, task.previousDate, task.isComplete);
-            this.taskService.emitTask(this.taskService.tasks[mod]);
-            mod++;
+            // Create a new task object to store task, since tasks are stored as JSON in firebase.
+            this.taskService.tasks[_i] = new Task(task.id, task.name, task.time, task.date, task.previousDate, task.isComplete);
+
+            // Render the task.
+            this.taskService.emitTask(this.taskService.tasks[_i]);
+            _i++;
           }
 
           console.log("Got tasks from firebase!");
