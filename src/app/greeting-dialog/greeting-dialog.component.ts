@@ -16,13 +16,17 @@ import { TutorialService } from '../services/tutorial.service';
 export class GreetingDialogComponent implements OnInit {
 	@ViewChild('f') loginForm: NgForm;
 	@ViewChild('r') registerForm: NgForm;
+
+  // Store the input field values in these variables:
 	loginEmail = '';
 	loginPassword = '';
 	registerEmail = '';
 	registerPassword = '';
-	submitted = false;
 
+  // To toggle between showing login screen or signup screen.
   showSignInScreen = false;
+
+  // These booleans trigger logic to show errors.
   showLogInError = false;
   showSignUpError = false;
 
@@ -35,9 +39,12 @@ export class GreetingDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
-    this.authService.checkIfLoggedIn();
+    // this.authService.checkIfLoggedIn();
+
+    // Dialog is open, allow users to select elements (for text inputs)
   	this.taskService.isDialogOpen = true;
 
+    // Close greeting-dialog or show error upon login/signup submission
     this.loggedIn = this.authService.loggedIn
       .subscribe(
         (bool: boolean) => {
@@ -48,37 +55,35 @@ export class GreetingDialogComponent implements OnInit {
   }
 
   submitLogIn(){
-
-  	this.submitted = true;
   	this.loginEmail = this.loginForm.value.loginData.email;
   	this.loginPassword = this.loginForm.value.loginData.password;
 
   	this.authService.loginUser(this.loginEmail, this.loginPassword, false);
-
-  	// this.loginForm.reset();
   }
 
   submitRegister(){
-  	this.submitted = true;
   	this.registerEmail = this.registerForm.value.registerData.email;
   	this.registerPassword = this.registerForm.value.registerData.password;
 
   	this.authService.registerUser(this.registerEmail, this.registerPassword);
-
-  	// this.registerForm.reset();
   }
 
   closeDialog(){
-    // this.tutorialService.startTutorial();
   	this.dialogRef.close();
   }
 
+
+  // Toggle between login screen and register screen.
   switchScreens(){
     this.showSignInScreen = !this.showSignInScreen;
+
+    // Remove errors when toggled.
     this.showLogInError = false;
     this.showSignUpError = false;    
   }
 
+
+  // Enter key submits form: 0 for login, 1 for register.
   onEnter(code: number){
     this.showLogInError = false;
     this.showSignUpError = false;

@@ -1,11 +1,5 @@
-/*app-time-incremet{
-	position: relative;
-	z-index: -1;
-}*/
-
 .day{
 	min-width: 388.5px;
 	box-shadow: -1.5px 0px 0px 0px #939598 inset;
 	width: 23.7916vw;
-	/*width: 23.125vw;*/
 }
