@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
-import { TaskService } from '../services/task.service';
 import { Task } from '../task.model';
 
 @Component({
@@ -22,7 +21,7 @@ export class DateComponent implements OnInit, OnDestroy{
 
   isToday: boolean = false;
 
-  constructor(private taskService: TaskService) { }
+  constructor() { }
 
   ngOnInit() {
     this.date.setHours(0,0,0,0);

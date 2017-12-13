@@ -5,12 +5,13 @@ import * as firebase from 'firebase';
 @Injectable()
 export class TutorialService {
 
-	//Start by creating a new task!					1
-	//Click on the task to start dragging			2
-	//Resize the task by dragging at the bottom		3
-	//Complete the task by clicking here.			4
-	//Sign up or log in to save your progress!		5
-	//No tutorial									0
+  // TUTORIAL CODES:
+	// 1  Start by creating a task!
+	// 2  Click on the task to start dragging...
+	// 3  Resize the task by dragging at the bottom.
+	// 4  Complete the task by clicking here.
+	// 5  Stay logged in or sign up to save your progress!
+	// 0  NO TUTORIAL
 
 	public tutorialProgress: number = 0;
 

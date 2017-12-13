@@ -227,11 +227,14 @@ export class AuthService {
 
 
   // Writes the current task list in TaskService to firebase.
+  // Duplicate method in TaskService to avoid circular dependency.
   updateTasks(){
     if (this.isLoggedIn){
   		firebase.database().ref('tasks/' + this.uid).set({
   			tasks: this.taskService.tasks
-  		}).then(() => console.log("Saved tasks!"));
+  		})
+      .then(() => console.log("Saved tasks!"))
+      .catch(error => {console.log("Unable to add tasks to firebase..."); console.log(error)});
     }
   }
 }

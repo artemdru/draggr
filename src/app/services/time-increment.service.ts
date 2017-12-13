@@ -89,6 +89,8 @@ export class TimeIncrementService {
  	
   }
 
+
+  // Stores the occupation status of time increment being iterated through.
   storeOccupationStatus(bool: boolean){
   	this.storedOccupation = bool;
   }
