@@ -1,41 +1,49 @@
-<div class="container" id="dialog" style="width: 550px; height: 300px;">
+<div class="container" id="dialog">
 	<div class="container-fluid" align="center" style="width: 500px; position: relative;">
+
+		<!-- TASK NAME -->
 		<mat-form-field>		
 			<h3 style="margin-bottom: 30px;">Task name</h3>
 			<input matInput #taskName>
 		</mat-form-field>
+
+		<!-- TIME SELECTOR -->
 		<h3 style="margin-top: 30px;">Estimated duration</h3>
-							<div class="time-selector">
+		<div class="time-selector">
 			<div class="wrapper">
 				<span *ngFor="let time of times" id="times" class="times">{{ getHour(time) }}:{{ getMinutes(time) }} </span>
   			</div>
-  			
-  		</div>
-
-		<div *ngIf="browserName != 'safari'" class="gradient-wrapper">
-
 		</div>
-
-
+		<div *ngIf="browserName != 'safari'" class="gradient-wrapper"></div>
   		<svg width="14" height="50">
 		  	<polygon points="7,0 14,31 0,31" style="fill:#2f2f2f;" />
 		</svg>
-		<p id="hint" style="margin-top:-25px !important;">Scroll or arrow key to change</p>
+		<p id="hint" style="margin-top:-25px !important;">Scroll or Up/Down arrow keys to change</p>
+
+		<!-- ADD TASK AND CANCEL BUTTONS -->
 		<div>
+
+			<!-- Two-layer button to simulate click animation when using Enter. -->
 			<button 
 			type="button"
 			class="btn btn-primary add-task"
-			(click)="addTask()">
-			Add Task</button>
-			<button 
-			type="button"
-			class="btn btn-primary clicked"
+			tabindex="-1" 
 			(click)="addTask()">
 			Add Task</button>
 
-				<button class="btn cancel-button" (click)="closeDialog()">Cancel</button>
-				<p id="hint" style="margin-left:-200px !important;">Press Enter</p>
-		</div>
-				
+			<button 
+			type="button"
+			class="btn btn-primary clicked"
+			tabindex="-1"
+			(click)="addTask()">
+			Add Task</button>
+
+			<button 
+			class="btn cancel-button" 
+			(click)="closeDialog()">
+			Cancel</button>
+
+			<p id="hint" style="margin-left:-200px !important;">Press Enter</p>
+		</div>	
 	</div>
 </div>

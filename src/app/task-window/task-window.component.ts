@@ -120,11 +120,9 @@ export class TaskWindowComponent implements OnInit, OnChanges {
   }
 
   onMouseUp(){
-
     if (this.taskService.selectedTask !== null && !this.taskService.selectedTask.isComplete){
       this.taskService.sendBackToTaskWindow();  
-    } else if (this.taskService.selectedTask !== null && this.taskService.selectedTask.isComplete){
-      console.log("mouseup");        
+    } else if (this.taskService.selectedTask !== null && this.taskService.selectedTask.isComplete){       
       this.taskService.deleteTask(this.taskService.selectedTask.id);
     }
   }

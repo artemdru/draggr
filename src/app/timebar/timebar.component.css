@@ -1,4 +1,4 @@
-.unselectable {
+.unselectable{
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -8,19 +8,13 @@
 }
 
 .timebar{
-	/*height: 93.8005vh;*/
 	height: 100%;
-	/*min-width: 96.83px;*/
 	min-width: 56.83px;
 	width: 3.7639vw;
 	box-shadow: -1.5px 0px 0px 0px #939598 inset;
-	/*border-right: #939598 solid 1px;*/
-	/*width: 5.7639vw;*/
-	/*width: 96.83px;*/
 }
 
 .increment{
-	
 	box-shadow: 0px -1px 0px 0px #bcbec0 inset;
 	height: 128px;
 	position: relative;

@@ -1,3 +1,9 @@
+#dialog{
+	width: 550px; 
+	height: 300px; 
+	position: relative;
+}
+
 input{
 	text-align: center;
 	font-size: 30px;
@@ -42,8 +48,6 @@ mat-form-field{
 	height: 60px;
 	overflow-x: hidden;
 	width: 2833.88px;
-	/*width: 2830.88px;*/
-	/*width: 2722px;*/
 	padding: 0px;
 }
 
@@ -62,7 +66,7 @@ svg{
 	margin-top:-40px;
 }
 
-.btn-primary:active, .btn-primary:visited {
+.btn-primary:active, .btn-primary:visited{
     background-color: #006d34 !important;
 }
 
@@ -71,7 +75,6 @@ svg{
 
 .add-task{
 	position: absolute;
-			/*margin-left: -205px;*/
 	background-color: #00A651;	
 	color: white;
 	border-color: transparent;
@@ -90,7 +93,7 @@ svg{
 	background-color: transparent;
 }
 
-.cancel-button:hover, .cancel-button:active, .cancel-button:visited {
+.cancel-button:hover, .cancel-button:active, .cancel-button:visited{
     background-color: silver !important;
 }
 

@@ -82,14 +82,14 @@ export class AddTaskDialogComponent implements OnInit, AfterViewInit {
   			$('.clicked').animate({ opacity: 1}, 500, function(){
   				clickable = true;
   			});
-  		} else if (e.keyCode === 39 && clickable === true){
+  		} else if (e.keyCode === 38 && clickable === true){
             if (this.selectorPos < 2507){
             	this.selectorPos+=109;
 	            $('.time-selector').animate({scrollLeft: this.selectorPos}, 50, function(){
             });
             }
 
-  		} else if (e.keyCode === 37 && clickable === true){
+  		} else if (e.keyCode === 40 && clickable === true){
             if (this.selectorPos > 0){
             	this.selectorPos-=109;
     	            $('.time-selector').animate({scrollLeft: this.selectorPos}, 50, function(){

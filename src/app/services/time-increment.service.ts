@@ -124,8 +124,23 @@ export class TimeIncrementService {
 
         this.dateSubject.next([task, 1, timeIncrement, null]);
     }
+  }
 
-
+  moveTaskBack(){
+    if (this.taskService.selectedTask !== null){
+      if (this.taskService.selectedTask.previousDate !== 1){
+        this.moveTask(this.taskService.selectedTask, this.taskService.selectedTask.previousDate);
+        if (this.moveSuccessful === true){
+          this.taskService.selectedTask.date=this.taskService.selectedTask.previousDate;
+          this.taskService.selectedTask.previousDate = 0;
+          this.taskService.emitTask(this.taskService.selectedTask);
+          this.taskService.selectedTask = null;
+        }
+      } else if (this.taskService.selectedTask.previousDate === 1){
+        this.taskService.sendBackToTaskWindow();
+      }
+          
+    }
   }
 
 }

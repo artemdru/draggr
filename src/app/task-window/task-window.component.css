@@ -91,6 +91,7 @@ a{
 	text-decoration: none;
 }
 
+/* Show options menu */
 input:checked ~ ul.submenu{
   	max-height: 300px;
   	-o-transition: max-height 0.5s ease-in;

@@ -46,14 +46,13 @@ export class TimeIncrementComponent implements OnInit, OnDestroy {
 
     this.taskSubscription = this.taskService.taskAdded
       .subscribe(
-          (task: Task) => {
-            if (task.date === this.date){
-              this.task = task;
-              this.isOccupied = true;
-                
-            }
+        (task: Task) => {
+          if (task.date === this.date){
+            this.task = task;
+            this.isOccupied = true; 
           }
-        );
+        }
+      );
 
     this.incSubscription = this.incService.dateSubject
       .subscribe(
@@ -92,43 +91,6 @@ export class TimeIncrementComponent implements OnInit, OnDestroy {
                 this.taskService.emitTask(movingTask);
               }
               this.incService.storeOccupationStatus(this.isOccupied);
-                
-              
-
-                // this.doAsyncTask(this.taskService.tasks[previousOccupantID], targetIncrement)
-                //   .then((result: Task) => {
-
-                //     if (this.incService.moveSuccessful === true){
-                //       result.date= targetIncrement;
-                //     }
-
-                //     this.taskService.emitTask(result);
-                //   });
-
-
-
-
-
-
-
-
-
-
-                // const startTime = Date.now();
-
-                // this.incService.moveTask(this.taskService.tasks[previousOccupantID], targetIncrement)
-                //   .then((result: Task) => {
-                //     this.taskService.tasks[previousOccupantID].date= targetIncrement;
-                //     if (task.time === 15){
-                //       setTimeout(() => {
-                //         this.taskService.emitTask(this.taskService.tasks[previousOccupantID]);
-                //       }, 1);
-                //     } else this.taskService.emitTask(this.taskService.tasks[previousOccupantID]);
-                    
-                //     console.log("moving " + task.name + " took this long: " + (Date.now() - startTime));
-                //   });
-
-              
 
             } else if (date === this.date
 

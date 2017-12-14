@@ -65,7 +65,6 @@ export class TaskComponent implements OnInit, AfterViewInit {
     private cdref: ChangeDetectorRef) {}
 
   ngOnInit() {
-
     this.previousHeight = ((this.task.time/15)*32)-6;
 
     if (this.tutorialService.tutorialProgress !== 0 && this.tutorialService.tutorialTaskID === this.task.id){
@@ -82,8 +81,6 @@ export class TaskComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(){
-
-
     if (this.task.isComplete){
       this.initSinceCompleted = true;
     }
@@ -99,7 +96,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
       this.containerWidth = (Math.round(this.taskEl.offsetWidth/9));
     } else this.stylizeTaskContainer(this.task.time);
 
-    // this line is to remove ExpressionChangedAfterItHasBeenCheckedError
+    // Removes error ExpressionChangedAfterItHasBeenCheckedError
     this.cdref.detectChanges();
 
 
@@ -124,21 +121,22 @@ export class TaskComponent implements OnInit, AfterViewInit {
 
   onResizing(event: ResizeEvent): void {
     this.draggerHeight = "0";
-    if (event.rectangle.height < this.previousHeight){
-      // console.log("taskComponent saw decrease in size");
 
+    // Decrease in size
+    if (event.rectangle.height < this.previousHeight){
       let freedBlocks = (this.previousHeight - event.rectangle.height)/32
 
-      let proposedTask: Task = new Task(this.task.id, this.task.name, ((event.rectangle.height+6)/32) * 15, this.task.date, this.task.date, this.task.isComplete);
+      let proposedTask: Task = new Task(this.task.id, 
+                                        this.task.name, 
+                                        ((event.rectangle.height+6)/32) * 15, 
+                                        this.task.date, 
+                                        this.task.date, 
+                                        this.task.isComplete);
       this.incService.moveTask(proposedTask, proposedTask.date);
-      if (this.incService.moveSuccessful){
-        console.log("freed blocks " + freedBlocks);
-          this.incService.unoccupyLastTime(this.task, this.task.date, freedBlocks);
-        
-        this.task.time = ((event.rectangle.height+6)/32) * 15;
 
-        // $(this.taskEl).stop();
-        // $(this.taskEl).animate({height: `${event.rectangle.height}px`}, 100);
+      if (this.incService.moveSuccessful){
+        this.incService.unoccupyLastTime(this.task, this.task.date, freedBlocks); 
+        this.task.time = ((event.rectangle.height+6)/32) * 15;
         this.style = {
           height: `${event.rectangle.height}px`
         }
@@ -146,23 +144,27 @@ export class TaskComponent implements OnInit, AfterViewInit {
       
     }
 
-    if (event.rectangle.height > this.previousHeight){
-      // console.log("taskComponent saw increase in size");
 
-      let proposedTask: Task = new Task(this.task.id, this.task.name, ((event.rectangle.height+6)/32) * 15, this.task.date, this.task.previousDate, this.task.isComplete);
+    // Increase in size
+    if (event.rectangle.height > this.previousHeight){
+
+      let proposedTask: Task = new Task(this.task.id, 
+                                        this.task.name, 
+                                        ((event.rectangle.height+6)/32) * 15, 
+                                        this.task.date, 
+                                        this.task.previousDate, 
+                                        this.task.isComplete);
+
       this.incService.moveTask(proposedTask, proposedTask.date);
       if (this.incService.moveSuccessful){
-            // $(this.taskEl).stop();
-            // $(this.taskEl).animate({height: `${event.rectangle.height}px`}, 100);
-            this.style = {
-              height: `${event.rectangle.height}px`
-            }
-            this.task.time = ((event.rectangle.height+6)/32) * 15;
-            this.incService.initTimes(this.task, this.task.date);
+        this.style = {
+          height: `${event.rectangle.height}px`
+        }
+        this.task.time = ((event.rectangle.height+6)/32) * 15;
+        this.incService.initTimes(this.task, this.task.date);
       }
 
     }
-
 
     this.previousHeight = event.rectangle.height;
 
@@ -170,8 +172,6 @@ export class TaskComponent implements OnInit, AfterViewInit {
       if (this.draggerHeight === "0"){
         this.draggerHeight = "80%";
       }
-      
-      
     }, 100);
 
     this.stylizeTaskContainer(this.task.time);
@@ -182,8 +182,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
   getHour(number: number){
     if (number>=60){
       return Math.floor(number/60) + 'h';
-    }
-    
+    } 
   }
 
   getMinutes(number: number){
@@ -217,7 +216,6 @@ export class TaskComponent implements OnInit, AfterViewInit {
       this.timeContainerEl.style.right = '18px';
       this.timeContainerEl.style.top = '5px';
       this.taskNameEl.style.width = '80%';
-
     } else if (time === 60){
       this.containerWidth = 40;
       this.taskNameEl.style.fontSize = '26px'; 
@@ -241,49 +239,37 @@ export class TaskComponent implements OnInit, AfterViewInit {
     const rect = this.taskEl.getBoundingClientRect();
     this.taskService.selectTask(this.task.id);
     this.incService.moveTask(this.taskService.selectedTask, 0);
-
-
-    // * DEPRECATED * left here in case it's needed
-    // this logic fixes bug where dragging a completed task before it has triggered ngAfterViewInit causes
-    // the rect to have coords of 0,0 - thus, being dragged in to mouse container from top left
-    // if (this.task.isComplete && !this.initSinceCompleted){
-    //   this.taskService.addToMouseContainer(this.task.id, this.recordedRect.left, this.recordedRect.top, event.pageX, event.pageY);
-    //   this.initSinceCompleted = true;
-    // }
-
-    this.taskService.addToMouseContainer(this.task.id, rect.left, rect.top, event.pageX, event.pageY);
-    
+    this.taskService.addToMouseContainer(this.task.id, rect.left, rect.top, event.pageX, event.pageY);    
   }
 
   onComplete(){
-      this.recordedRect = this.taskEl.getBoundingClientRect();
-      this.task.isComplete = !this.task.isComplete;
+    this.recordedRect = this.taskEl.getBoundingClientRect();
+    this.task.isComplete = !this.task.isComplete;
 
-        // Quickly send to mouse container and back to trigger AfterViewInit
-        // Properly styles task when (un)completed
-        this.taskService.selectTask(this.task.id);
-        this.incService.moveTask(this.taskService.selectedTask, 0);        
-        this.taskService.addToMouseContainer(this.task.id, this.recordedRect.left, this.recordedRect.top, this.recordedRect.left, this.recordedRect.top);
+      // Quickly send to mouse container and back to time increment to trigger AfterViewInit.
+      // Properly styles task when (un)completed, but a temporary solution.
+      this.taskService.selectTask(this.task.id);
+      this.incService.moveTask(this.taskService.selectedTask, 0);        
+      this.taskService.addToMouseContainer(this.task.id, this.recordedRect.left, this.recordedRect.top, this.recordedRect.left, this.recordedRect.top);
 
-        setTimeout(() => {
-          if (this.taskService.selectedTask !== null){
-          this.incService.moveTask(this.taskService.selectedTask, this.task.previousDate);
-            if (this.incService.moveSuccessful === true){
-              this.taskService.selectedTask.date=this.task.previousDate;
-              this.taskService.emitTask(this.taskService.selectedTask);
-              this.taskService.selectedTask = null;
-            }
+      setTimeout(() => {
+        if (this.taskService.selectedTask !== null){
+        this.incService.moveTask(this.taskService.selectedTask, this.task.previousDate);
+          if (this.incService.moveSuccessful === true){
+            this.taskService.selectedTask.date=this.task.previousDate;
+            this.taskService.emitTask(this.taskService.selectedTask);
+            this.taskService.selectedTask = null;
           }
-        }, 1);        
-        
-      this.tutorialService.completeTutorial(4);
+        }
+      }, 1);        
+      
+    this.tutorialService.completeTutorial(4);
   }
 
   onDelete(){
-      this.taskService.deleteTask(this.task.id);
-
-      if (this.task.date !== 1){
+    this.taskService.deleteTask(this.task.id);
+    if (this.task.date !== 1){
       this.incService.unoccupyLastTime(this.task, this.task.date, this.task.time/15);
-      }
+    }
   }
 }
