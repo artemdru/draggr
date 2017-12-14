@@ -1,22 +1,26 @@
 <!-- IN TASK WINDOW -->
 <div
 *ngIf="task.date === 1"
-
 #taskContainer
 class="container task-container in-queue unselectable"
 >
 	<td class="minutes" #timeContainer>
 		<img class="time-icon" src="assets/time.svg" alt="">
 	{{ getHour(task.time) }} {{ getMinutes(task.time) }}m</td>
+
 	<div align="center" class="task-name">
 		<h3 #taskName>{{ (task.name.length>containerWidth)? (task.name | slice:0:containerWidth)+'...':(task.name) }}</h3>
 	</div>
-		<div class="alignleft" id="hover-buttons" #colorSelector style="visibility: hidden;">
-			<img src="assets/color.svg" class="color-selector" alt="">
-		</div>
-		<div class="alignright unselectable" id="hover-buttons" #deleteButton>
-			<img src="assets/delete.svg" (click)="onDelete()">
-		</div>
+
+	<div class="alignleft" id="hover-buttons" #colorSelector style="visibility: hidden;">
+		<img src="assets/color.svg" class="color-selector" alt="">
+	</div>
+
+	<div class="alignright unselectable" id="hover-buttons" #deleteButton>
+		<img src="assets/delete.svg" (click)="onDelete()">
+	</div>
+
+	<!-- Dragger receiving click events -->
 	<div 
 	(mousedown)="onMouseDown($event)"
 	#dragger
@@ -47,15 +51,20 @@ class="container task-container on-calendar unselectable"
 		<img class="time-icon" src="assets/time.svg">
 		<span>{{ getHour(task.time) }} {{ getMinutes(task.time) }}m</span>
 	</div>
+
 	<div align="center" class="task-name unselectable">
 		<h3 #taskName>{{ (task.name.length>containerWidth)? (task.name | slice:0:containerWidth)+'...':(task.name) }}</h3>
 	</div>
+
 	<div class="alignleft unselectable" id="hover-buttons" #colorSelector style="visibility: hidden;">
 		<img src="assets/color.svg" class="color-selector">
 	</div>
+
 	<div class="alignright unselectable" id="hover-buttons" style="z-index: 20" #deleteButton>
 		<img src="assets/delete.svg" (click)="onDelete()">
 	</div>
+
+	<!-- Dragger receiving click events -->
 	<div 
 	(mousedown)="onMouseDown($event)"
 	#dragger
@@ -69,11 +78,13 @@ class="container task-container on-calendar unselectable"
 		</svg>
 		<span class="tutorial-text">Resize the task by dragging at the bottom.</span>
 	</div>
+
 	<div *ngIf="tutorialProgress==4" class="tutorial" id="tutorial4">
 		<svg width="14" height="31" id="tutorial4-pointer">
 			<polygon points="7,31 14,0 0,0" style="fill:#246d46;" />
 		</svg>
-		<span class="tutorial-text">Complete the task by clicking here.</span></div>
+		<span class="tutorial-text">Complete the task by clicking here.</span>
+	</div>
 	
 </div>
 
@@ -93,24 +104,34 @@ style="background-color: rgba(0, 166, 81, 0.3); cursor: initial !important;"
 		<img class="time-icon" src="assets/time.svg">
 		<span>{{ getHour(task.time) }} {{ getMinutes(task.time) }}m</span>
 	</div>
+
 	<div align="center" class="task-name unselectable">
 		<h3 #taskName>{{ (task.name.length>containerWidth)? (task.name | slice:0:containerWidth)+'...':(task.name) }}</h3>
 	</div>
+
 	<div class="alignleft unselectable" id="hover-buttons" #colorSelector style="visibility: hidden;">
 		<img src="assets/color.svg" class="color-selector">
 	</div>
+
 	<div class="alignright unselectable" id="hover-buttons" style="z-index: 20"  #deleteButton>
 		<img src="assets/delete.svg" (click)="onDelete()" style="cursor: pointer !important;">
 	</div>
+
+	<!-- Dragger receiving click events -->
 	<div 
 	(mousedown)="onMouseDown($event)"
 	#dragger
 	[style.height]="draggerHeight"
 	class="dragger">
 	</div>
-	<div *ngIf="tutorialProgress==3" class="tutorial" id="tutorial3"><span class="tutorial-text">Resize the task by dragging at the bottom.</span></div>
-	<div *ngIf="tutorialProgress==4" class="tutorial" id="tutorial4"><span class="tutorial-text">Complete the task by clicking here.</span></div>
-	
+
+	<div *ngIf="tutorialProgress==3" class="tutorial" id="tutorial3">
+		<span class="tutorial-text">Resize the task by dragging at the bottom.</span>
+	</div>
+
+	<div *ngIf="tutorialProgress==4" class="tutorial" id="tutorial4">
+		<span class="tutorial-text">Complete the task by clicking here.</span>
+	</div>
 </div>
 
 <!-- IN MOUSE CONTAINER INCOMPLETE -->
@@ -127,22 +148,19 @@ class="container task-container in-mouse-container unselectable"
 		<img class="time-icon" src="assets/time.svg">
 		<span>{{ getHour(task.time) }} {{ getMinutes(task.time) }}m</span>
 	</div>
+
 	<div align="center" class="task-name unselectable">
 		<h3 #taskName>{{ (task.name.length>containerWidth)? (task.name | slice:0:containerWidth)+'...':(task.name) }}</h3>
 	</div>
+
 	<div class="alignleft unselectable" id="hover-buttons" #colorSelector>
 		<img src="assets/color.svg" class="color-selector">
 	</div>
+
 	<div class="alignright unselectable" id="hover-buttons" #deleteButton>
 		<img src="assets/delete.svg">
 	</div>
-	<div 
-	(mousedown)="onMouseDown($event)"
-	#dragger
-	[style.height]="draggerHeight"
-	class="dragger">
-	</div>	
-	
+
 </div>
 
 <!-- IN MOUSE CONTAINER COMPLETE -->
@@ -160,39 +178,16 @@ style="background-color: rgba(0, 166, 81, 0.3);"
 		<img class="time-icon" src="assets/time.svg">
 		<span>{{ getHour(task.time) }} {{ getMinutes(task.time) }}m</span>
 	</div>
+
 	<div align="center" class="task-name unselectable">
 		<h3 #taskName>{{ (task.name.length>containerWidth)? (task.name | slice:0:containerWidth)+'...':(task.name) }}</h3>
 	</div>
+
 	<div class="alignleft unselectable" id="hover-buttons" #colorSelector style="visibility: hidden;">
 		<img src="assets/color.svg" class="color-selector">
 	</div>
+
 	<div class="alignright unselectable" id="hover-buttons" #deleteButton>
 		<img src="assets/delete.svg">
 	</div>
-	<div 
-	(mousedown)="onMouseDown($event)"
-	#dragger
-	[style.height]="draggerHeight"
-	class="dragger">
-	</div>	
-	
 </div>
-
-<!-- <div
-*ngIf="task.date !== null"
-mwlResizable
-[ngStyle]="style"
-[resizeEdges]="{bottom: true}"
-[enableGhostResize]="true"
-(resizing)="onResizing($event)"
-[resizeSnapGrid]="{bottom: 32}"
-[resizeCursorPrecision]=20
-[style.height.px]="((task.time/15)*32)-6" 
-appDraggable 
-[taskName]=task.name 
-[taskID]=task.id
-class="container task-container on-calendar"
->
-	<h3><td class="minutes"><span #time>{{ task.time }}</span> minutes</td>{{ task.name }} {{ task.id }}</h3>
-	
-</div> -->

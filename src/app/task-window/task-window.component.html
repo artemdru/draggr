@@ -1,48 +1,52 @@
 <div id="task-window" (mouseup)="onMouseUp()">
 	<div class="col-xs-12" style="margin: 0 0 0 0">
+
+		<!-- TUTORIAL STEP 5 -->
 		<div *ngIf="tutorialProgress==5" class="tutorial" id="tutorial5">
 			<svg width="31" height="14" id="tutorial5-pointer">
-				<polygon points="31,0 31,14 0,7" style="fill:#246d46;" />
+				<polygon points="31,0 31,14 0,7"/>
 			</svg>
 			<span class="tutorial-text">Stay logged in or sign up to save your progress!</span>
 		</div>
+
+		<!-- TUTORIAL STEP 2 -->
 		<div *ngIf="tutorialProgress==2" class="tutorial" id="tutorial2">
 			<svg width="32" height="32" id="tutorial2-pointer">
-				<polygon points="0,32 24,0 28,12" style="fill:#246d46;" />
+				<polygon points="0,32 24,0 28,12"/>
 			</svg>
 			<span class="tutorial-text">Click on the task to start dragging...</span>
 		</div>
-		<div align="right">
 
+		<!-- OPTIONS MENU -->
+		<div align="right">
 			<input id="options-toggle" type="checkbox" name="options" [checked]="showMenu">
-			<!-- <label for="options-toggle" style="cursor: pointer;"><img src="assets/options.svg" class="options"></label> -->
 			<img src="assets/options.svg" style="cursor: pointer;" class="options" (click)="menuClicked()">
 			<ul class="submenu">
-            	<li><a href="https://github.com/artemdru/draggr" target="_blank" style="cursor: pointer; text-decoration: none;">About</a></li>
-            	<li *ngIf="isLoggedIn"><a style="cursor: pointer;" (click)="logoutUser()">Log out</a></li>
-            	<li *ngIf="!isLoggedIn"><a style="cursor: pointer;" (click)="openGreetingDialog()">Log in/Sign up</a></li>
+            	<li><a href="https://github.com/artemdru/draggr" target="_blank">About</a></li>
+            	<li *ngIf="isLoggedIn"><a (click)="logoutUser()">Log out</a></li>
+            	<li *ngIf="!isLoggedIn"><a (click)="openGreetingDialog()">Log in/Sign up</a></li>
           	</ul>
 		</div>
 		
+		<!-- LOGO -->
 		<div align="center">
 			<img src="assets/logo.svg" class="logo" alt="">			
 		</div>
 
+		<!-- ADD TASK BUTTON AND SEARCH BAR -->
 		<div class="search-and-add">
-			<div class="row" style="margin: 0; padding: 0;">
-				<div class="col-md-auto col-12" style="margin: 0; padding: 0;">
+			<div class="row">
+				<div class="col-md-auto col-12">
 					<button style="outline: none !important;" class="btn btn-primary task-modal" (click)="openDialog()">
 						<img src="assets/plus.svg" class="button-plus" alt="">
 					</button>
 
 					<div *ngIf="tutorialProgress==1" class="tutorial" id="tutorial1">
 						<svg width="14" height="50" id="tutorial1-pointer">
-							<polygon points="7,0 14,31 0,31" style="fill:#246d46;" />
+							<polygon points="7,0 14,31 0,31"/>
 						</svg>
-						<span class="tutorial-text">Start by creating a task!</span></div>
-
-					
-
+						<span class="tutorial-text">Start by creating a task!</span>
+					</div>
 				</div>
 				<div class="col" style="padding-right: 0">
 					<div class="field-container" align="center">

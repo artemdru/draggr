@@ -1,3 +1,9 @@
+#dialog{
+	width: 550px; 
+	height: 300px; 
+	position: relative;
+}
+
 .backdrop{
 	background-color: #43544B;
 	width: 750px;
@@ -12,9 +18,9 @@
 }
 
 input{
+	font-family: 'Roboto', sans-serif;
 	font-size: 24px;
 	font-weight: 300;
-	font-family: 'Roboto', sans-serif;
 }
 
 h3{
@@ -28,7 +34,7 @@ mat-form-field{
 }
 
 
-.btn-primary:active, .btn-primary:visited {
+.btn-primary:active, .btn-primary:visited{
     background-color: #006d34 !important;
 }
 
@@ -43,7 +49,7 @@ mat-form-field{
 	background-color: transparent;
 }
 
-.cancel-button:hover, .cancel-button:active, .cancel-button:visited {
+.cancel-button:hover, .cancel-button:active, .cancel-button:visited{
     background-color: silver !important;
 }
 
@@ -66,10 +72,12 @@ button{
 	color:  #00A651;
 }
 
+/* Hide the triggers for screens and errors */
 input#sign-up-input, input#show-login-error, input#show-signup-error{
 	display: none;
 }
 
+/* Show login screen */
 input#sign-up-input:checked ~ .log-in-screen{
 	max-height: 0px;
 
@@ -80,6 +88,7 @@ input#sign-up-input:checked ~ .log-in-screen{
   	transition: max-height 0.5s ease-in;
 }
 
+/* Show register screen */
 input#sign-up-input:checked ~ .register-screen{
 	max-height: 324px;
 
@@ -90,19 +99,20 @@ input#sign-up-input:checked ~ .register-screen{
   	transition: max-height 0.5s ease-in;
 }
 
+/* Hide login error if we're on signup screen */
 input#sign-up-input:checked ~ .login-error{
 	opacity: 0 !important;
 }
 
+/* Hide signup error if we're on login screen */
 input#sign-up-input:not(:checked) ~ .signup-error{
 	opacity: 0 !important;
 }
 
+/* Show nevermind button if on signup screen */
 input#sign-up-input:checked ~ .nevermind{
 	opacity: 1;
 }
-
-
 
 .log-in-screen{
 	max-height: 324px;
@@ -136,7 +146,7 @@ input#sign-up-input:checked ~ .nevermind{
 	color:  #00A651;
 }
 
-.arrow-up {
+.arrow-up{
   width: 0; 
   height: 0; 
   border-left: 5px solid transparent;
@@ -145,6 +155,7 @@ input#sign-up-input:checked ~ .nevermind{
   border-bottom: 5px solid black;
 }
 
+/* Show login error */
 input#show-login-error:checked ~ .login-error{
 	top: 220px;
 	opacity: 1;
@@ -156,6 +167,7 @@ input#show-login-error:checked ~ .login-error{
 	transition: opacity 0.25s ease-out, top 0.25s ease-in;
 }
 
+/* Show signup error */
 input#show-signup-error:checked ~ .signup-error{
 	top: 220px;
 	opacity: 1;
@@ -179,7 +191,7 @@ input#show-signup-error:checked ~ .signup-error{
 	font-weight: 2000;
 }
 
-::-webkit-scrollbar {
+::-webkit-scrollbar{
     height: 0px;
     width: 0px;
     background: transparent;
