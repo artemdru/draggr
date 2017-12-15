@@ -1,32 +1,13 @@
 # draggr
 
-[draggr](https://artemdru.github.io/draggr) is a drag-and-drop personal scheduling tool.
+[draggr](https://artemdru.github.io/draggr) is a drag-and-drop personal scheduling tool that allows you to easily and quickly lay out a schedule for your day by dropping tasks onto a calendar. You can complete, rearrange, or resize your tasks as your day goes as planned, or not as planned - all in a very visual depiction of your plan for the day, with task sizes corresponding to the time it takes to complete them.
 
+The idea of centering a scheduler around drag-and-drop and resize functionality comes from a want to intuitively divide my day into easily visible and editable chunks - both for organization, and for gamification of productivity.
 
+## Usage
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.2.
+123
 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
