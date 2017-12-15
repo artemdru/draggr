@@ -8,6 +8,11 @@ The idea of centering a scheduler around drag-and-drop and resize functionality 
 
 123
 
-## Development server
+## Set up
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+
+## Areas for improvement
+
+## License
