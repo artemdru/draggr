@@ -16,7 +16,7 @@ import { Task } from '../task.model';
 export class TimeIncrementService {
 
 	// CODES to be supplied in second parameter:
-	// 0 - for checking if all increments are unoccupied or occupied by same task being moved
+	// 0 - for checking if all increments are unoccupied
 	// 1 - for onoccupying increments previously occupied by task being dropped
 	// 2 - for occupying new increments
   //                         Task, code,   timeInc, targetTime
