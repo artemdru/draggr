@@ -134,12 +134,10 @@ export class TaskComponent implements OnInit, AfterViewInit {
                                         this.task.isComplete);
       this.incService.moveTask(proposedTask, proposedTask.date);
 
-      if (this.incService.moveSuccessful){
-        this.incService.unoccupyLastTime(this.task, this.task.date, freedBlocks); 
-        this.task.time = ((event.rectangle.height+6)/32) * 15;
-        this.style = {
-          height: `${event.rectangle.height}px`
-        }
+      this.incService.unoccupyLastTime(this.task, this.task.date, freedBlocks); 
+      this.task.time = ((event.rectangle.height+6)/32) * 15;
+      this.style = {
+        height: `${event.rectangle.height}px`
       }
       
     }
@@ -156,13 +154,12 @@ export class TaskComponent implements OnInit, AfterViewInit {
                                         this.task.isComplete);
 
       this.incService.moveTask(proposedTask, proposedTask.date);
-      if (this.incService.moveSuccessful){
-        this.style = {
-          height: `${event.rectangle.height}px`
-        }
-        this.task.time = ((event.rectangle.height+6)/32) * 15;
-        this.incService.initTimes(this.task, this.task.date);
+
+      this.style = {
+        height: `${event.rectangle.height}px`
       }
+      this.task.time = ((event.rectangle.height+6)/32) * 15;
+      this.incService.initTimes(this.task, this.task.date);
 
     }
 
@@ -255,11 +252,10 @@ export class TaskComponent implements OnInit, AfterViewInit {
       setTimeout(() => {
         if (this.taskService.selectedTask !== null){
         this.incService.moveTask(this.taskService.selectedTask, this.task.previousDate);
-          if (this.incService.moveSuccessful === true){
-            this.taskService.selectedTask.date=this.task.previousDate;
-            this.taskService.emitTask(this.taskService.selectedTask);
-            this.taskService.selectedTask = null;
-          }
+        
+        this.taskService.selectedTask.date=this.task.previousDate;
+        this.taskService.emitTask(this.taskService.selectedTask);
+        this.taskService.selectedTask = null;
         }
       }, 1);        
       

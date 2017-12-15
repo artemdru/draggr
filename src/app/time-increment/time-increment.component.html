@@ -3,7 +3,6 @@
 [hidden]="isOccupied"
 (mouseup)="onMouseUp()"
 [ngStyle]="style"
-(click)="onClick()" 
 class="time-increment unoccupied"
 #timeIncrement>
 	<div *ngIf="(this.date/60000)%60 === 15" class="half-hour"></div>
@@ -14,7 +13,6 @@ class="time-increment unoccupied"
 *ngIf="isOccupied"
 (mouseup)="onMouseUp()"
 [ngStyle]="style"
-(click)="onClick()" 
 class="time-increment">
 	<div *ngIf="(this.date/60000)%60 === 15" class="half-hour"></div>
 	<div class="task-holder" #myTask>

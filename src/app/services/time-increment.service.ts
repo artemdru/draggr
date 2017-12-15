@@ -23,7 +23,6 @@ export class TimeIncrementService {
 	dateSubject = new Subject<[Task, number, number, number]>();
 
 	storedOccupation: boolean;
-	moveSuccessful: boolean = false; // TODO: remove moveSuccessful and dependancies to it
 
   constructor(private taskService: TaskService, private tutorialService: TutorialService) { }
 
@@ -33,7 +32,6 @@ export class TimeIncrementService {
   // then we unoccupy time increments used previously (CODE 1), finally we occupy the new time
   // increments (CODE 2).
   moveTask(task: Task, date: number){
-      this.moveSuccessful = false;
       var timeIncrement: number = date;
       var iterations: number = Math.round(task.time/15);
       var targetDate: number = date;
@@ -71,9 +69,6 @@ export class TimeIncrementService {
         this.dateSubject.next([task, 2, timeIncrement, targetDate]);
         timeIncrement = timeIncrement + (15*60000); // occupy the next time increment.
       }
-
-
-      this.moveSuccessful = true;
 
       // Assign this task to the tutorial to display further tutorials, and
       // complete tutorial 'drag task' section.
@@ -126,20 +121,19 @@ export class TimeIncrementService {
     }
   }
 
-  moveTaskBack(){
+  moveTaskToPreviousLocation(){
     if (this.taskService.selectedTask !== null){
       if (this.taskService.selectedTask.previousDate !== 1){
         this.moveTask(this.taskService.selectedTask, this.taskService.selectedTask.previousDate);
-        if (this.moveSuccessful === true){
-          this.taskService.selectedTask.date=this.taskService.selectedTask.previousDate;
-          this.taskService.selectedTask.previousDate = 0;
-          this.taskService.emitTask(this.taskService.selectedTask);
-          this.taskService.selectedTask = null;
-        }
+
+        this.taskService.selectedTask.date=this.taskService.selectedTask.previousDate;
+        this.taskService.selectedTask.previousDate = 0;
+        this.taskService.emitTask(this.taskService.selectedTask);
+        this.taskService.selectedTask = null;
+
       } else if (this.taskService.selectedTask.previousDate === 1){
         this.taskService.sendBackToTaskWindow();
-      }
-          
+      }     
     }
   }
 

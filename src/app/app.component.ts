@@ -196,22 +196,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   // If user drops task not onto calendar, return task to it's origin.
   onMouseUp(){
-    if (this.taskService.selectedTask !== null){
-      if (this.taskService.selectedTask.previousDate !== 1){
-        this.incService.moveTask(this.taskService.selectedTask, this.taskService.selectedTask.previousDate);
-        if (this.incService.moveSuccessful === true){
-          this.taskService.selectedTask.date=this.taskService.selectedTask.previousDate;
-          this.taskService.selectedTask.previousDate = 0;
-          this.taskService.emitTask(this.taskService.selectedTask);
-          this.taskService.selectedTask = null;
-        }
-      } else if (this.taskService.selectedTask.previousDate === 1){
-        this.taskService.sendBackToTaskWindow();
-      }
-          
-    }
-
-
+    this.incService.moveTaskToPreviousLocation();
   }
 
 }

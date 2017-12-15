@@ -76,10 +76,7 @@ export class TimeIncrementComponent implements OnInit, OnDestroy {
                 // method into multiple promises and .then() calls within itself
 
                 this.incService.moveTask(movingTask, targetIncrement);
-
-                // if (this.incService.moveSuccessful === true){
-                  movingTask.date= targetIncrement;
-                // }
+                movingTask.date= targetIncrement;
                 
                 if (movingTask.time === 15){
                   
@@ -133,51 +130,21 @@ export class TimeIncrementComponent implements OnInit, OnDestroy {
   onMouseUp(){
     if (!this.isOccupied){
       if (this.taskService.selectedTask !== null){
-          this.incService.moveTask(this.taskService.selectedTask, this.date);
-        // if (this.incService.moveSuccessful === true){
+        this.incService.moveTask(this.taskService.selectedTask, this.date);
+
         this.taskService.selectedTask.date=this.date;
         this.taskService.selectedTask.previousDate = 0;
         this.taskService.emitTask(this.taskService.selectedTask);
         this.taskService.selectedTask = null;
-        // }
       }
     } else if (this.isOccupied){
-      if (this.taskService.selectedTask !== null){
-      if (this.taskService.selectedTask.previousDate !== 1){
-        this.incService.moveTask(this.taskService.selectedTask, this.taskService.selectedTask.previousDate);
-        // if (this.incService.moveSuccessful === true){
-          this.taskService.selectedTask.date=this.taskService.selectedTask.previousDate;
-          this.taskService.selectedTask.previousDate = 0;
-          this.taskService.emitTask(this.taskService.selectedTask);
-          this.taskService.selectedTask = null;
-        // }
-      } else if (this.taskService.selectedTask.previousDate === 1){
-        this.taskService.sendBackToTaskWindow();
-      }
-          
+      this.incService.moveTaskToPreviousLocation();
     }
-    }
-    
-
-
-
-  }
-
-  onClick(){
-    // console.log(this.task, this.occupantID, this.isOccupied);
   }
 
   ngOnDestroy(){
     this.taskSubscription.unsubscribe();
     this.incSubscription.unsubscribe();
   }
-
-  // doAsyncTask(task: Task, timeIncr: Date){
-  //   return new Promise(resolve => {
-  //     this.incService.moveTask(task, timeIncr);
-  //     // if (this.incService.moveSuccessful === true){task.date = timeIncr;}
-  //     resolve(task);
-  //   });
-  // }
 
 }
