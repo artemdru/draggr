@@ -47,10 +47,6 @@ export class TaskComponent implements OnInit, AfterViewInit {
 
   offset: string = '89px';
 
-  completeClickable: boolean = true;
-  initSinceCompleted: boolean = false;
-  completeThisTask: boolean = false;
-
   recordedRect: any;
 
   tutorialProgress: number;
@@ -67,24 +63,27 @@ export class TaskComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.previousHeight = ((this.task.time/15)*32)-6;
 
+
+    // Subscribe to tutorial only if tutorial is activated (first user login or demo).
     if (this.tutorialService.tutorialProgress !== 0 && this.tutorialService.tutorialTaskID === this.task.id){
       this.tutorialSubscription = this.tutorialService.tutorialCompleted
         .subscribe(
           (progress: number) => {
+            // Only render tutorial of this task is the one currently being practiced with.
             if (this.task.id == this.tutorialService.tutorialTaskID){
               this.tutorialProgress = progress;
             } else this.tutorialProgress = 0;
           }
         );
     }
-    this.tutorialProgress = this.tutorialService.tutorialProgress;
+
+    // Get the tutorial progress if task has been created and tutorial does not need to progress.
+    if (this.task.id == this.tutorialService.tutorialTaskID){this.tutorialProgress = this.tutorialService.tutorialProgress;}
+    
   }
 
   ngAfterViewInit(){
-    if (this.task.isComplete){
-      this.initSinceCompleted = true;
-    }
-
+    // Store references to elementref's nativeElement for shorter code.
     this.taskEl = this.taskContainer.nativeElement;
     this.taskNameEl = this.taskNameElRef.nativeElement;
     this.timeContainerEl = this.timeContainerElRef.nativeElement;
@@ -92,60 +91,73 @@ export class TaskComponent implements OnInit, AfterViewInit {
     this.deleteButtonEl = this.deleteButtonElRef.nativeElement;
 
 
+    // Tasks in task window (.date == 1) and tasks on time increments have different
+    // styling, so stylize each task when its view is initiated.
     if (this.task.date === 1){
       this.containerWidth = (Math.round(this.taskEl.offsetWidth/9));
     } else this.stylizeTaskContainer(this.task.time);
 
-    // Removes error ExpressionChangedAfterItHasBeenCheckedError
-    this.cdref.detectChanges();
 
-
-    if (this.task.date !== 1 && this.task.previousDate !== 1 && this.task.previousDate === 0){
-
+    // Smoothly move task from mouse container to time increment.
+    if (this.task.date !== 1 && this.task.previousDate === 0){
       let mouseCoords = $('.animate-mouse').offset();
       const rect = this.taskEl.getBoundingClientRect();
 
       $(this.taskEl).css({left: mouseCoords.left-rect.left, top: mouseCoords.top-rect.top+33});
       $(this.taskEl).animate({left: 0, top: 3}, 200, () => {this.task.previousDate = this.task.date});
-      
-    } else if (this.task.previousDate !== 1 && this.task.date != 0 && this.task.date != this.task.previousDate){
+
+    // Smoothly move task from previous time increment to next one when being moved by
+    // another task's overflow occupying its current time increment.   
+    } else if (this.task.previousDate !== 1 && this.task.date !== 0 && this.task.date !== this.task.previousDate){
       $(this.taskEl).css({top: -10});
       $(this.taskEl).animate({top: 3}, 100, () => {this.task.previousDate = this.task.date});
     }
 
+
+    // Render tasks and set occupation status of their time increments.
     if (this.task.date > 1){
       this.incService.initTimes(this.task, this.task.date);
     }    
     
+
+    // Removes error ExpressionChangedAfterItHasBeenCheckedError
+    this.cdref.detectChanges();
   }
 
+
+  // Fired on every resize of the task.
   onResizing(event: ResizeEvent): void {
+    // Hide the dragger so we don't accidentally drag as we resize.
     this.draggerHeight = "0";
 
-    // Decrease in size
+
+    // Decrease in size.
     if (event.rectangle.height < this.previousHeight){
+      // Count how many time increments (blocks) we have freed, since 
+      // multiple resizes may happen in one resizing event if user resizes quickly.
       let freedBlocks = (this.previousHeight - event.rectangle.height)/32
 
-      let proposedTask: Task = new Task(this.task.id, 
-                                        this.task.name, 
-                                        ((event.rectangle.height+6)/32) * 15, 
-                                        this.task.date, 
-                                        this.task.date, 
-                                        this.task.isComplete);
-      this.incService.moveTask(proposedTask, proposedTask.date);
-
+      // Unoccupy time increments that we will no longer occupy after resizing.
       this.incService.unoccupyLastTime(this.task, this.task.date, freedBlocks); 
-      this.task.time = ((event.rectangle.height+6)/32) * 15;
+
+      // Adjust task's height.
       this.style = {
         height: `${event.rectangle.height}px`
       }
+      this.task.time = ((event.rectangle.height+6)/32) * 15;
       
+      // Write tasks to database. Since we are not changing this task through 
+      // TimeIncServices' moveTask(), call this method here.
+      setTimeout(() => {
+        this.taskService.updateTasks();
+      }, 500);
     }
 
 
     // Increase in size
     if (event.rectangle.height > this.previousHeight){
 
+      // Generate an object that resembles what the resized task would be.
       let proposedTask: Task = new Task(this.task.id, 
                                         this.task.name, 
                                         ((event.rectangle.height+6)/32) * 15, 
@@ -153,41 +165,57 @@ export class TaskComponent implements OnInit, AfterViewInit {
                                         this.task.previousDate, 
                                         this.task.isComplete);
 
+      // "Moving" the task with this method will move other tasks out of the way.
       this.incService.moveTask(proposedTask, proposedTask.date);
 
+      // Adjust task's height.
       this.style = {
         height: `${event.rectangle.height}px`
       }
       this.task.time = ((event.rectangle.height+6)/32) * 15;
-      this.incService.initTimes(this.task, this.task.date);
 
+      // Update occupation statuses of newly occupied time increments.
+      this.incService.initTimes(this.task, this.task.date);
     }
 
+    // Store previous height to determine if task is being increased or decreased
+    // in size, as well as to calculate how many time increments have been freed
+    // when decrease in size.
     this.previousHeight = event.rectangle.height;
 
+    // Reinitiate the dragger 100 miliseconds after we're done resizing.
     setTimeout(() => {
       if (this.draggerHeight === "0"){
         this.draggerHeight = "80%";
       }
     }, 100);
 
+    // Stylize the task according to its new height.
     this.stylizeTaskContainer(this.task.time);
 
     this.tutorialService.completeTutorial(3);
   }
 
+
+  // Returns an integer of how many hours in the task time.
   getHour(number: number){
     if (number>=60){
       return Math.floor(number/60) + 'h';
     } 
   }
 
+
+  // Returns an integer of minutes remaining after abstracting time to hours.
   getMinutes(number: number){
     if (number%60 !== 0){
       return number%60;
     } else return '00';
   }
 
+
+  // Styles the task's name fontsize, button and name positions according to
+  // its size, based on its time. Only done for tasks in the calendar or
+  // mouse-container.
   stylizeTaskContainer(time: number){
     if(time === 15){
       this.containerWidth = 26;
@@ -232,6 +260,8 @@ export class TaskComponent implements OnInit, AfterViewInit {
     }
   }
 
+
+  // Start "dragging" the task by adding it to mouse-container.
   onMouseDown(event){
     const rect = this.taskEl.getBoundingClientRect();
     this.taskService.selectTask(this.task.id);
@@ -239,29 +269,32 @@ export class TaskComponent implements OnInit, AfterViewInit {
     this.taskService.addToMouseContainer(this.task.id, rect.left, rect.top, event.pageX, event.pageY);    
   }
 
+
+  // Completes the task, when complete button is pressed.
   onComplete(){
-    this.recordedRect = this.taskEl.getBoundingClientRect();
+    // Store current 
     this.task.isComplete = !this.task.isComplete;
 
-      // Quickly send to mouse container and back to time increment to trigger AfterViewInit.
-      // Properly styles task when (un)completed, but a temporary solution.
-      this.taskService.selectTask(this.task.id);
-      this.incService.moveTask(this.taskService.selectedTask, 0);        
-      this.taskService.addToMouseContainer(this.task.id, this.recordedRect.left, this.recordedRect.top, this.recordedRect.left, this.recordedRect.top);
+    // Quickly unrender from time increment and render to trigger AfterViewInit.
+    // Properly styles task when (un)completed and gives it proper coordinates,
+    // but a temporary hack.
+    this.taskService.selectTask(this.task.id);
+    this.incService.moveTask(this.taskService.selectedTask, 0); 
 
-      setTimeout(() => {
-        if (this.taskService.selectedTask !== null){
-        this.incService.moveTask(this.taskService.selectedTask, this.task.previousDate);
-        
-        this.taskService.selectedTask.date=this.task.previousDate;
-        this.taskService.emitTask(this.taskService.selectedTask);
-        this.taskService.selectedTask = null;
-        }
-      }, 1);        
+    setTimeout(() => {
+      if (this.taskService.selectedTask !== null){
+      this.incService.moveTask(this.taskService.selectedTask, this.task.previousDate);
+      this.taskService.selectedTask.date=this.task.previousDate;
+      this.taskService.emitTask(this.taskService.selectedTask);
+      this.taskService.selectedTask = null;
+      }
+    }, 1);        
       
     this.tutorialService.completeTutorial(4);
-  }
+  }/* TODO: Create a smooth animation to complete state. */
 
+
+  // Delete task and unoccupy its times.
   onDelete(){
     this.taskService.deleteTask(this.task.id);
     if (this.task.date !== 1){

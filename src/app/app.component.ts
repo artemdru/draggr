@@ -70,12 +70,12 @@ export class AppComponent implements OnInit, AfterViewInit {
           height: '500px'
         });
 
-          // User is not allowed to highlight/select elements when dialogs are closed.
-          // To prevent from dragging elements while dragging a task.
-          dialogRef.afterClosed()
-            .subscribe(
-              () => { this.taskService.isDialogOpen = false; }
-            );
+        // User is not allowed to highlight/select elements when dialogs are closed.
+        // To prevent from dragging elements while dragging a task.
+        dialogRef.afterClosed()
+          .subscribe(
+            () => { this.taskService.isDialogOpen = false; }
+          );
         }
       })
       .catch((error) => {

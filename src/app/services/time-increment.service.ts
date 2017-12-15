@@ -91,14 +91,13 @@ export class TimeIncrementService {
   }
 
 
-  // Render tasks within time increments after they have been initiated,
-  // for example being loaded after scrolling days.
+  // Render tasks within time increments and set occupation status after they
+  // have been initiated, for example being loaded after scrolling days.
   initTimes(task: Task, date: number){
     var timeIncrement: number = date;
     var iterations: number = task.time/15;
 
     for (var _y = 0; _y < iterations; _y++){
-
       this.dateSubject.next([task, 2, timeIncrement, null]);
       timeIncrement = timeIncrement + (15*60000);
     }
@@ -121,6 +120,9 @@ export class TimeIncrementService {
     }
   }
 
+
+  // If task was dropped on an element that is not an unoccupied time increment, send task
+  // back to it's location before mouse-container (stored in task.previousDate).
   moveTaskToPreviousLocation(){
     if (this.taskService.selectedTask !== null){
       if (this.taskService.selectedTask.previousDate !== 1){
