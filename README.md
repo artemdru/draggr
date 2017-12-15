@@ -1,4 +1,8 @@
-# Todo
+# draggr
+
+[draggr](https://artemdru.github.io/draggr) is a drag-and-drop personal scheduling tool.
+
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.2.
 
