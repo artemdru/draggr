@@ -18,7 +18,7 @@ This project was generated with the [Angular CLI](https://cli.angular.io/), whic
 
 Download the repo, open a command line interface in the project folder.
 
-Type `npm install` to install all dependecies in package.json.
+Type `npm install` to install all dependecies listed in package.json.
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
@@ -59,9 +59,9 @@ For non-webkit browsers, [Malihu Custom Scrollbar](https://github.com/malihu/mal
 
 * Clicking on an unoccupied time increment opens a task dialog to add a task at that increment.
 * Selecting the nearest unoccupied time increment with keybind (down arrow?). Opening a task dialog at selected time increment with keybind (enter?).
-* Smooth completion animation.
-* Multiple task selection via shift-select and box dragging. Moves, completes, or deletes multiple tasks.
-* Dynamically read tasks from databse based on days opened.
+* Smooth task completion animation.
+* Multiple task selection via shift-select and box dragging. Move, complete, or delete selected tasks.
+* Dynamically read tasks from database based on days opened.
 * Improve user authentication security (perhaps with tokens).
 * Task color selection.
 * 5 minute time increments rather than 15.
