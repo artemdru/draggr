@@ -35,6 +35,8 @@ Tasks are stored in the `task-service` as an array of `Task` objects, each holdi
 
 Clicking on a task sets it's `date` to `1` and renders it in the `mouse-container`, which is an invisibile container that follows the mouse. Upon rendering in the `mouse-container`, the task is positioned at an offset that positions it exactly where it was before being rendered in the `mouse-container`, then smoothly animates the task's position to 0,0 coordinates relative to the `mouse-container`. The effect is a smooth 'sliding' into being appended to the mouse.
 
+When a task is rendered on a time increment, this offset animating and 'sliding' into position is done the same way.
+
 ### Time Increment Logic
 
 Most of the logic for moving tasks happens in the `time-increment-service`. Let's run through a scenario of dropping a task on the calendar...
