@@ -61,6 +61,8 @@ The calendar window always has 5 days already rendered - 3 potentially visible d
 
 For non-webkit browsers, [Malihu Custom Scrollbar](https://github.com/malihu/malihu-custom-scrollbar-plugin) is used to hide the vertical scrollbar on calendar view (and style it in the task list of `task-window` when there's enough tasks for overflow). Browser detection is handled by [browser-detect](https://github.com/DamonOehlman/detect-browser).
 
+Angular Material is used for the [dialogs and input fields.](https://material.angular.io/components/dialog/overview) Slight modification has been done to the material theme, which explains the large "custom-theme.css" file that is included in the repo.
+
 ## Areas for improvement
 
 * Clicking on an unoccupied time increment opens a task dialog to add a task at that increment.
