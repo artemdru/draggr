@@ -43,7 +43,7 @@ Most of the logic for moving tasks happens in the `time-increment-service`. Let'
 
 This is triggered by a `mouseup` event on a time increment while there is a task in the `mouse-container-component`, which is stored in the `selectedTask` variable of the `task-service`.
 
-Since tasks on the calendar are rendered by `time-increments`, first we should adress logic in time increment occupation. `moveTask()` is triggered in the `time-increment-service`, which will move any tasks out of the way (by recursively using the same `moveTask()` method), handle unoccupying any previous time increments the moved task occupied, and finally occupy the target time increments.
+Since tasks on the calendar are rendered by `time-increments`, first we should address logic in time increment occupation. `moveTask()` is triggered in the `time-increment-service`, which will move any tasks out of the way (by recursively using the same `moveTask()` method), handle unoccupying any previous time increments the moved task occupied (in this case, not relevant since we unoccupied our time increments when the task was moved to `mouse-container`), and finally occupy the target time increments.
 
 'Occupying' time increments simply means to assign their `occupantID` to that of the task's `id`, setting their `isOccupied` bool to true, and rendering a task by receiving via the `taskSubscription` (after a task's `date` has been changed to the time increment's `date`). Tasks will only render on the time increment they were dropped on - the other time increments the task occupies won't actually render anything, the task rendered by the time increment will simply overflow atop of them. These time increments, however are accounted for and occupied by logic in the `moveTask()` method, receiving from the `time-increment-service` via `incSubscription`.
 
@@ -57,7 +57,7 @@ Each time a task is moved, resized, added, deleted, or completed, the `task-serv
 
 ### Calendar
 
-The calendar window always has 5 days already rendered - 3 potentially visible days (depending on window size), and 2 days acting as 'margins' to unrendered days so the user can browse calendar days with smoothness. The calendar container's horizontal scroll is handled entirely by jQuery logic in the `app-component`, with users only able to scroll in increments of a day's width (`dateWidth`) with the arrow buttons at the top of the calendar.
+The calendar window always has 5 days already rendered - 3 potentially visible days (depending on window size), and 2 days acting as 'margins' to unrendered days so the user can browse calendar days smoothly. The calendar container's horizontal scroll is handled entirely by jQuery logic in the `app-component`, with users only able to scroll in increments of a day's width (`dateWidth`) with the arrow buttons at the top of the calendar.
 
 For non-webkit browsers, [Malihu Custom Scrollbar](https://github.com/malihu/malihu-custom-scrollbar-plugin) is used to hide the vertical scrollbar on calendar view (and style it in the task list of `task-window` when there's enough tasks for overflow). Browser detection is handled by [browser-detect](https://github.com/DamonOehlman/detect-browser).
 
@@ -74,7 +74,7 @@ Angular Material is used for the [dialogs and input fields.](https://material.an
 * Task color selection.
 * Find an alternative to jQuery, since it's not recommended with Angular.
 * Tasks fade in when loaded on login.
-* 'Loading' circles for login and writing tasks.
+* 'Loading' circles when waiting for login and writing or reading tasks.
 * 5 minute time increments rather than 15.
 
 ## License
