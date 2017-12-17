@@ -37,9 +37,11 @@
 
     </div>
     
-    <!-- CHROME/SAFARI CALENDAR -->
-    <div *ngIf="browserName == 'chrome' || browserName == 'safari'" class="vert-scroll" (scroll)="keepScroll()" #vertScroll>
-
+    <!-- WEBKIT BROWSER CALENDAR -->
+    <div *ngIf="isWebkit" 
+    class="vert-scroll" 
+    (scroll)="keepScroll()" 
+    #vertScroll>
       
       <div class="row">
 
@@ -61,9 +63,13 @@
     </div>
 
 
-    <!-- FIREFOX CALENDAR -->
-    <div *ngIf="browserName == 'firefox'" class="vert-scroll" (scroll)="keepScroll()" malihu-scrollbar [scrollbarOptions]="scrollbarOptions" #vertScroll>
-
+    <!-- NON-WEBKIT BROWSER CALENDAR -->
+    <div *ngIf="!isWebkit" 
+    class="vert-scroll" 
+    (scroll)="keepScroll()" 
+    malihu-scrollbar 
+    [scrollbarOptions]="scrollbarOptions" 
+    #vertScroll>
       
       <div class="row">
 

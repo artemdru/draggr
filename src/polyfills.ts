@@ -18,6 +18,17 @@
  * BROWSER POLYFILLS
  */
 
+import 'core-js/es7/array';
+import 'core-js/es7/global';
+import 'core-js/es7/string';
+import 'core-js/es7/map';
+import 'core-js/es7/set';
+import 'core-js/es7/error';
+import 'core-js/es7/math';
+import 'core-js/es7/system';
+import 'core-js/es7/symbol';
+import 'core-js/es7/observable';
+
 /** IE9, IE10 and IE11 requires all of the following polyfills. **/
 import 'core-js/es6/symbol';
 import 'core-js/es6/object';

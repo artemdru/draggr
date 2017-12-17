@@ -4,6 +4,41 @@
 	position: relative;
 }
 
+.browser-error{
+	margin-top: 40px;
+}
+
+a{
+	text-decoration: none;
+	color: #222;
+}
+
+
+.browser-error > p{
+	font-family: 'Roboto', sans-serif;
+	font-size: 24px;
+	font-weight: 300;
+}
+
+.browser-error > li,.github-link{
+	margin-left: 200px;
+	cursor: pointer;
+	list-style-type: none;
+	text-align: left;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 2000 !important;
+	font-size: 24px !important;
+}
+
+.browser-error > li > a > .logo{
+	height: 24px;
+	margin-right: 10px;
+}
+
+a:hover, .browser-error > li:hover,.github-link:hover{
+	color:  #00A651;
+}
+
 .backdrop{
 	background-color: #43544B;
 	width: 750px;

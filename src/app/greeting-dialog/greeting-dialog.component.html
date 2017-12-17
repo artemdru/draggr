@@ -1,136 +1,173 @@
 <div class="container" id="dialog">
+	<div *ngIf="!isMSbrowser">
+		
+		<!-- Green backdrop behind the logo -->
+		<div class="backdrop"></div>
 
-	<!-- Green backdrop behind the logo -->
-	<div class="backdrop"></div>
+		<div class="container-fluid" align="center" style="width: 500px; position: relative;">
 
-	<div class="container-fluid" align="center" style="width: 500px; position: relative;">
+			<img src="assets/logo.svg" class="logo" alt="">
 
-		<img src="assets/logo.svg" class="logo" alt="">
+			<!-- Trigger to toggle between login and signup screen -->
+			<input id="sign-up-input" type="checkbox">
 
-		<!-- Trigger to toggle between login and signup screen -->
-		<input id="sign-up-input" type="checkbox">
+			<!-- Triggers to show errors after submission -->
+			<input id="show-login-error" type="checkbox" [checked]="showLogInError">
+			<input id="show-signup-error" type="checkbox" [checked]="showSignUpError">
 
-		<!-- Triggers to show errors after submission -->
-		<input id="show-login-error" type="checkbox" [checked]="showLogInError">
-		<input id="show-signup-error" type="checkbox" [checked]="showSignUpError">
+			<div class="login-error">Email or password is incorrect.</div>
+			<div class="signup-error">Email or password is invalid.</div>
 
-		<div class="login-error">Email or password is incorrect.</div>
-		<div class="signup-error">Email or password is invalid.</div>
+			<!-- LOG-IN SCREEN -->
+			<div class="log-in-screen" id="log-in-screen">
+				<form (keyup.enter)="onEnter(0)" (ngSubmit)="submitLogIn()" #f="ngForm">
+					<div ngModelGroup="loginData" #loginData="ngModelGroup">
+						<div class="form-group" style="margin-bottom: 0px;">
 
-		<!-- LOG-IN SCREEN -->
-		<div class="log-in-screen" id="log-in-screen">
-			<form (keyup.enter)="onEnter(0)" (ngSubmit)="submitLogIn()" #f="ngForm">
-				<div ngModelGroup="loginData" #loginData="ngModelGroup">
-					<div class="form-group" style="margin-bottom: 0px;">
+							<!-- EMAIL -->
+							<mat-form-field style="margin-top: 20px;">
+								<input 
+								matInput
+								type="email"
+								ngModel
+								name="email"
+								email
+								placeholder="Email" 
+								#email>
+							</mat-form-field>
 
-						<!-- EMAIL -->
-						<mat-form-field style="margin-top: 20px;">
-							<input 
-							matInput
-							type="email"
-							ngModel
-							name="email"
-							email
-							placeholder="Email" 
-							#email>
-						</mat-form-field>
-
-						<!-- PASSWORD -->
-						<mat-form-field>
-							<input 
-							matInput
-							type="password"
-							ngModel
-							name="password"
-							password
-							placeholder="Password" 
-							#password>
-						</mat-form-field>
+							<!-- PASSWORD -->
+							<mat-form-field>
+								<input 
+								matInput
+								type="password"
+								ngModel
+								name="password"
+								password
+								placeholder="Password" 
+								#password>
+							</mat-form-field>
+						</div>
 					</div>
+				</form>
+				<div>
+					<!-- LOG IN BUTTON -->
+					<button 
+					type="button"
+					class="btn btn-primary add-task"
+					(click)="submitLogIn()">
+					Log In</button>
+
+					<!-- TRY DEMO BUTTON -->
+					<button 
+					class="btn cancel-button"
+					(click)="closeDialog()">
+					Try Demo</button>
 				</div>
-			</form>
-			<div>
-				<!-- LOG IN BUTTON -->
-				<button 
+				
+				<!-- SIGN-UP BUTTON -->
+				<p style="margin-top: 15px; font-size: 20px;">New? 
+					<label 
+					for="sign-up-input" 
+					class="sign-up-link" 
+					style="cursor: pointer;"
+					(click)="switchScreens()"		
+					>
+					Sign up</label> now!
+				</p>
+			</div>
+
+
+			<!-- SIGN-UP SCREEN -->
+			<div class="register-screen">
+
+				<form (keyup.enter)="onEnter(1)" (ngSubmit)="submitRegister()" #r="ngForm">
+					<div ngModelGroup="registerData" #registerData="ngModelGroup">
+						<div class="form-group" style="margin-bottom: 0px;">
+
+							<!-- EMAIL -->
+							<mat-form-field>		
+								<h3 style="margin-bottom: 10px;">Email</h3>
+								<input 
+								style="text-align: center;" 
+								matInput
+								type="email"
+								ngModel
+								name="email"
+								required 
+								email
+								#taskName>
+							</mat-form-field>
+
+							<!-- PASSWORD -->
+							<mat-form-field style="border-top: none !important;">		
+								<h3 style="margin-bottom: 10px;">Password</h3>
+								<input style="text-align: center;" 
+								matInput
+								type="password"
+								ngModel
+								name="password"
+								required
+								password
+								#taskName>
+							</mat-form-field>
+						</div>
+					</div>
+				</form>
+
+				<!-- SIGN UP BUTTON -->
+				<button
+				style="margin-top: 0px !important;" 
 				type="button"
 				class="btn btn-primary add-task"
-				(click)="submitLogIn()">
-				Log In</button>
+				(click)="submitRegister()">
+				Sign up</button>
 
-				<!-- TRY DEMO BUTTON -->
-				<button 
-				class="btn cancel-button" 
-				(click)="closeDialog()">
-				Try Demo</button>
 			</div>
-			
-			<!-- SIGN-UP BUTTON -->
-			<p style="margin-top: 15px; font-size: 20px;">New? 
-				<label 
-				for="sign-up-input" 
-				class="sign-up-link" 
-				style="cursor: pointer;"
-				(click)="switchScreens()"		
-				>
-				Sign up</label> now!
-			</p>
+
+			<!-- NEVERMIND BUTTON (back to log-in screen) -->
+			<label 
+			for="sign-up-input" 
+			class="nevermind" 
+			(click)="switchScreens()">
+			<div class="arrow-up"></div>
+			Nevermind...
+			</label>		
 		</div>
 
-
-		<!-- SIGN-UP SCREEN -->
-		<div class="register-screen">
-
-			<form (keyup.enter)="onEnter(1)" (ngSubmit)="submitRegister()" #r="ngForm">
-				<div ngModelGroup="registerData" #registerData="ngModelGroup">
-					<div class="form-group" style="margin-bottom: 0px;">
-
-						<!-- EMAIL -->
-						<mat-form-field>		
-							<h3 style="margin-bottom: 10px;">Email</h3>
-							<input 
-							style="text-align: center;" 
-							matInput
-							type="email"
-							ngModel
-							name="email"
-							required 
-							email
-							#taskName>
-						</mat-form-field>
-
-						<!-- PASSWORD -->
-						<mat-form-field style="border-top: none !important;">		
-							<h3 style="margin-bottom: 10px;">Password</h3>
-							<input style="text-align: center;" 
-							matInput
-							type="password"
-							ngModel
-							name="password"
-							required
-							password
-							#taskName>
-						</mat-form-field>
-					</div>
-				</div>
-			</form>
-
-			<!-- SIGN UP BUTTON -->
-			<button
-			style="margin-top: 0px !important;" 
-			type="button"
-			class="btn btn-primary add-task"
-			(click)="submitRegister()">
-			Sign up</button>
-
-		</div>
-
-		<!-- NEVERMIND BUTTON (back to log-in screen) -->
-		<label 
-		for="sign-up-input" 
-		class="nevermind" 
-		(click)="switchScreens()">
-		<div class="arrow-up"></div>
-		Nevermind...
-		</label>		
 	</div>
+	
+	
+	<!-- Display error message for unsupported browser -->
+	<div *ngIf="isMSbrowser" align="center" class="browser-error">
+		<p>Sorry, draggr does not support your browser!</p>
+		<p>Currently supported browsers are:</p>
+		<li>
+			<a href="https://www.google.com/chrome/browser/" target="_blank">
+				<img src="assets/chrome.svg" class="logo" alt="">
+			Chrome</a>
+		</li>
+		<li>
+			<a href="https://www.mozilla.org/firefox" target="_blank">
+				<img src="assets/firefox.svg" class="logo" alt="">
+			Firefox</a>
+		</li>
+		<li>
+			<a href="https://support.apple.com/downloads/#safari" target="_blank">
+				<img src="assets/safari.svg" class="logo" alt="">
+			Safari</a>
+		</li>
+		<li>
+			<a href="http://www.opera.com/download" target="_blank">
+				<img src="assets/opera.svg" class="logo" alt="">
+			Opera</a>
+		</li>
+		<br>
+		<p>Follow the project for updates!</p>
+		<li style="text-align: center !important; margin-left: 0;">
+			<a href="https://github.com/artemdru/draggr">
+			github.com/artemdru/draggr</a>
+		</li>
+	</div>
+
 </div>

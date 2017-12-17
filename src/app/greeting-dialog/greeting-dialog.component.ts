@@ -2,6 +2,8 @@ import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { NgForm } from '@angular/forms';
 
+import { detect } from 'detect-browser';
+
 import { Subscription } from 'rxjs/Subscription';
 
 import { AuthService } from '../services/auth.service';
@@ -30,6 +32,9 @@ export class GreetingDialogComponent implements OnInit {
   showLogInError = false;
   showSignUpError = false;
 
+  browserName: string;
+  isMSbrowser: boolean = false;
+
   loggedIn: Subscription;
 
   constructor(private taskService: TaskService,
@@ -52,6 +57,15 @@ export class GreetingDialogComponent implements OnInit {
           else {this.showLogInError = true; this.showSignUpError = true;}
         }
       );
+
+    // Check if user is using a supported browser
+    const browser = detect();
+    if (browser) {
+      this.browserName = browser.name;
+    }
+    if (this.browserName === 'ie' || this.browserName === 'edge'){
+      this.isMSbrowser = true;
+    }
   }
 
   submitLogIn(){

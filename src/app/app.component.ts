@@ -32,7 +32,9 @@ export class AppComponent implements OnInit, AfterViewInit {
   isScrollable = true;
 
   unchecker: boolean = false;
+
   browserName: string;
+  isWebkit: boolean = true;
 
   public scrollbarOptions = {};
 
@@ -66,16 +68,16 @@ export class AppComponent implements OnInit, AfterViewInit {
         if (code === 1){
           this.tutorialService.startTutorial();
           let dialogRef = this.dialog.open(GreetingDialogComponent, {
-          width: '750px',
-          height: '500px'
-        });
+            width: '750px',
+            height: '500px'
+          });
 
         // User is not allowed to highlight/select elements when dialogs are closed.
         // To prevent from dragging elements while dragging a task.
-        dialogRef.afterClosed()
-          .subscribe(
-            () => { this.taskService.isDialogOpen = false; }
-          );
+          dialogRef.afterClosed()
+            .subscribe(
+              () => { this.taskService.isDialogOpen = false; }
+            );
         }
       })
       .catch((error) => {
@@ -90,7 +92,8 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.browserName = browser.name;
     }
 
-    if (this.browserName === 'firefox'){
+    if (!(this.browserName === 'chrome' || this.browserName === 'safari' || this.browserName === 'opera')){
+      this.isWebkit = false;
       this.scrollbarOptions = { axis: 'y', theme: 'minimal-dark', scrollInertia: 300 };
     } else this.scrollbarOptions = { axis: 'y', theme: 'minimal-dark', scrollInertia: 75, mouseWheel:{ scrollAmount: 50 } };
 

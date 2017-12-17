@@ -56,8 +56,8 @@
 			</div>
 		</div>
 
-		<!-- CHROME/SAFARI TASK WINDOW -->
-		<div *ngIf="browserName == 'chrome' || browserName == 'safari'" class="task-window">
+		<!-- WEBKIT BROWSER TASK WINDOW -->
+		<div *ngIf="isWebkit" class="task-window">
 			<ng-container *ngFor="let task of tasks">
 				<app-task *ngIf="task.date === 1 && task.name.toLowerCase().includes(searchValue)"
 				[task]="task"
@@ -65,8 +65,8 @@
 			</ng-container>
 		</div>
 
-		<!-- FIREFOX TASK WINDOW -->
-		<div *ngIf="browserName == 'firefox'" class="task-window" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
+		<!-- NON WEBKIT BROWSER TASK WINDOW -->
+		<div *ngIf="!isWebkit" class="task-window" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
 			<ng-container *ngFor="let task of tasks">
 				<app-task *ngIf="task.date === 1 && task.name.toLowerCase().includes(searchValue)"
 				[task]="task"

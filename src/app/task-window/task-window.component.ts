@@ -34,6 +34,7 @@ export class TaskWindowComponent implements OnInit, OnChanges {
   public scrollbarOptions = {};
 
   browserName: string;
+  isWebkit: boolean = true;
 
   searchValue: string = '';
 
@@ -107,7 +108,8 @@ export class TaskWindowComponent implements OnInit, OnChanges {
     if (browser) {
       this.browserName = browser.name;
     }
-    if (this.browserName === 'firefox'){
+    if (!(this.browserName === 'chrome' || this.browserName === 'safari' || this.browserName === 'opera')){
+      this.isWebkit = false;
       this.scrollbarOptions = { axis: 'y', theme: 'minimal-dark', scrollInertia: 300, scrollbarPosition: 'inside' };
     }
 

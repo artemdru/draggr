@@ -71,6 +71,8 @@ For non-webkit browsers, [Malihu Custom Scrollbar](https://github.com/malihu/mal
 * Improve user authentication security (perhaps with tokens).
 * Task color selection.
 * Find an alternative to jQuery, since it's not recommended with Angular.
+* Tasks fade in when loaded on login.
+* 'Loading' circles for login and writing tasks.
 * 5 minute time increments rather than 15.
 
 ## License
