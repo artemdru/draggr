@@ -18,6 +18,8 @@ This project was generated with the [Angular CLI](https://cli.angular.io/), whic
 
 Download the repo, open a command line interface in the project folder.
 
+Type `npm install angular` to install Angular.
+
 Type `npm install` to install all dependecies listed in package.json.
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
