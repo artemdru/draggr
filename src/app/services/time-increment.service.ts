@@ -17,7 +17,7 @@ export class TimeIncrementService {
 
 	// CODES to be supplied in second parameter:
 	// 0 - for checking if all increments are unoccupied
-	// 1 - for onoccupying increments previously occupied by task being dropped
+	// 1 - for unoccupying increments previously occupied by task being dropped
 	// 2 - for occupying new increments
   //                         Task, code,   timeInc, targetTime
 	dateSubject = new Subject<[Task, number, number, number]>();
