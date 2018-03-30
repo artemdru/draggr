@@ -65,7 +65,7 @@ img{
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-.task-name{
+.task-name, .task-editor{
 	height: 100%;
 	margin-left: 10px; 
 	margin-right: 10px;
@@ -77,7 +77,7 @@ img{
   	text-align: center;
 }
 
-h3{
+h3, .task-editor>textarea{
 	position: relative;
 	font-family: 'Roboto', sans-serif;
 	font-size: 26px;
@@ -137,6 +137,22 @@ h3{
 .edit-button:hover {
 	-webkit-filter: drop-shadow( 1px 1px 2px #000 ); 
             filter: drop-shadow( 1px 1px 2px #000 );
+}
+
+.task-editor{
+	background-color: transparent;
+}
+
+.task-editor > textarea{
+	resize: none;
+	text-align: center;
+	width: 90%;
+	height: 80%;
+	min-height: 20px;
+	background-color: transparent;
+	border: none;
+	outline: none;
+	color: white;
 }
 
 #tutorial3{

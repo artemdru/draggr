@@ -33,6 +33,9 @@ export class TaskComponent implements OnInit, AfterViewInit {
   @ViewChild('timeContainer') timeContainerElRef: ElementRef;
   @ViewChild('colorSelector') colorSelectorElRef: ElementRef;
   @ViewChild('deleteButton') deleteButtonElRef: ElementRef;
+  @ViewChild('taskNameContainer') taskNameContainer: ElementRef;
+  @ViewChild('taskEditorContainer') taskEditorContainer: ElementRef;
+  @ViewChild('taskEditorInput') taskEditorInput: ElementRef;
 
   taskEl: any;
   taskNameEl: any;
@@ -40,6 +43,9 @@ export class TaskComponent implements OnInit, AfterViewInit {
   colorSelectorEl: any;
   deleteButtonEl: any;
   completeButtonEl: any;
+  taskNameContainerEl: any;
+  taskEditorContainerEl: any;
+  taskEditorInputEl: any;
 
   previousHeight: number;
   containerWidth: number;
@@ -91,6 +97,9 @@ export class TaskComponent implements OnInit, AfterViewInit {
     this.timeContainerEl = this.timeContainerElRef.nativeElement;
     this.colorSelectorEl = this.colorSelectorElRef.nativeElement;
     this.deleteButtonEl = this.deleteButtonElRef.nativeElement;
+    this.taskNameContainerEl = this.taskNameContainer.nativeElement;
+    this.taskEditorContainerEl = this.taskEditorContainer.nativeElement;
+    this.taskEditorInputEl = this.taskEditorInput.nativeElement;
 
 
     // Tasks in task window (.date == 1) and tasks on time increments have different
@@ -222,6 +231,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
   stylizeTaskContainer(time: number){
     if(time === 15){
       this.containerWidth = 26;
+      this.taskEditorInputEl.style.fontSize = '15px';
       this.taskNameEl.style.fontSize = '15px';
       this.colorSelectorEl.style.left = '32px';
       this.deleteButtonEl.style.right = '4px';
@@ -230,6 +240,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
       this.taskNameEl.style.width = '100%';
     } else if (time === 30){
       this.containerWidth = 35;
+      this.taskEditorInputEl.style.fontSize = '20px';
       this.taskNameEl.style.fontSize = '20px'; 
       this.colorSelectorEl.style.left = '4px';
       this.deleteButtonEl.style.right = '4px';
@@ -238,6 +249,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
       this.taskNameEl.style.width = '70%';
     } else if (time === 45){
       this.containerWidth = 35;
+      this.taskEditorInputEl.style.fontSize = '23px';
       this.taskNameEl.style.fontSize = '23px'; 
       this.colorSelectorEl.style.left = '14px';
       this.deleteButtonEl.style.right = '10px';
@@ -246,6 +258,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
       this.taskNameEl.style.width = '80%';
     } else if (time === 60){
       this.containerWidth = 40;
+      this.taskEditorInputEl.style.fontSize = '26px';
       this.taskNameEl.style.fontSize = '26px'; 
       this.colorSelectorEl.style.left = '14px';
       this.deleteButtonEl.style.right = '10px';
@@ -254,6 +267,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
       this.taskNameEl.style.width = '100%';
     } else if (time > 60){
       this.containerWidth = time;
+      this.taskEditorInputEl.style.fontSize = '26px';
       this.taskNameEl.style.fontSize = '26px'; 
       this.colorSelectorEl.style.left = '14px';
       this.deleteButtonEl.style.right = '10px';
@@ -323,6 +337,24 @@ export class TaskComponent implements OnInit, AfterViewInit {
   // Edit task name
   editTask(){
     console.log("Editing a task!");
+
+    this.taskNameContainerEl.style.display='none';
+    this.taskEditorContainerEl.style.display='flex';
+
+    this.taskEditorInputEl.setSelectionRange(0,0);
+    this.taskEditorInputEl.focus();
+
+    this.draggerHeight = "0";
+  }
+
+  closeTaskEditor(){
+    console.log("closed task editor!");
+    this.task.name = this.taskEditorInputEl.value;
+    this.taskService.updateTasks();
+    
+    this.taskNameContainerEl.style.display='flex';
+    this.taskEditorContainerEl.style.display='none';
+    this.draggerHeight = "80%";
   }
 
   // Delete task and unoccupy its times.

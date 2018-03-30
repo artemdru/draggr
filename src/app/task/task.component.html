@@ -9,8 +9,9 @@ class="container task-container in-queue unselectable"
 		<img class="time-icon" src="assets/time.svg" alt="">
 	{{ getHour(task.time) }} {{ getMinutes(task.time) }}m</td>
 
-	<div align="center" class="task-name">
+	<div align="center" class="task-name unselectable" #taskNameContainer>		
 		<h3 #taskName>{{ (task.name.length>containerWidth/2)? (task.name | slice:0:containerWidth/2)+'...':(task.name) }}
+			<!-- Edit task button -->
 			<div
 			class="edit-button"
 			id="hover-buttons"
@@ -29,6 +30,12 @@ class="container task-container in-queue unselectable"
 		</h3>
 	</div>
 
+	<!-- Task Editor -->
+	<div class="task-editor" style="display: none;" #taskEditorContainer>
+		<textarea [value]="task.name" #taskEditorInput (keyup.enter)="closeTaskEditor()" (blur)="closeTaskEditor()"></textarea>
+	</div>
+
+	<!-- Color selector and delete button -->
 	<div class="alignleft" id="hover-buttons" #colorSelector>
 		<img src="assets/color.svg" class="color-selector" alt="" (click)="changeColor()">
 	</div>
@@ -70,9 +77,9 @@ class="container task-container on-calendar unselectable"
 		<span>{{ getHour(task.time) }} {{ getMinutes(task.time) }}m</span>
 	</div>
 
-	<div align="center" class="task-name unselectable">
-		
+	<div align="center" class="task-name unselectable" #taskNameContainer>		
 		<h3 #taskName>{{ (task.name.length>containerWidth/2)? (task.name | slice:0:containerWidth/2)+'...':(task.name) }}
+			<!-- Edit task button -->
 			<div
 			class="edit-button"
 			id="hover-buttons"
@@ -91,6 +98,12 @@ class="container task-container on-calendar unselectable"
 		</h3>
 	</div>
 
+	<!-- Task Editor -->
+	<div class="task-editor" style="display: none;" #taskEditorContainer>
+		<textarea [value]="task.name" #taskEditorInput (keyup.enter)="closeTaskEditor()" (blur)="closeTaskEditor()"></textarea>
+	</div>
+
+	<!-- Color selector and delete button -->
 	<div class="alignleft unselectable" id="hover-buttons" #colorSelector style="z-index: 20" #deleteButton>
 		<img src="assets/color.svg" class="color-selector" (click)="changeColor()">
 	</div>
@@ -140,8 +153,13 @@ style="background-color: rgba(0, 166, 81, 0.3); cursor: initial !important;"
 		<span>{{ getHour(task.time) }} {{ getMinutes(task.time) }}m</span>
 	</div>
 
-	<div align="center" class="task-name unselectable">
+	<div align="center" class="task-name unselectable" #taskNameContainer>
 		<h3 #taskName>{{ (task.name.length>containerWidth)? (task.name | slice:0:containerWidth)+'...':(task.name) }}</h3>
+	</div>
+
+	<!-- Task Editor -->
+	<div class="task-editor" style="display: none;" #taskEditorContainer>
+		<input [value]="task.name" #taskEditorInput>
 	</div>
 
 	<div class="alignleft unselectable" id="hover-buttons" #colorSelector style="visibility: hidden;">
@@ -185,8 +203,13 @@ class="container task-container in-mouse-container unselectable"
 		<span>{{ getHour(task.time) }} {{ getMinutes(task.time) }}m</span>
 	</div>
 
-	<div align="center" class="task-name unselectable">
+	<div align="center" class="task-name unselectable" #taskNameContainer>
 		<h3 #taskName>{{ (task.name.length>containerWidth)? (task.name | slice:0:containerWidth)+'...':(task.name) }}</h3>
+	</div>
+
+	<!-- Task Editor -->
+	<div class="task-editor" style="display: none;" #taskEditorContainer>
+		<input [value]="task.name" #taskEditorInput>
 	</div>
 
 	<div class="alignleft unselectable" id="hover-buttons" #colorSelector>
@@ -215,8 +238,13 @@ style="background-color: rgba(0, 166, 81, 0.3);"
 		<span>{{ getHour(task.time) }} {{ getMinutes(task.time) }}m</span>
 	</div>
 
-	<div align="center" class="task-name unselectable">
+	<div align="center" class="task-name unselectable" #taskNameContainer>
 		<h3 #taskName>{{ (task.name.length>containerWidth)? (task.name | slice:0:containerWidth)+'...':(task.name) }}</h3>
+	</div>
+
+	<!-- Task Editor -->
+	<div class="task-editor" style="display: none;" #taskEditorContainer>
+		<input [value]="task.name" #taskEditorInput>
 	</div>
 
 	<div class="alignleft unselectable" id="hover-buttons" #colorSelector style="visibility: hidden;">
