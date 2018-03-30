@@ -140,14 +140,14 @@ export class TaskService {
 
 		// Render no task in the current tasks time increment.
 		if (this.tasks[i].date !== 1){
-		this.emitTask(new Task(undefined, null, null, this.tasks[i].date, 1, null));
+		this.emitTask(new Task(undefined, null, null, this.tasks[i].date, 1, '#246d46', null));
 		}
 
 		// Tasks may also be deleted if they are dropped in the task-window as completed
 		// tasks. In this case, the task to be deleted is selectedTask, and is thus located
 		// in the mouse-container. Render no task in mouse-container.
 		if (this.selectedTask !== null){
-			this.mouseContainer.next([new Task(undefined, null, null, 0, 1, null), 0, 0, 0, 0]);
+			this.mouseContainer.next([new Task(undefined, null, null, 0, 1, '#246d46', null), 0, 0, 0, 0]);
 		}
 
 		// Remove task from tasks array.

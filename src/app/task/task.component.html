@@ -12,8 +12,8 @@ class="container task-container in-queue unselectable"
 		<h3 #taskName>{{ (task.name.length>containerWidth)? (task.name | slice:0:containerWidth)+'...':(task.name) }}</h3>
 	</div>
 
-	<div class="alignleft" id="hover-buttons" #colorSelector style="visibility: hidden;">
-		<img src="assets/color.svg" class="color-selector" alt="">
+	<div class="alignleft" id="hover-buttons" #colorSelector>
+		<img src="assets/color.svg" class="color-selector" alt="" (click)="changeColor()">
 	</div>
 
 	<div class="alignright unselectable" id="hover-buttons" #deleteButton>
@@ -56,8 +56,8 @@ class="container task-container on-calendar unselectable"
 		<h3 #taskName>{{ (task.name.length>containerWidth)? (task.name | slice:0:containerWidth)+'...':(task.name) }}</h3>
 	</div>
 
-	<div class="alignleft unselectable" id="hover-buttons" #colorSelector style="visibility: hidden;">
-		<img src="assets/color.svg" class="color-selector">
+	<div class="alignleft unselectable" id="hover-buttons" #colorSelector style="z-index: 20" #deleteButton>
+		<img src="assets/color.svg" class="color-selector" (click)="changeColor()">
 	</div>
 
 	<div class="alignright unselectable" id="hover-buttons" style="z-index: 20" #deleteButton>

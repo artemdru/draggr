@@ -212,7 +212,7 @@ export class AuthService {
           var _i = 0;
           for (let task of snapshot.val().tasks){
             // Create a new task object to store task, since tasks are stored as JSON in firebase.
-            this.taskService.tasks[_i] = new Task(task.id, task.name, task.time, task.date, task.previousDate, task.isComplete);
+            this.taskService.tasks[_i] = new Task(task.id, task.name, task.time, task.date, task.previousDate, task.color, task.isComplete);
 
             // Render the task.
             this.taskService.emitTask(this.taskService.tasks[_i]);

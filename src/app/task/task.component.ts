@@ -162,7 +162,8 @@ export class TaskComponent implements OnInit, AfterViewInit {
                                         this.task.name, 
                                         ((event.rectangle.height+6)/32) * 15, 
                                         this.task.date, 
-                                        this.task.previousDate, 
+                                        this.task.previousDate,
+                                        this.task.color, 
                                         this.task.isComplete);
 
       // "Moving" the task with this method will move other tasks out of the way.
@@ -293,6 +294,10 @@ export class TaskComponent implements OnInit, AfterViewInit {
     this.tutorialService.completeTutorial(4);
   }/* TODO: Create a smooth animation to complete state. */
 
+  // Change color
+  changeColor(){
+    console.log("color changed!");
+  }
 
   // Delete task and unoccupy its times.
   onDelete(){
