@@ -78,7 +78,7 @@ class="container task-container on-calendar unselectable"
 	</div>
 
 	<div align="center" class="task-name unselectable" #taskNameContainer>		
-		<h3 #taskName>{{ (task.name.length>containerWidth/2)? (task.name | slice:0:containerWidth/2)+'...':(task.name) }}
+		<h3 #taskName>{{ (task.name.length>containerWidth/2.5)? (task.name | slice:0:containerWidth/2.5)+'...':(task.name) }}
 			<!-- Edit task button -->
 			<div
 			class="edit-button"
