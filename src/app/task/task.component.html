@@ -10,7 +10,23 @@ class="container task-container in-queue unselectable"
 	{{ getHour(task.time) }} {{ getMinutes(task.time) }}m</td>
 
 	<div align="center" class="task-name">
-		<h3 #taskName>{{ (task.name.length>containerWidth)? (task.name | slice:0:containerWidth)+'...':(task.name) }}</h3>
+		<h3 #taskName>{{ (task.name.length>containerWidth/2)? (task.name | slice:0:containerWidth/2)+'...':(task.name) }}
+			<div
+			class="edit-button"
+			id="hover-buttons"
+			style="z-index: 20"
+			(click)="editTask()"
+			>
+				<svg width="26" height="26">
+					<path 
+					[style.stroke]="task.color" 
+					id="svg_1"
+					d="m22.72911,2.83676l-2.72194,-1.71082c-0.68675,-0.43122 -1.59167,-0.22367 -2.0244,0.46322l-1.07287,1.70762l5.20718,3.27052l1.07372,-1.70683c0.43108,-0.68771 0.22534,-1.59346 -0.46169,-2.02372l0,0zm-15.08541,15.21312l5.20747,3.27048l8.48731,-13.51111l-5.20995,-3.27134l-8.48483,13.51197l0,0zm-0.79544,4.15527l-0.11501,3.07191l2.71776,-1.43751l2.52557,-1.3335l-5.02381,-3.15713l-0.10451,2.85624l0,0l0,0z"
+					stroke-width="1.5"
+					fill="#fff"/>
+				</svg>
+			</div>
+		</h3>
 	</div>
 
 	<div class="alignleft" id="hover-buttons" #colorSelector>
@@ -55,7 +71,24 @@ class="container task-container on-calendar unselectable"
 	</div>
 
 	<div align="center" class="task-name unselectable">
-		<h3 #taskName>{{ (task.name.length>containerWidth)? (task.name | slice:0:containerWidth)+'...':(task.name) }}</h3>
+		
+		<h3 #taskName>{{ (task.name.length>containerWidth/2)? (task.name | slice:0:containerWidth/2)+'...':(task.name) }}
+			<div
+			class="edit-button"
+			id="hover-buttons"
+			style="z-index: 20"
+			(click)="editTask()"
+			>
+				<svg width="26" height="26">
+					<path 
+					[style.stroke]="task.color" 
+					id="svg_1"
+					d="m22.72911,2.83676l-2.72194,-1.71082c-0.68675,-0.43122 -1.59167,-0.22367 -2.0244,0.46322l-1.07287,1.70762l5.20718,3.27052l1.07372,-1.70683c0.43108,-0.68771 0.22534,-1.59346 -0.46169,-2.02372l0,0zm-15.08541,15.21312l5.20747,3.27048l8.48731,-13.51111l-5.20995,-3.27134l-8.48483,13.51197l0,0zm-0.79544,4.15527l-0.11501,3.07191l2.71776,-1.43751l2.52557,-1.3335l-5.02381,-3.15713l-0.10451,2.85624l0,0l0,0z"
+					stroke-width="1.5"
+					fill="#fff"/>
+				</svg>
+			</div>
+		</h3>
 	</div>
 
 	<div class="alignleft unselectable" id="hover-buttons" #colorSelector style="z-index: 20" #deleteButton>

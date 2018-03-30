@@ -312,11 +312,17 @@ export class TaskComponent implements OnInit, AfterViewInit {
     this.taskService.updateTasks();
   }
 
+  // Get RGB values from a Hex color value
   hexToRgb(hex) {
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result ? 
         (parseInt(result[1], 16).toString() + ", " + parseInt(result[2], 16).toString() + ", " + parseInt(result[3], 16).toString())
      : null;
+  }
+
+  // Edit task name
+  editTask(){
+    console.log("Editing a task!");
   }
 
   // Delete task and unoccupy its times.
