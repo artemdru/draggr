@@ -3,6 +3,7 @@
 *ngIf="task.date === 1"
 #taskContainer
 class="container task-container in-queue unselectable"
+[style.backgroundColor]="task.color"
 >
 	<td class="minutes" #timeContainer>
 		<img class="time-icon" src="assets/time.svg" alt="">
@@ -40,6 +41,7 @@ mwlResizable
 [resizeSnapGrid]="{bottom: 32}"
 [resizeCursorPrecision]=5
 [style.height.px]="((task.time/15)*32)-6"
+[style.backgroundColor]="task.color"
 #taskContainer
 class="container task-container on-calendar unselectable"
 >
@@ -139,6 +141,7 @@ style="background-color: rgba(0, 166, 81, 0.3); cursor: initial !important;"
 *ngIf="task.date === 0 && task.isComplete === false"
 #taskContainer
 class="container task-container in-mouse-container unselectable"
+[style.backgroundColor]="task.color"
 >
 	<div class="align-top-left unselectable" id="hover-buttons">
 		<img class="complete-icon" src="assets/complete.svg">

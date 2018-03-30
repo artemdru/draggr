@@ -49,6 +49,8 @@ export class TaskComponent implements OnInit, AfterViewInit {
 
   recordedRect: any;
 
+  completedBackgroundColor: string;
+
   tutorialProgress: number;
 
   taskRefresher: Subscription;
@@ -296,7 +298,25 @@ export class TaskComponent implements OnInit, AfterViewInit {
 
   // Change color
   changeColor(){
-    console.log("color changed!");
+    if (this.task.color == '#00A651'){
+      this.task.color = '#dbd234';
+    } else if (this.task.color == "#dbd234"){
+      this.task.color = '#763287';
+    } else this.task.color = '#00A651';
+
+    //TODO: Implement background completed color (style binding rgba doesn't seem to work)
+    this.completedBackgroundColor = this.hexToRgb(this.task.color) + ", 0.3";
+
+    console.log("color changed to " + this.task.color);
+    console.log("backgroundColor is " + this.completedBackgroundColor);
+    this.taskService.updateTasks();
+  }
+
+  hexToRgb(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? 
+        (parseInt(result[1], 16).toString() + ", " + parseInt(result[2], 16).toString() + ", " + parseInt(result[3], 16).toString())
+     : null;
   }
 
   // Delete task and unoccupy its times.

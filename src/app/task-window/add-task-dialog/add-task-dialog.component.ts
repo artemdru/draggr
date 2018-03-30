@@ -123,7 +123,7 @@ export class AddTaskDialogComponent implements OnInit, AfterViewInit {
         (this.selectorPos+109)/109*15,
         1,
         1,
-        '#246d46',
+        '#00A651',
         false
         );
 
