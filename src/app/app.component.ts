@@ -99,7 +99,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     console.log("Opened on browser: " + this.browserName);
 
-    
+    this.dateService.initWeek(this.dateService.today);
   }
 
   ngAfterViewInit() {
@@ -189,6 +189,16 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
     
   }
+
+
+  backWeek(){
+
+  }
+
+  fwdWeek(){
+
+  }
+
 
 
   // Do not let users scroll horizontally on the calendar without using day buttons.

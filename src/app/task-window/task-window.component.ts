@@ -7,6 +7,7 @@ import * as firebase from 'firebase';
 import { TaskService } from '../services/task.service';
 import { AuthService } from '../services/auth.service';
 import { TutorialService } from '../services/tutorial.service';
+import { DateService } from '../services/date.service';
 import { Task } from '../task.model';
 import { AddTaskDialogComponent } from './add-task-dialog/add-task-dialog.component';
 import { GreetingDialogComponent } from '../greeting-dialog/greeting-dialog.component';
@@ -49,7 +50,8 @@ export class TaskWindowComponent implements OnInit, OnChanges {
 
   constructor(private taskService: TaskService, 
     private authService: AuthService, 
-    private tutorialService: TutorialService, 
+    private tutorialService: TutorialService,
+    private dateService: DateService, 
     public dialog: MatDialog) { }
 
 
@@ -180,6 +182,10 @@ export class TaskWindowComponent implements OnInit, OnChanges {
       );
   }
 
+  // Toggle between weekly and tri-day view
+  toggleView(){
+    this.dateService.weeklyView = !this.dateService.weeklyView;
+  }
 
   // Show/hide options menu.
   menuClicked(){

@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 
 import { TimeIncrementService } from '../services/time-increment.service';
-
+import { DateService } from '../services/date.service';
 import { TaskService } from '../services/task.service';
 import { TutorialService } from '../services/tutorial.service';
 import { Task } from '../task.model';
@@ -65,7 +65,8 @@ export class TaskComponent implements OnInit, AfterViewInit {
   constructor(private taskService: TaskService, 
     private incService: TimeIncrementService, 
     private renderer: Renderer2,
-    private tutorialService: TutorialService, 
+    private tutorialService: TutorialService,
+    private dateService: DateService, 
     private cdref: ChangeDetectorRef) {}
 
   ngOnInit() {
@@ -267,8 +268,11 @@ export class TaskComponent implements OnInit, AfterViewInit {
       this.taskNameEl.style.width = '100%';
     } else if (time > 60){
       this.containerWidth = time;
-      this.taskEditorInputEl.style.fontSize = '26px';
-      this.taskNameEl.style.fontSize = '26px'; 
+      this.taskEditorInputEl.style.fontSize = '26px';   
+      this.taskNameEl.style.fontSize = '26px';
+      if (this.dateService.weeklyView){
+        this.taskNameEl.style.fontSize = '6px'; 
+      } 
       this.colorSelectorEl.style.left = '14px';
       this.deleteButtonEl.style.right = '10px';
       this.timeContainerEl.style.right = '18px';

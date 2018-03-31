@@ -9,7 +9,8 @@ import { Task } from '../task.model';
 })
 export class DateComponent implements OnInit {
 
-	@Input() date: Date;
+  @Input() date: Date;
+  @Input() weekly: boolean;
   task: Task;
 
   // Dates of time increments in this day, in seconds since 1/1/1970

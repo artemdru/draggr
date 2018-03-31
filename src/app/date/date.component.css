@@ -3,3 +3,9 @@
 	box-shadow: -1.5px 0px 0px 0px #939598 inset;
 	width: 23.7916vw;
 }
+
+.day-weekly{
+	width: 10.1964vw;
+	min-width: 161.73px;
+	box-shadow: -1.5px 0px 0px 0px #939598 inset;
+}

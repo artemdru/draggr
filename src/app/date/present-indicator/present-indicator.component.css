@@ -3,8 +3,9 @@
 	z-index: 0;
 	position: absolute;
 	height: 1px;
-	width: 23.7916vw;
-	min-width: 388.5px;
+	width: 100%;
+	/* width: 23.7916vw;
+	min-width: 388.5px; */
 }
 
 .present-arrow{
