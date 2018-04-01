@@ -389,8 +389,8 @@ export class TaskComponent implements OnInit, AfterViewInit {
     //TODO: Implement background completed color (style binding rgba doesn't seem to work)
     this.completedBackgroundColor = this.hexToRgb(this.task.color) + ", 0.3";
 
-    console.log("color changed to " + this.task.color);
-    console.log("backgroundColor is " + this.completedBackgroundColor);
+    // console.log("color changed to " + this.task.color);
+    // console.log("backgroundColor is " + this.completedBackgroundColor);
     this.taskService.updateTasks();
   }
 
@@ -404,8 +404,6 @@ export class TaskComponent implements OnInit, AfterViewInit {
 
   // Edit task name
   editTask(){
-    console.log("Editing a task!");
-
     this.taskNameContainerEl.style.display='none';
     this.taskEditorContainerEl.style.display='flex';
 
@@ -416,7 +414,6 @@ export class TaskComponent implements OnInit, AfterViewInit {
   }
 
   closeTaskEditor(){
-    console.log("closed task editor!");
     this.task.name = this.taskEditorInputEl.value;
     this.taskService.updateTasks();
     

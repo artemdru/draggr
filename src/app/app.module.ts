@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule, MatCheckboxModule, MatDialogModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 import { ResizableModule } from 'angular-resizable-element';
 import { MalihuScrollbarModule } from 'ngx-malihu-scrollbar';
@@ -54,7 +54,7 @@ import { TimeIncrementService } from './services/time-increment.service';
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
-    HttpModule,
+    HttpClientModule,
     MalihuScrollbarModule.forRoot()
   ],
   providers: [

@@ -1,4 +1,5 @@
-import { Http, Response } from '@angular/http';
+import { Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 
@@ -9,7 +10,7 @@ import { Task } from '../task.model';
 @Injectable()
 export class TaskService {
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
 	// Store all tasks in this array.
 	tasks: Task[] = [];

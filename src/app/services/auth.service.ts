@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
-import { Http, Response } from '@angular/http';
+import { Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs/Subject';
 
 import { TimeIncrementService } from '../services/time-increment.service';
@@ -27,7 +28,7 @@ export class AuthService {
   loggedOut = new Subject<null>();
 
   constructor(private taskService: TaskService, 
-    private http: Http,
+    private http: HttpClient,
     private tutorialService: TutorialService, 
     private incService: TimeIncrementService) { }
 
