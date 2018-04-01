@@ -20,10 +20,18 @@ export class DateService {
   addDay(dir: string){
   	if (dir === 'back'){
   		this.dates.splice(4, 1);
-    	this.dates.unshift(new Date(new Date().setDate(this.dates[0].getDate()-1)));
+    	this.dates.unshift(new Date(
+			this.dates[0].getFullYear(),
+			this.dates[0].getMonth(),
+			this.dates[0].getDate()-1
+		));
   	} else if (dir === 'fwd'){
   		this.dates.splice(0, 1);
-    	this.dates.push(new Date(new Date().setDate(this.dates[3].getDate()+1)));
+    	this.dates.push(new Date(
+			this.dates[3].getFullYear(),
+			this.dates[3].getMonth(),
+			this.dates[3].getDate()+1
+		));
   	}
   }
 }
