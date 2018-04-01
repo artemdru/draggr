@@ -24,7 +24,9 @@
 			<ul class="submenu">
             	<li><a href="https://github.com/artemdru/draggr" target="_blank">About</a></li>
             	<li *ngIf="isLoggedIn"><a (click)="logoutUser()">Log out</a></li>
-            	<li *ngIf="!isLoggedIn"><a (click)="openGreetingDialog()">Log in/Sign up</a></li>
+				<li *ngIf="!isLoggedIn"><a (click)="openGreetingDialog()">Log in/Sign up</a></li>
+				<li *ngIf="!this.dateService.weeklyView"><a (click)="toggleView()">Weekly View</a></li>
+				<li *ngIf="this.dateService.weeklyView"><a (click)="toggleView()">Daily View</a></li>
           	</ul>
 		</div>
 		

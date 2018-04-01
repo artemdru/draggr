@@ -1,7 +1,12 @@
-<div class="col" style="padding: 0">
+<div *ngIf="!weekly" class="col" style="padding: 0">
 	<div class="days-otw unselectable">
 		<span class="date">{{ date | date:'EEE MM/dd' | uppercase }}</span>	
 	</div>
 </div>
 
+<div *ngIf="weekly" class="col" style="padding: 0">
+	<div class="days-otw-weekly unselectable">
+		<span class="date-weekly">{{ date | date:'EEE MM/dd' | uppercase }}</span>	
+	</div>
+</div>
 

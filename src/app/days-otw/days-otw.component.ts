@@ -6,7 +6,8 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./days-otw.component.css']
 })
 export class DaysOtwComponent implements OnInit {
-	@Input() date: Date;
+  @Input() date: Date;
+  @Input() weekly: boolean;
 
   constructor() { }
 

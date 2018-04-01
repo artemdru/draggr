@@ -2,11 +2,13 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { detect } from 'detect-browser';
 
+import * as $ from 'jquery';
 import * as firebase from 'firebase';
 
 import { TaskService } from '../services/task.service';
 import { AuthService } from '../services/auth.service';
 import { TutorialService } from '../services/tutorial.service';
+import { DateService } from '../services/date.service';
 import { Task } from '../task.model';
 import { AddTaskDialogComponent } from './add-task-dialog/add-task-dialog.component';
 import { GreetingDialogComponent } from '../greeting-dialog/greeting-dialog.component';
@@ -49,7 +51,8 @@ export class TaskWindowComponent implements OnInit, OnChanges {
 
   constructor(private taskService: TaskService, 
     private authService: AuthService, 
-    private tutorialService: TutorialService, 
+    private tutorialService: TutorialService,
+    private dateService: DateService, 
     public dialog: MatDialog) { }
 
 
@@ -180,6 +183,20 @@ export class TaskWindowComponent implements OnInit, OnChanges {
       );
   }
 
+  // Toggle between weekly and tri-day view
+  toggleView(){
+    this.dateService.weeklyView = !this.dateService.weeklyView;    
+
+    
+    // After calendar renders, this sets the horizontal scroll to be precisely on day n-1
+    // Scroll to the present hour
+    // SetTimeout used to wait for the calendar to render. TODO: set up proper async, waiting for calendar render
+    setTimeout(() => {      
+      $('.days-otw, .calendar').scrollLeft($('#date').width()+1);
+      $('.vert-scroll').scrollTop((new Date().getHours()-1)*128);
+    }, 50);
+    
+  }
 
   // Show/hide options menu.
   menuClicked(){

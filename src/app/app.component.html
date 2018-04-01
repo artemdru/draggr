@@ -6,8 +6,8 @@
     <app-task-window [unchecker]="unchecker"></app-task-window>
   </div>
 
-
-  <div class="col" style="min-width: 417.66px;">
+  <!-- TRI-DAY VIEW -->
+  <div *ngIf="!this.dateService.weeklyView" class="col" style="min-width: 417.66px;">
 
     
     <div class="row" (mouseup)="onMouseUp()">
@@ -91,5 +91,63 @@
     </div>
 
   </div>
+
+  <!-- WEEKLY VIEW -->
+  <div *ngIf="this.dateService.weeklyView" class="col" style="min-width: 417.66px;">
+
+    
+      <div class="row" (mouseup)="onMouseUp()">
+        <!-- UP BUTTON -->
+        <div class="col-md-auto col-12">
+          <!-- <div style="background-color: red; width: 42px; height: 40px;"></div> -->
+          <app-day-button (click)="backWeek()" [dir]="'U'"></app-day-button>
+        </div>
+  
+  
+        <!-- DAYS OTW -->
+        <div class="col" style="width: 1%">
+          <div class="days-otw" id="hor-scroll">
+            <div class="row">
+              <app-days-otw *ngFor="let date of this.dateService.week" [date]=date [weekly]=true></app-days-otw>
+            </div>
+          </div>
+        </div>
+  
+  
+  
+        <!-- DOWN BUTTON -->
+        <div class="right-button">
+          <!-- <div style="background-color: red; width: 42px; height: 40px;"></div> -->
+          <app-day-button (click)="fwdWeek()" [dir]="'D'"></app-day-button>
+        </div>
+  
+      </div>
+      
+      <!-- CALENDAR -->
+      <div  
+      class="vert-scroll" 
+      (scroll)="keepScroll()" 
+      #vertScroll>
+        
+        <div class="row">
+  
+          <!-- TIME BAR -->
+          <div class="col-md-auto col-12">
+            <app-timebar></app-timebar>
+          </div>
+  
+  
+          <!-- TIME INCREMENTS -->
+          <div class="col" style="width: 1%">
+            <div class="calendar" id="hor-scroll">
+                <div class="row">
+                  <app-date *ngFor="let date of this.dateService.week" [date]=date id="date" [weekly]=true></app-date>
+                </div>
+              </div>  
+          </div>
+        </div>
+      </div>
+  
+    </div>
 </div>
 

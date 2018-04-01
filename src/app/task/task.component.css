@@ -67,6 +67,7 @@ img{
 
 .task-name, .task-editor{
 	height: 100%;
+	width: 80%;
 	margin-left: 10px; 
 	margin-right: 10px;
 	position: relative;

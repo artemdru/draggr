@@ -14,10 +14,29 @@
 	box-shadow: -1.5px -1.5px 0px 0px #939598 inset;
 }
 
+.days-otw-weekly{
+	width: 10.1964vw;
+	min-width: 161.73px;
+	height: 56.97px;
+	box-shadow: -1.5px -1.5px 0px 0px #939598 inset;
+}
+
 .date{
 	font-weight: 2000;
 	font-family: 'Roboto', sans-serif;
 	font-size: 36px;
+	color: #808285;
+	display: flex;
+  	align-items: center;
+  	justify-content: center;
+}
+
+.date-weekly{
+	font-weight: 2000;
+	font-family: 'Roboto', sans-serif;
+	font-size: 30px;
+	margin-left:3px;
+	margin-right: 3px;
 	color: #808285;
 	display: flex;
   	align-items: center;

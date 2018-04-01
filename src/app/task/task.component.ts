@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 
 import { TimeIncrementService } from '../services/time-increment.service';
-
+import { DateService } from '../services/date.service';
 import { TaskService } from '../services/task.service';
 import { TutorialService } from '../services/tutorial.service';
 import { Task } from '../task.model';
@@ -65,7 +65,8 @@ export class TaskComponent implements OnInit, AfterViewInit {
   constructor(private taskService: TaskService, 
     private incService: TimeIncrementService, 
     private renderer: Renderer2,
-    private tutorialService: TutorialService, 
+    private tutorialService: TutorialService,
+    private dateService: DateService, 
     private cdref: ChangeDetectorRef) {}
 
   ngOnInit() {
@@ -229,52 +230,119 @@ export class TaskComponent implements OnInit, AfterViewInit {
   // its size, based on its time. Only done for tasks in the calendar or
   // mouse-container.
   stylizeTaskContainer(time: number){
-    if(time === 15){
-      this.containerWidth = 26;
-      this.taskEditorInputEl.style.fontSize = '15px';
-      this.taskNameEl.style.fontSize = '15px';
-      this.colorSelectorEl.style.left = '32px';
-      this.deleteButtonEl.style.right = '4px';
-      this.timeContainerEl.style.right = '32px';
-      this.timeContainerEl.style.top = '4px';
-      this.taskNameEl.style.width = '100%';
-    } else if (time === 30){
-      this.containerWidth = 35;
-      this.taskEditorInputEl.style.fontSize = '20px';
-      this.taskNameEl.style.fontSize = '20px'; 
-      this.colorSelectorEl.style.left = '4px';
-      this.deleteButtonEl.style.right = '4px';
-      this.timeContainerEl.style.right = '18px';
-      this.timeContainerEl.style.top = '5px';
-      this.taskNameEl.style.width = '70%';
-    } else if (time === 45){
-      this.containerWidth = 35;
-      this.taskEditorInputEl.style.fontSize = '23px';
-      this.taskNameEl.style.fontSize = '23px'; 
-      this.colorSelectorEl.style.left = '14px';
-      this.deleteButtonEl.style.right = '10px';
-      this.timeContainerEl.style.right = '18px';
-      this.timeContainerEl.style.top = '5px';
-      this.taskNameEl.style.width = '80%';
-    } else if (time === 60){
-      this.containerWidth = 40;
-      this.taskEditorInputEl.style.fontSize = '26px';
-      this.taskNameEl.style.fontSize = '26px'; 
-      this.colorSelectorEl.style.left = '14px';
-      this.deleteButtonEl.style.right = '10px';
-      this.timeContainerEl.style.right = '18px';
-      this.timeContainerEl.style.top = '5px';
-      this.taskNameEl.style.width = '100%';
-    } else if (time > 60){
-      this.containerWidth = time;
-      this.taskEditorInputEl.style.fontSize = '26px';
-      this.taskNameEl.style.fontSize = '26px'; 
-      this.colorSelectorEl.style.left = '14px';
-      this.deleteButtonEl.style.right = '10px';
-      this.timeContainerEl.style.right = '18px';
-      this.timeContainerEl.style.top = '5px';
-      this.taskNameEl.style.width = '100%';
+    if (!this.dateService.weeklyView){
+      if(time === 15){
+        this.containerWidth = 26;
+        this.taskEditorInputEl.style.fontSize = '15px';
+        this.taskNameEl.style.fontSize = '15px';
+        this.colorSelectorEl.style.left = '32px';
+        this.deleteButtonEl.style.right = '4px';
+        this.timeContainerEl.style.right = '32px';
+        this.timeContainerEl.style.top = '4px';
+        this.taskNameEl.style.width = '60%';
+      } else if (time === 30){
+        this.containerWidth = 35;
+        this.taskEditorInputEl.style.fontSize = '20px';
+        this.taskNameEl.style.fontSize = '20px'; 
+        this.colorSelectorEl.style.left = '4px';
+        this.deleteButtonEl.style.right = '4px';
+        this.timeContainerEl.style.right = '18px';
+        this.timeContainerEl.style.top = '5px';
+        this.taskNameEl.style.width = '70%';
+      } else if (time === 45){
+        this.containerWidth = 35;
+        this.taskEditorInputEl.style.fontSize = '23px';
+        this.taskNameEl.style.fontSize = '23px'; 
+        this.colorSelectorEl.style.left = '14px';
+        this.deleteButtonEl.style.right = '10px';
+        this.timeContainerEl.style.right = '18px';
+        this.timeContainerEl.style.top = '5px';
+        this.taskNameEl.style.width = '80%';
+      } else if (time === 60){
+        this.containerWidth = 40;
+        this.taskEditorInputEl.style.fontSize = '26px';
+        this.taskNameEl.style.fontSize = '26px'; 
+        this.colorSelectorEl.style.left = '14px';
+        this.deleteButtonEl.style.right = '10px';
+        this.timeContainerEl.style.right = '18px';
+        this.timeContainerEl.style.top = '5px';
+        this.taskNameEl.style.width = '100%';
+      } else if (time > 60){
+        this.containerWidth = time;
+        this.taskEditorInputEl.style.fontSize = '26px';   
+        this.taskNameEl.style.fontSize = '26px';
+        this.colorSelectorEl.style.left = '14px';
+        this.deleteButtonEl.style.right = '10px';
+        this.timeContainerEl.style.right = '18px';
+        this.timeContainerEl.style.top = '5px';
+        this.taskNameEl.style.width = '100%';
+      }
+    } else {
+      if(time === 15){
+        this.containerWidth = 26;
+        this.taskEditorInputEl.style.fontSize = '15px';
+        this.taskNameEl.style.fontSize = '15px';
+        this.colorSelectorEl.style.visibility = 'hidden';
+        this.deleteButtonEl.style.visibility = 'hidden';
+        this.timeContainerEl.style.visibility = 'hidden';
+        if(this.taskNameEl.children[0] !== undefined) this.taskNameEl.children[0].style.visibility = 'hidden';
+        this.timeContainerEl.style.top = '4px';
+        this.taskNameEl.style.width = '100%';
+      } else if (time === 30){
+        this.containerWidth = 35;
+        this.taskEditorInputEl.style.fontSize = '15px';
+        this.taskNameEl.style.fontSize = '15px'; 
+        this.colorSelectorEl.style.left = '4px';
+        this.deleteButtonEl.style.right = '4px';
+        this.timeContainerEl.style.right = '18px';
+        this.timeContainerEl.style.top = '5px';
+        this.taskNameEl.style.width = '70%';
+        this.colorSelectorEl.style.visibility = 'visible';
+        this.deleteButtonEl.style.visibility = 'visible';
+        this.timeContainerEl.style.visibility = 'visible';
+        if(this.taskNameEl.children[0] !== undefined) this.taskNameEl.children[0].style.visibility = 'hidden';
+      } else if (time === 45){
+        this.containerWidth = 35;
+        this.taskEditorInputEl.style.fontSize = '20px';
+        this.taskNameEl.style.fontSize = '20px'; 
+        this.colorSelectorEl.style.left = '14px';
+        this.deleteButtonEl.style.right = '10px';
+        this.timeContainerEl.style.right = '18px';
+        this.timeContainerEl.style.top = '5px';
+        this.taskNameEl.style.width = '80%';
+        this.colorSelectorEl.style.visibility = 'visible';
+        this.deleteButtonEl.style.visibility = 'visible';
+        this.timeContainerEl.style.visibility = 'visible';
+        if(this.taskNameEl.children[0] !== undefined) this.taskNameEl.children[0].style.visibility = 'visible';
+      } else if (time === 60){
+        this.containerWidth = 40;
+        this.taskEditorInputEl.style.fontSize = '20px';
+        this.taskNameEl.style.fontSize = '20px'; 
+        this.colorSelectorEl.style.left = '14px';
+        this.deleteButtonEl.style.right = '10px';
+        this.timeContainerEl.style.right = '18px';
+        this.timeContainerEl.style.top = '5px';
+        this.taskNameEl.style.width = '100%';
+        this.colorSelectorEl.style.visibility = 'visible';
+        this.deleteButtonEl.style.visibility = 'visible';
+        this.timeContainerEl.style.visibility = 'visible';
+        if(this.taskNameEl.children[0] !== undefined) this.taskNameEl.children[0].style.visibility = 'visible';
+      } else if (time > 60){
+        this.containerWidth = time;
+        this.taskEditorInputEl.style.fontSize = '20px';   
+        this.taskNameEl.style.fontSize = '20px';
+        this.colorSelectorEl.style.left = '14px';
+        this.deleteButtonEl.style.right = '10px';
+        this.timeContainerEl.style.right = '18px';
+        this.timeContainerEl.style.top = '5px';
+        this.taskNameEl.style.width = '100%';
+        this.colorSelectorEl.style.visibility = 'visible';
+        this.deleteButtonEl.style.visibility = 'visible';
+        this.timeContainerEl.style.visibility = 'visible';
+        if(this.taskNameEl.children[0] !== undefined) this.taskNameEl.children[0].style.visibility = 'visible';
+      }
     }
+    
   }
 
 

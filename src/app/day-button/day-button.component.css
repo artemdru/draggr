@@ -32,3 +32,11 @@ img{
     -o-transform: matrix(-1, 0, 0, 1, 0, 0);
     transform: matrix(-1, 0, 0, 1, 0, 0);
 }
+
+.up{
+    transform: rotate(90deg) scaleX(1);
+}
+
+.down{
+    transform: rotate(90deg) scaleX(-1);
+}
