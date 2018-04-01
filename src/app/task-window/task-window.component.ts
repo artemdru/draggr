@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { detect } from 'detect-browser';
 
+import * as $ from 'jquery';
 import * as firebase from 'firebase';
 
 import { TaskService } from '../services/task.service';
@@ -185,6 +186,12 @@ export class TaskWindowComponent implements OnInit, OnChanges {
   // Toggle between weekly and tri-day view
   toggleView(){
     this.dateService.weeklyView = !this.dateService.weeklyView;
+
+    // Scroll to the present hour
+    setTimeout(() => {
+      $('.vert-scroll').scrollTop((new Date().getHours()-1)*128);
+    }, 50);
+    
   }
 
   // Show/hide options menu.

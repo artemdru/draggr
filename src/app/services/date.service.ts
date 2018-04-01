@@ -22,14 +22,14 @@ export class DateService {
 
   // Modifies the dates array to shift one day left (back in time), or one day
   // right (forward in time).
-  addDay(dir: string){
-  	if (dir === 'back'){
-  		this.dates.splice(4, 1);
-    	this.dates.unshift(new Date(new Date().setDate(this.dates[0].getDate()-1)));
-  	} else if (dir === 'fwd'){
-  		this.dates.splice(0, 1);
-    	this.dates.push(new Date(new Date().setDate(this.dates[3].getDate()+1)));
-  	}
+  	addDay(dir: string){
+		if (dir === 'back'){
+			this.dates.splice(4, 1);
+			this.dates.unshift(new Date(new Date().setDate(this.dates[0].getDate()-1)));
+		} else if (dir === 'fwd'){
+			this.dates.splice(0, 1);
+			this.dates.push(new Date(new Date().setDate(this.dates[3].getDate()+1)));
+		}
 	}
 	
 	week = [];
