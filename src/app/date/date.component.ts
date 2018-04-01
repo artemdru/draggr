@@ -1,4 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
+
+import * as $ from 'jquery';
 
 import { Task } from '../task.model';
 
@@ -7,7 +9,7 @@ import { Task } from '../task.model';
   templateUrl: './date.component.html',
   styleUrls: ['./date.component.css']
 })
-export class DateComponent implements OnInit {
+export class DateComponent implements OnInit, AfterViewInit {
 
   @Input() date: Date;
   @Input() weekly: boolean;
@@ -36,6 +38,11 @@ export class DateComponent implements OnInit {
     if (this.date.getDate() == new Date().getDate()){
       this.isToday = true;
     }
+  }
+
+  ngAfterViewInit() {
+    // Scroll to the present hour
+    $('.vert-scroll').scrollTop((new Date().getHours()-1)*128);
   }
 
 }
