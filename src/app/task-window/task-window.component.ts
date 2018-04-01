@@ -185,10 +185,13 @@ export class TaskWindowComponent implements OnInit, OnChanges {
 
   // Toggle between weekly and tri-day view
   toggleView(){
-    this.dateService.weeklyView = !this.dateService.weeklyView;
+    this.dateService.weeklyView = !this.dateService.weeklyView;    
 
+    
+    // After calendar renders, this sets the horizontal scroll to be precisely on day n-1
     // Scroll to the present hour
-    setTimeout(() => {
+    setTimeout(() => {      
+      $('.days-otw, .calendar').scrollLeft($('#date').width()+1);
       $('.vert-scroll').scrollTop((new Date().getHours()-1)*128);
     }, 50);
     

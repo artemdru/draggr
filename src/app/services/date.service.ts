@@ -42,7 +42,6 @@ export class DateService {
 		for (var _i = -1*dayOTW; _i <=(6-dayOTW); _i++){
 			this.week.push(new Date(day.getFullYear(), day.getMonth(), day.getDate()+_i));
 		}
-		console.log(this.week);
 	}
 
 	backWeek(){
