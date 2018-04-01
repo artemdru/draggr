@@ -162,6 +162,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   // Adds one day on the left and instantly scrolls right one day width.
   // Then animates a scroll left to seemlessly and smoothly scroll one day left.
   backDay(){
+    this.dateWidth = $('#date').width();
     if (this.isScrollable){
       this.dateService.addDay('back');
       $('.days-otw, .calendar').scrollLeft(this.dateWidth*2);
@@ -178,6 +179,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   // Adds one day on the right and instantly scrolls left one day width.
   // Then animates a scroll right to seemlessly and smoothly scroll one day right.
   fwdDay(){
+    this.dateWidth = $('#date').width();
     if (this.isScrollable){
       this.dateService.addDay('fwd');
     $('.days-otw, .calendar').scrollLeft(1);
@@ -214,6 +216,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     $('.vert-scroll').scrollLeft(0);
   }
 
+  weekScroll(){
+    $('.days-otw').scrollLeft($('.calendar').scrollLeft());
+    console.log($('.calendar').scrollLeft());
+  }
 
   // If user drops task not onto calendar, return task to it's origin.
   onMouseUp(){

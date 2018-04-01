@@ -125,8 +125,7 @@
       
       <!-- CALENDAR -->
       <div  
-      class="vert-scroll" 
-      (scroll)="keepScroll()" 
+      class="vert-scroll"
       #vertScroll>
         
         <div class="row">
@@ -139,7 +138,7 @@
   
           <!-- TIME INCREMENTS -->
           <div class="col" style="width: 1%">
-            <div class="calendar" id="hor-scroll">
+            <div class="calendar" id="hor-scroll" style="overflow: scroll !important" (scroll)="weekScroll()">
                 <div class="row">
                   <app-date *ngFor="let date of this.dateService.week" [date]=date id="date" [weekly]=true></app-date>
                 </div>

@@ -192,7 +192,7 @@ export class TaskWindowComponent implements OnInit, OnChanges {
     // Scroll to the present hour
     // SetTimeout used to wait for the calendar to render. TODO: set up proper async, waiting for calendar render
     setTimeout(() => {      
-      $('.days-otw, .calendar').scrollLeft($('#date').width()+1);
+      if (!this.dateService.weeklyView) $('.days-otw, .calendar').scrollLeft($('#date').width()+1);
       $('.vert-scroll').scrollTop((new Date().getHours()-1)*128);
     }, 50);
     
