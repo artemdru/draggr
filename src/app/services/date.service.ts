@@ -36,12 +36,23 @@ export class DateService {
 	
 
 	initWeek(day: Date){
+		this.week = [];
 		var dayOTW = day.getDay();
 
 		for (var _i = -1*dayOTW; _i <=(6-dayOTW); _i++){
-			this.week.push(new Date(new Date().setDate(new Date().getDate()+_i)));
+			this.week.push(new Date(day.getFullYear(), day.getMonth(), day.getDate()+_i));
 		}
 		console.log(this.week);
+	}
+
+	backWeek(){
+		this.week = [];
+
+		var newMonday = new Date(
+			this.week[0].getFullYear(),
+			this.week[0].getMonth(),
+			this.week[0].getDate() - 7
+		 );
 	}
 
 	

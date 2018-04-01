@@ -192,11 +192,19 @@ export class AppComponent implements OnInit, AfterViewInit {
 
 
   backWeek(){
-
+    this.dateService.initWeek(new Date(
+      this.dateService.week[0].getFullYear(),
+      this.dateService.week[0].getMonth(),
+      this.dateService.week[0].getDate() - 7
+   )); 
   }
 
   fwdWeek(){
-
+    this.dateService.initWeek(new Date(
+      this.dateService.week[0].getFullYear(),
+      this.dateService.week[0].getMonth(),
+      this.dateService.week[0].getDate() + 7
+   ));
   }
 
 
